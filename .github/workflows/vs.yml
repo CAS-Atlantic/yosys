@@ -14,7 +14,9 @@ jobs:
           path: .
           key: cache-yosys
       - name: Build
-        run: make vcxsrc YOSYS_VER=latest
+        run: |
+          make config-vcxsrc
+          make vcxsrc YOSYS_VER=latest
       - uses: actions/upload-artifact@v2
         with:
           name: vcxsrc
