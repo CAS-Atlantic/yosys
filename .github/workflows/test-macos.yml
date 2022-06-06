@@ -10,7 +10,7 @@ jobs:
         os:
           - { id: macos-11, name: 'Big Sur' }
         cpp_std:
-          - 'c++11'
+          - 'c++14'
           - 'c++17'
       fail-fast: false
     steps:
