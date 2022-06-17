@@ -1,5 +1,7 @@
 #include "kernel/yosys.h"
 
+#include "libs/libvtrutil/src/vtr_util.h"
+
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
 
@@ -24,6 +26,8 @@ struct OdintechmapPass : public Pass {
 
 		}
 		extra_args(args, argidx, design);
+
+        log("testing libvtrutil within odintechmap pass: %d\n", vtr::starts_with("abcd", "ab"));
 
 
 		log("odintechmap pass finished.\n");

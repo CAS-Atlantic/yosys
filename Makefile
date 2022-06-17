@@ -650,6 +650,11 @@ OBJS += libs/bigint/BigUnsigned.o libs/bigint/BigUnsignedInABase.o
 
 OBJS += libs/sha1/sha1.o
 
+ifeq ($(ENABLE_ODINTECHMAP),1)
+OBJS += libs/libvtrutil/src/vtr_util.o libs/libvtrutil/src/vtr_assert.o 
+OBJS += libs/libvtrutil/src/vtr_memory.o libs/libvtrutil/src/vtr_list.o
+endif
+
 ifneq ($(SMALL),1)
 
 OBJS += libs/json11/json11.o
