@@ -512,6 +512,11 @@ CXXFLAGS += -I$(GHDL_INCLUDE_DIR) -DYOSYS_ENABLE_GHDL
 LDLIBS += $(GHDL_LIB_DIR)/libghdl.a $(file <$(GHDL_LIB_DIR)/libghdl.link)
 endif
 
+ifeq ($(ENABLE_ODINTECHMAP),1)
+CXXFLAGS += -Ilibs/pugixml/src
+CXXFLAGS += -Ilibs/libvtrutil/src
+endif
+
 ifeq ($(ENABLE_VERIFIC),1)
 VERIFIC_DIR ?= /usr/local/src/verific_lib
 VERIFIC_COMPONENTS ?= verilog database util containers hier_tree
@@ -619,6 +624,9 @@ endif
 $(eval $(call add_include_file,libs/sha1/sha1.h))
 $(eval $(call add_include_file,libs/json11/json11.hpp))
 
+$(eval $(call add_include_file,libs/libvtrutil/src/vtr_list.h))
+$(eval $(call add_include_file,libs/libvtrutil/src/vtr_error.h))
+$(eval $(call add_include_file,libs/libvtrutil/src/vtr_memory.h))
 $(eval $(call add_include_file,libs/pugixml/src/pugixml.hpp))
 
 $(eval $(call add_include_file,passes/fsm/fsmdata.h))
@@ -656,6 +664,10 @@ OBJS += libs/sha1/sha1.o
 ifeq ($(ENABLE_ODINTECHMAP),1)
 OBJS += libs/libvtrutil/src/vtr_util.o libs/libvtrutil/src/vtr_assert.o 
 OBJS += libs/libvtrutil/src/vtr_memory.o libs/libvtrutil/src/vtr_list.o
+
+OBJS += libs/pugixml/src/pugixml.o 
+OBJS += libs/libpugiutil/src/pugixml_loc.o libs/libpugiutil/src/pugixml_util.o
+#OBJS += libs/libarchfpga/src/main.o 
 endif
 
 ifneq ($(SMALL),1)

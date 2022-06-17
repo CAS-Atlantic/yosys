@@ -17,7 +17,7 @@
 #include <stdexcept>
 #include <cstdio>
 
-#include "libs/pugixml/src/pugixml.hpp"
+#include "pugixml.hpp"
 
 #include "pugixml_loc.hpp"
 

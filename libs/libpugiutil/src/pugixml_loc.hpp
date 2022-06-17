@@ -6,7 +6,7 @@
  */
 
 #include <vector>
-#include "libs/pugixml/src/pugixml.hpp"
+#include "pugixml.hpp"
 
 namespace pugiutil {
 
