@@ -618,6 +618,9 @@ $(eval $(call add_include_file,libs/fst/fstapi.h))
 endif
 $(eval $(call add_include_file,libs/sha1/sha1.h))
 $(eval $(call add_include_file,libs/json11/json11.hpp))
+
+$(eval $(call add_include_file,libs/pugixml/src/pugixml.hpp))
+
 $(eval $(call add_include_file,passes/fsm/fsmdata.h))
 $(eval $(call add_include_file,frontends/ast/ast.h))
 $(eval $(call add_include_file,frontends/ast/ast_binding.h))
