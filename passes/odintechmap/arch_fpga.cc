@@ -28,7 +28,7 @@ ODIN::ArchFpga::ArchFpga(std::string arch_file_path) {
     
     read_arch_file(arch_file_path);
     set_physical_lut_size();
-
+    log("Using Lut input width of: %d\n", physical_lut_size);
 }
 
 void ODIN::ArchFpga::read_arch_file(std::string arch_file_path) {
@@ -41,7 +41,38 @@ void ODIN::ArchFpga::read_arch_file(std::string arch_file_path) {
 }
 
 void ODIN::ArchFpga::set_physical_lut_size() {
+    std::vector<t_pb_type*> pb_lut_list;
 
+    for (t_logical_block_type& logical_block : logical_block_types) {
+        if (logical_block.index != EMPTY_TYPE_INDEX) {
+            get_physical_luts(pb_lut_list, logical_block.pb_type);
+        }
+    }
+    for (t_pb_type* pb_lut : pb_lut_list) {
+        if (pb_lut) {
+            if (pb_lut->num_input_pins < physical_lut_size || physical_lut_size < 1) {
+                physical_lut_size = pb_lut->num_input_pins;
+            }
+        }
+    }
+}
+
+void ODIN::ArchFpga::get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_mode* mode) {
+    for (int i = 0; i < mode->num_pb_type_children; i++) {
+        get_physical_luts(pb_lut_list, &mode->pb_type_children[i]);
+    }
+}
+
+void ODIN::ArchFpga::get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_pb_type* pb_type) {
+    if (pb_type) {
+        if (pb_type->class_type == LUT_CLASS) {
+            pb_lut_list.push_back(pb_type);
+        } else {
+            for (int i = 0; i < pb_type->num_modes; i++) {
+                get_physical_luts(pb_lut_list, &pb_type->modes[i]);
+            }
+        }
+    }
 }
 
 YOSYS_NAMESPACE_END

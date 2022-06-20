@@ -37,9 +37,12 @@ namespace ODIN
     t_arch Arch;
     std::vector<t_physical_tile_type> physical_tile_types;
     std::vector<t_logical_block_type> logical_block_types;
+    short physical_lut_size = -1;
 
     void read_arch_file(std::string arch_file_path);
     void set_physical_lut_size();
+    void get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_mode* mode);
+    void get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_pb_type* pb_type);
     };
 }
 
