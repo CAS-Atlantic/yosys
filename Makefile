@@ -24,7 +24,7 @@ ENABLE_COVER := 1
 ENABLE_LIBYOSYS := 0
 ENABLE_PROTOBUF := 0
 ENABLE_ZLIB := 1
-ENABLE_ODINTECHMAP := 1
+ENABLE_ODIN_TECHMAP := 1
 
 # python wrappers
 ENABLE_PYOSYS := 0
@@ -88,6 +88,9 @@ all: top-all
 YOSYS_SRC := $(dir $(firstword $(MAKEFILE_LIST)))
 VPATH := $(YOSYS_SRC)
 
+ifeq ($(ENABLE_ODIN_TECHMAP),1)
+CXXSTD ?= c++14
+endif
 CXXSTD ?= c++11
 CXXFLAGS := $(CXXFLAGS) -Wall -Wextra -ggdb -I. -I"$(YOSYS_SRC)" -MD -MP -D_YOSYS_ -fPIC -I$(PREFIX)/include
 LDLIBS := $(LDLIBS) -lstdc++ -lm
@@ -512,8 +515,10 @@ CXXFLAGS += -I$(GHDL_INCLUDE_DIR) -DYOSYS_ENABLE_GHDL
 LDLIBS += $(GHDL_LIB_DIR)/libghdl.a $(file <$(GHDL_LIB_DIR)/libghdl.link)
 endif
 
-ifeq ($(ENABLE_ODINTECHMAP),1)
+ifeq ($(ENABLE_ODIN_TECHMAP),1)
 CXXFLAGS += -Ilibs/pugixml/src
+CXXFLAGS += -Ilibs/liblog/src
+CXXFLAGS += -Ilibs/libpugiutil/src
 CXXFLAGS += -Ilibs/libvtrutil/src
 endif
 
@@ -628,6 +633,7 @@ $(eval $(call add_include_file,libs/libvtrutil/src/vtr_list.h))
 $(eval $(call add_include_file,libs/libvtrutil/src/vtr_error.h))
 $(eval $(call add_include_file,libs/libvtrutil/src/vtr_memory.h))
 $(eval $(call add_include_file,libs/pugixml/src/pugixml.hpp))
+$(eval $(call add_include_file,libs/libpugiutil/src/pugixml_util.hpp))
 
 $(eval $(call add_include_file,passes/fsm/fsmdata.h))
 $(eval $(call add_include_file,frontends/ast/ast.h))
@@ -661,13 +667,16 @@ OBJS += libs/bigint/BigUnsigned.o libs/bigint/BigUnsignedInABase.o
 
 OBJS += libs/sha1/sha1.o
 
-ifeq ($(ENABLE_ODINTECHMAP),1)
-OBJS += libs/libvtrutil/src/vtr_util.o libs/libvtrutil/src/vtr_assert.o 
-OBJS += libs/libvtrutil/src/vtr_memory.o libs/libvtrutil/src/vtr_list.o
-
+ifeq ($(ENABLE_ODIN_TECHMAP),1)
+OBJS += libs/libvtrutil/src/vtr_util.o libs/libvtrutil/src/vtr_assert.o libs/libvtrutil/src/vtr_token.o 
+OBJS += libs/libvtrutil/src/vtr_memory.o libs/libvtrutil/src/vtr_list.o libs/libvtrutil/src/vtr_log.o
+OBJS += libs/libvtrutil/src/vtr_expr_eval.o libs/libvtrutil/src/vtr_digest.o libs/libvtrutil/src/vtr_math.o
+OBJS += libs/liblog/src/log.o 
 OBJS += libs/pugixml/src/pugixml.o 
-OBJS += libs/libpugiutil/src/pugixml_loc.o libs/libpugiutil/src/pugixml_util.o
-#OBJS += libs/libarchfpga/src/main.o 
+OBJS += libs/libpugiutil/src/pugixml_loc.o libs/libpugiutil/src/pugixml_util.o libs/libarchfpga/src/physical_types.o
+OBJS += libs/libarchfpga/src/read_xml_util.o libs/libarchfpga/src/arch_error.o libs/libarchfpga/src/physical_types_util.o 
+OBJS += libs/libarchfpga/src/arch_check.o libs/libarchfpga/src/arch_util.o libs/libarchfpga/src/read_xml_arch_file.o 
+OBJS += libs/libarchfpga/src/parse_switchblocks.o
 endif
 
 ifneq ($(SMALL),1)

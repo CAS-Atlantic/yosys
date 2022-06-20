@@ -1,6 +1,7 @@
 
-ifeq ($(ENABLE_ODINTECHMAP),1)
+ifeq ($(ENABLE_ODIN_TECHMAP),1)
 
-OBJS += passes/odintechmap/odintechmap.o
+OBJS += passes/odintechmap/arch_fpga.o
+OBJS += passes/odintechmap/odin_techmap.o
 
 endif
