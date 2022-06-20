@@ -19,7 +19,6 @@
 
 #include "kernel/yosys.h"
 
-#include "libs/libvtrutil/src/vtr_util.h"
 #include "arch_fpga.h"
 
 USING_YOSYS_NAMESPACE
@@ -32,31 +31,40 @@ struct OdinTechmapPass : public Pass {
 		log("\n");
 		log("    -arch <filename>\n");
 		log("        to read fpga architecture file\n");
+
+		log("\n");
+		log("    -info\n");
+		log("        shows available hardblocks inside the architecture file\n");
 	}
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
 	{
 		bool flag_arch_file = false;
+		bool flag_arch_info = false;
 		std::string arch_file_path;
+		ODIN::ArchFpga arch;
 
 		log_header(design, "Starting odintechmap pass.\n");
 
 		size_t argidx;
 		for (argidx = 1; argidx < args.size(); argidx++)
 		{
-
 			if (args[argidx] == "-arch" && argidx+1 < args.size()) {
 				arch_file_path = args[++argidx];
 				flag_arch_file = true;
 				continue;
 			}
-
+			if (args[argidx] == "-info") {
+				flag_arch_info = true;
+				continue;
+			}
 		}
 		extra_args(args, argidx, design);
 
-        log("testing libvtrutil within odintechmap pass: %d\n", vtr::starts_with("abcd", "ab"));
-
 		if (flag_arch_file)
-			ODIN::ArchFpga arch(arch_file_path);
+			arch.read_arch_file(arch_file_path);
+
+		if (flag_arch_info)
+			arch.log_arch_info();
 
 		log("odintechmap pass finished.\n");
 	}

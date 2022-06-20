@@ -24,11 +24,17 @@
 
 YOSYS_NAMESPACE_BEGIN
 
-ODIN::ArchFpga::ArchFpga(std::string arch_file_path) {
+ODIN::ArchFpga::ArchFpga() {
     
-    read_arch_file(arch_file_path);
-    set_physical_lut_size();
-    log("Using Lut input width of: %d\n", physical_lut_size);
+}
+
+void ODIN::ArchFpga::log_arch_info() {
+    t_model* hb = Arch.models;
+    int i=1;
+    while (hb) {
+        log("hard block #%d: %s\n", i++, hb->name);
+        hb = hb->next;
+    }
 }
 
 void ODIN::ArchFpga::read_arch_file(std::string arch_file_path) {
@@ -38,6 +44,9 @@ void ODIN::ArchFpga::read_arch_file(std::string arch_file_path) {
     } catch (vtr::VtrError& vtr_error) {
         log_error("Failed to load architecture file: %s\n", vtr_error.what());
     }
+
+    set_physical_lut_size();
+    log("Using Lut input width of: %d\n", physical_lut_size);
 }
 
 void ODIN::ArchFpga::set_physical_lut_size() {

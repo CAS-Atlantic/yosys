@@ -31,7 +31,9 @@ namespace ODIN
     class ArchFpga
     {
     public:
-    ArchFpga(std::string arch_file_path);
+    ArchFpga();
+    void read_arch_file(std::string arch_file_path);
+    void log_arch_info();
 
     private:
     t_arch Arch;
@@ -39,13 +41,12 @@ namespace ODIN
     std::vector<t_logical_block_type> logical_block_types;
     short physical_lut_size = -1;
 
-    void read_arch_file(std::string arch_file_path);
+    
     void set_physical_lut_size();
     void get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_mode* mode);
     void get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_pb_type* pb_type);
     };
 }
-
 
 YOSYS_NAMESPACE_END
 
