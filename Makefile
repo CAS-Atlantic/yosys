@@ -22,6 +22,7 @@ ENABLE_COVER := 1
 ENABLE_LIBYOSYS := 0
 ENABLE_PROTOBUF := 0
 ENABLE_ZLIB := 1
+ENABLE_ODIN_TECHMAP := 1
 
 # python wrappers
 ENABLE_PYOSYS := 0
@@ -85,6 +86,10 @@ all: top-all
 YOSYS_SRC := $(dir $(firstword $(MAKEFILE_LIST)))
 VPATH := $(YOSYS_SRC)
 
+ifeq ($(ENABLE_ODIN_TECHMAP),1)
+CXXSTD ?= c++14
+endif
+CXXSTD ?= c++11
 CXXFLAGS := $(CXXFLAGS) -Wall -Wextra -ggdb -I. -I"$(YOSYS_SRC)" -MD -MP -D_YOSYS_ -fPIC -I$(PREFIX)/include
 LDLIBS := $(LDLIBS) -lstdc++ -lm
 PLUGIN_LDFLAGS :=
@@ -186,7 +191,7 @@ endif
 ifeq ($(CONFIG),clang)
 CXX = clang
 LD = clang++
-CXXFLAGS += -std=c++11 -Os
+CXXFLAGS += -std=$(CXXSTD) -Os
 ABCMKARGS += ARCHFLAGS="-DABC_USE_STDINT_H"
 
 ifneq ($(SANITIZER),)
@@ -209,7 +214,7 @@ endif
 else ifeq ($(CONFIG),gcc)
 CXX = gcc
 LD = gcc
-CXXFLAGS += -std=c++11 -Os
+CXXFLAGS += -std=$(CXXSTD) -Os
 ABCMKARGS += ARCHFLAGS="-DABC_USE_STDINT_H"
 
 else ifeq ($(CONFIG),gcc-static)
@@ -217,7 +222,7 @@ LD = $(CXX)
 LDFLAGS := $(filter-out -rdynamic,$(LDFLAGS)) -static
 LDLIBS := $(filter-out -lrt,$(LDLIBS))
 CXXFLAGS := $(filter-out -fPIC,$(CXXFLAGS))
-CXXFLAGS += -std=c++11 -Os
+CXXFLAGS += -std=$(CXXSTD) -Os
 ABCMKARGS = CC="$(CC)" CXX="$(CXX)" LD="$(LD)" ABC_USE_LIBSTDCXX=1 LIBS="-lm -lpthread -static" OPTFLAGS="-O" \
                        ARCHFLAGS="-DABC_USE_STDINT_H -DABC_NO_DYNAMIC_LINKING=1 -Wno-unused-but-set-variable $(ARCHFLAGS)" ABC_USE_NO_READLINE=1
 ifeq ($(DISABLE_ABC_THREADS),1)
@@ -227,13 +232,13 @@ endif
 else ifeq ($(CONFIG),gcc-4.8)
 CXX = gcc-4.8
 LD = gcc-4.8
-CXXFLAGS += -std=c++11 -Os
+CXXFLAGS += -std=$(CXXSTD) -Os
 ABCMKARGS += ARCHFLAGS="-DABC_USE_STDINT_H"
 
 else ifeq ($(CONFIG),afl-gcc)
 CXX = AFL_QUIET=1 AFL_HARDEN=1 afl-gcc
 LD = AFL_QUIET=1 AFL_HARDEN=1 afl-gcc
-CXXFLAGS += -std=c++11 -Os
+CXXFLAGS += -std=$(CXXSTD) -Os
 ABCMKARGS += ARCHFLAGS="-DABC_USE_STDINT_H"
 
 else ifeq ($(CONFIG),cygwin)
@@ -245,7 +250,7 @@ ABCMKARGS += ARCHFLAGS="-DABC_USE_STDINT_H"
 else ifeq ($(CONFIG),emcc)
 CXX = emcc
 LD = emcc
-CXXFLAGS := -std=c++11 $(filter-out -fPIC -ggdb,$(CXXFLAGS))
+CXXFLAGS := -std=$(CXXSTD) $(filter-out -fPIC -ggdb,$(CXXFLAGS))
 ABCMKARGS += ARCHFLAGS="-DABC_USE_STDINT_H -DABC_MEMALIGN=8"
 EMCCFLAGS := -Os -Wno-warn-absolute-paths
 EMCCFLAGS += --memory-init-file 0 --embed-file share -s NO_EXIT_RUNTIME=1
@@ -295,7 +300,7 @@ AR = $(WASI_SDK)/bin/ar
 RANLIB = $(WASI_SDK)/bin/ranlib
 WASIFLAGS := --sysroot $(WASI_SDK)/share/wasi-sysroot $(WASIFLAGS)
 endif
-CXXFLAGS := $(WASIFLAGS) -std=c++11 -Os $(filter-out -fPIC,$(CXXFLAGS))
+CXXFLAGS := $(WASIFLAGS) -std=$(CXXSTD) -Os $(filter-out -fPIC,$(CXXFLAGS))
 LDFLAGS := $(WASIFLAGS) -Wl,-z,stack-size=1048576 $(filter-out -rdynamic,$(LDFLAGS))
 LDLIBS := $(filter-out -lrt,$(LDLIBS))
 ABCMKARGS += AR="$(AR)" RANLIB="$(RANLIB)"
@@ -314,7 +319,7 @@ else ifeq ($(CONFIG),mxe)
 PKG_CONFIG = /usr/local/src/mxe/usr/bin/i686-w64-mingw32.static-pkg-config
 CXX = /usr/local/src/mxe/usr/bin/i686-w64-mingw32.static-g++
 LD = /usr/local/src/mxe/usr/bin/i686-w64-mingw32.static-g++
-CXXFLAGS += -std=c++11 -Os -D_POSIX_SOURCE -DYOSYS_MXE_HACKS -Wno-attributes
+CXXFLAGS += -std=$(CXXSTD) -Os -D_POSIX_SOURCE -DYOSYS_MXE_HACKS -Wno-attributes
 CXXFLAGS := $(filter-out -fPIC,$(CXXFLAGS))
 LDFLAGS := $(filter-out -rdynamic,$(LDFLAGS)) -s
 LDLIBS := $(filter-out -lrt,$(LDLIBS))
@@ -326,7 +331,7 @@ EXE = .exe
 else ifeq ($(CONFIG),msys2-32)
 CXX = i686-w64-mingw32-g++
 LD = i686-w64-mingw32-g++
-CXXFLAGS += -std=c++11 -Os -D_POSIX_SOURCE -DYOSYS_WIN32_UNIX_DIR
+CXXFLAGS += -std=$(CXXSTD) -Os -D_POSIX_SOURCE -DYOSYS_WIN32_UNIX_DIR
 CXXFLAGS := $(filter-out -fPIC,$(CXXFLAGS))
 LDFLAGS := $(filter-out -rdynamic,$(LDFLAGS)) -s
 LDLIBS := $(filter-out -lrt,$(LDLIBS))
@@ -337,7 +342,7 @@ EXE = .exe
 else ifeq ($(CONFIG),msys2-64)
 CXX = x86_64-w64-mingw32-g++
 LD = x86_64-w64-mingw32-g++
-CXXFLAGS += -std=c++11 -Os -D_POSIX_SOURCE -DYOSYS_WIN32_UNIX_DIR
+CXXFLAGS += -std=$(CXXSTD) -Os -D_POSIX_SOURCE -DYOSYS_WIN32_UNIX_DIR
 CXXFLAGS := $(filter-out -fPIC,$(CXXFLAGS))
 LDFLAGS := $(filter-out -rdynamic,$(LDFLAGS)) -s
 LDLIBS := $(filter-out -lrt,$(LDLIBS))
@@ -496,6 +501,18 @@ CXXFLAGS += -I$(GHDL_INCLUDE_DIR) -DYOSYS_ENABLE_GHDL
 LDLIBS += $(GHDL_LIB_DIR)/libghdl.a $(file <$(GHDL_LIB_DIR)/libghdl.link)
 endif
 
+ifeq ($(ENABLE_ODIN_TECHMAP),1)
+LDLIBS += -lpthread
+CXXFLAGS += -Ilibs/pugixml/src
+CXXFLAGS += -Ilibs/liblog/src
+CXXFLAGS += -Ilibs/libpugiutil/src
+CXXFLAGS += -Ilibs/libvtrutil/src
+CXXFLAGS += -Ilibs/libarchfpga/src
+CXXFLAGS += -Ilibs/librtlnumber/src/include
+CXXFLAGS += -Ilibs/librtlnumber/src
+CXXFLAGS += -Ilibs/libargparse/src
+endif
+
 ifeq ($(ENABLE_VERIFIC),1)
 VERIFIC_DIR ?= /usr/local/src/verific_lib
 VERIFIC_COMPONENTS ?= verilog vhdl database util containers hier_tree extensions
@@ -609,6 +626,21 @@ OBJS += libs/bigint/BigIntegerAlgorithms.o libs/bigint/BigInteger.o libs/bigint/
 OBJS += libs/bigint/BigUnsigned.o libs/bigint/BigUnsignedInABase.o
 
 OBJS += libs/sha1/sha1.o
+
+ifeq ($(ENABLE_ODIN_TECHMAP),1)
+OBJS += libs/libvtrutil/src/vtr_util.o libs/libvtrutil/src/vtr_assert.o libs/libvtrutil/src/vtr_token.o 
+OBJS += libs/libvtrutil/src/vtr_memory.o libs/libvtrutil/src/vtr_list.o libs/libvtrutil/src/vtr_log.o
+OBJS += libs/libvtrutil/src/vtr_expr_eval.o libs/libvtrutil/src/vtr_digest.o libs/libvtrutil/src/vtr_math.o
+OBJS += libs/libvtrutil/src/vtr_path.o
+OBJS += libs/liblog/src/log.o 
+OBJS += libs/pugixml/src/pugixml.o 
+OBJS += libs/libargparse/src/argparse.o libs/libargparse/src/argparse_formatter.o libs/libargparse/src/argparse_util.o 
+OBJS += libs/librtlnumber/src/rtl_int.o libs/librtlnumber/src/rtl_utils.o 
+OBJS += libs/libpugiutil/src/pugixml_loc.o libs/libpugiutil/src/pugixml_util.o libs/libarchfpga/src/physical_types.o
+OBJS += libs/libarchfpga/src/read_xml_util.o libs/libarchfpga/src/arch_error.o libs/libarchfpga/src/physical_types_util.o 
+OBJS += libs/libarchfpga/src/arch_check.o libs/libarchfpga/src/arch_util.o libs/libarchfpga/src/read_xml_arch_file.o 
+OBJS += libs/libarchfpga/src/parse_switchblocks.o
+endif
 
 ifneq ($(SMALL),1)
 
