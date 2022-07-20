@@ -42,6 +42,10 @@
 #include "BLIFElaborate.hpp"
 
 #include "simulate_blif.h"
+#include "adders.h"
+#include "BlockMemories.hpp"
+#include "subtractions.h"
+#include "netlist_cleanup.h"
 
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
@@ -458,7 +462,7 @@ struct OdinoPass : public Pass {
 
 		create_top_driver_nets(odin_netlist, output_nets_hash);
 
-		build_top_input_node(DEFAULT_CLOCK_NAME, odin_netlist, output_nets_hash);
+		// build_top_input_node(DEFAULT_CLOCK_NAME, odin_netlist, output_nets_hash);
 
 		std::map<int, RTLIL::Wire*> inputs, outputs;
 
@@ -518,14 +522,15 @@ struct OdinoPass : public Pass {
 		long hard_id = 0;
 		for(auto cell : top_module->cells()) 
 		{
-			log("cell type: %s\n", cell->type.c_str());
+			log("cell type: %s %s\n", cell->type.c_str(), str(cell->type).c_str());
 
     		nnode_t* new_node = allocate_nnode(my_location);
 			new_node->cell = cell;
 
     		new_node->related_ast_node = NULL;
 
-			new_node->type = yosys_subckt_strmap[cell->type.c_str()];
+			// new_node->type = yosys_subckt_strmap[cell->type.c_str()];
+			new_node->type = yosys_subckt_strmap[str(cell->type).c_str()];
 
 			for (auto &conn : cell->connections()) {
                 auto p = cell->getPort(conn.first);
@@ -736,9 +741,7 @@ struct OdinoPass : public Pass {
 	        add_input_pin_to_node(buf_node, in_pin, 0);
 
 			// CLEAN UP
-			log("----\n");
 			// vtr::free(in_pin_name);
-			log("++++\n");
 
         	allocate_more_output_pins(buf_node, 1); //?
         	add_output_port_information(buf_node, 1);
@@ -795,13 +798,18 @@ struct OdinoPass : public Pass {
 		log("            $logic_not, $logic_and, $logic_or, $mux, $tribuf\n");
 		log("            $sr, $ff, $dff, $dffe, $dffsr, $dffsre, $adff, $adffe, $aldff, $aldffe, $sdff, $sdffe, $sdffce, $dlatch, $adlatch, $dlatchsr\n");
 		log("\n");
+		log("    -top top_module\n");
+		log("        set the specified module as design top module\n");
+		log("\n");
 	}
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
 	{
 		bool flag_arch_file = false;
 		bool flag_arch_info = false;
 		bool flag_simple_map = true;
+		bool flag_no_pass = false;
 		std::string arch_file_path;
+		std::string top_module_name;
 		
 		log_header(design, "Starting odintechmap pass.\n");
 
@@ -821,6 +829,14 @@ struct OdinoPass : public Pass {
 				flag_simple_map = true;
 				continue;
 			}
+			if (args[argidx] == "-nopass") {
+				flag_no_pass = true;
+				continue;
+			}
+			if (args[argidx] == "-top" && argidx+1 < args.size()) {
+				top_module_name = args[++argidx];
+				continue;
+			}
 		}
 		extra_args(args, argidx, design);
 
@@ -835,13 +851,25 @@ struct OdinoPass : public Pass {
 
 		design->sort();
 
-		run_pass("flatten", design);
-		run_pass("opt", design);
-		// run_pass("wreduce", design);
-		run_pass("opt", design);
-		run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;");
-		run_pass("clean", design);
-		run_pass("autoname", design);
+		if (top_module_name.empty()) {
+			run_pass("hierarchy -check -auto-top", design);
+		} else {
+			run_pass("hierarchy -check -top " + top_module_name, design);
+		}
+
+		if(!flag_no_pass) {
+			run_pass("proc; opt;", design);
+			run_pass("fsm; opt;", design);
+			run_pass("memory_collect; memory_dff; opt;");
+			run_pass("autoname", design);
+			run_pass("check", design);
+			run_pass("flatten", design);
+			run_pass("pmuxtree", design);
+			run_pass("wreduce", design);
+			run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;", design);
+			run_pass("autoname", design);
+			run_pass("opt", design);
+		}
 
 		
 /*
@@ -927,16 +955,20 @@ struct OdinoPass : public Pass {
 			}
 		}
 */		
+		mixer = new HardSoftLogicMixer();
 		set_default_config();
 
-		run_pass("flatten", design);
-		run_pass("opt", design);
-		run_pass("wreduce", design);
-		run_pass("opt -undriven -full", design);
-		// run_pass("opt", design);
-		// run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;");
-		// run_pass("clean", design);
-		run_pass("autoname", design);
+		/* Perform any initialization routines here */
+    	find_hard_multipliers();
+    	find_hard_adders();
+    	//find_hard_adders_for_sub();
+    	register_hard_blocks();
+
+        /* Some initialization */
+        one_string = vtr::strdup(ONE_VCC_CNS);
+        zero_string = vtr::strdup(ZERO_GND_ZERO);
+        pad_string = vtr::strdup(ZERO_PAD_ZERO);
+
 
 		if (design->top_module()->processes.size() != 0)
 			log_error("Found unmapped processes in top module %s: unmapped processes are not supported in odintechmap pass!\n", log_id(design->top_module()->name));
@@ -947,27 +979,73 @@ struct OdinoPass : public Pass {
 		// check_netlist(transformed);
 		graphVizOutputNetlist(configuration.debug_output_path, "before", 1, transformed);
 
-		// print_netlist_for_checking(transformed, "before");
-
-		// GenericWriter before_writer = GenericWriter();
-		// before_writer._create_file("before.blif", _BLIF);
-		// before_writer._write(transformed);
-
 		printf("Elaborating the netlist created from the input BLIF file\n");
     	//blif_elaborate_top(transformed);
 		        /* do the elaboration without any larger structures identified */
         depth_first_traversal_to_blif_elaborate(BLIF_ELABORATE_TRAVERSE_VALUE, transformed);
 
-		GenericWriter middle_writer = GenericWriter();
-		middle_writer._create_file("middle.blif", _BLIF);
-		middle_writer._write(transformed);
+		// GenericWriter before_writer = GenericWriter();
+		// before_writer._create_file("before.blif", _BLIF);
+		// before_writer._write(transformed);
+
+		//START ################# NETLIST OPTIMIZATION ############################
+
+        /* point for all netlist optimizations. */
+        printf("Performing Optimization on the Netlist\n");
+        if (hard_multipliers) {
+            /* Perform a splitting of the multipliers for hard block mults */
+            reduce_operations(transformed, MULTIPLY);
+            iterate_multipliers(transformed);
+            clean_multipliers();
+        }
+
+        if (block_memories_info.read_only_memory_list || block_memories_info.block_memory_list) {
+            /* Perform a hard block registration and splitting in width for Yosys generated memory blocks */
+            iterate_block_memories(transformed);
+            free_block_memories();
+        }
+
+        if (single_port_rams || dual_port_rams) {
+            /* Perform a splitting of any hard block memories */
+            iterate_memories(transformed);
+            free_memory_lists();
+        }
+
+        if (hard_adders) {
+            /* Perform a splitting of the adders for hard block add */
+            reduce_operations(transformed, ADD);
+            iterate_adders(transformed);
+            clean_adders();
+
+            /* Perform a splitting of the adders for hard block sub */
+            reduce_operations(transformed, MINUS);
+            iterate_adders_for_sub(transformed);
+            clean_adders_for_sub();
+        }
+
+        //END ################# NETLIST OPTIMIZATION ############################
+
+
+		// print_netlist_for_checking(transformed, "before");
+
+		printf("Performing Partial Mapping on the Netlist\n");
+
+		// GenericWriter middle_writer = GenericWriter();
+		// middle_writer._create_file("middle.blif", _BLIF);
+		// middle_writer._write(transformed);
 
 		depth_first_traversal_to_partial_map(PARTIAL_MAP_TRAVERSE_VALUE, transformed);
+		mixer->perform_optimizations(transformed);
+
+        /* Find any unused logic in the netlist and remove it */
+        remove_unused_logic(transformed);
 
 		// check_netlist(transformed);
-		graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
+		// graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
 
-		// print_netlist_for_checking(transformed, "after");
+		print_netlist_for_checking(transformed, "after");
+
+		printf("Writing Netlist to BLIF file\n");
 
 		GenericWriter after_writer = GenericWriter();
 		after_writer._create_file("after.blif", _BLIF);
