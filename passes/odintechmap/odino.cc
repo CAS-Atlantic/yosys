@@ -46,6 +46,7 @@
 #include "BlockMemories.hpp"
 #include "subtractions.h"
 #include "netlist_cleanup.h"
+#include "netlist_statistic.h"
 
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
@@ -858,17 +859,17 @@ struct OdinoPass : public Pass {
 		}
 
 		if(!flag_no_pass) {
-			run_pass("proc; opt;", design);
-			run_pass("fsm; opt;", design);
+			run_pass("proc; opt;");
+			run_pass("fsm; opt;");
 			run_pass("memory_collect; memory_dff; opt;");
-			run_pass("autoname", design);
-			run_pass("check", design);
-			run_pass("flatten", design);
-			run_pass("pmuxtree", design);
-			run_pass("wreduce", design);
-			run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;", design);
-			run_pass("autoname", design);
-			run_pass("opt", design);
+			run_pass("autoname");
+			run_pass("check");
+			run_pass("flatten");
+			run_pass("pmuxtree");
+			run_pass("wreduce");
+			run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;");
+			run_pass("autoname");
+			run_pass("stat");
 		}
 
 		
@@ -1041,15 +1042,17 @@ struct OdinoPass : public Pass {
         remove_unused_logic(transformed);
 
 		// check_netlist(transformed);
-		// graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
+		graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
 
-		print_netlist_for_checking(transformed, "after");
+		// print_netlist_for_checking(transformed, "after");
 
 		printf("Writing Netlist to BLIF file\n");
 
 		GenericWriter after_writer = GenericWriter();
 		after_writer._create_file("after.blif", _BLIF);
 		after_writer._write(transformed);
+
+		compute_statistics(transformed, true);
 
 		free_netlist(transformed);
 		if (one_string)
