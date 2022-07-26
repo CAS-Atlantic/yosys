@@ -20,6 +20,8 @@
 #include "kernel/yosys.h"
 #include "kernel/celltypes.h"
 
+#include <regex>
+
 // #include "arch_fpga.h"
 // #include "partial_map.h"
 // #include "adders.h"
@@ -47,6 +49,7 @@
 #include "subtractions.h"
 #include "netlist_cleanup.h"
 #include "netlist_statistic.h"
+#include "arch_util.h"
 
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
@@ -241,59 +244,6 @@ struct OdinoPass : public Pass {
     	odin_netlist->pad_node->name = vtr::strdup("unconn");
 	}
 
-	void get_type_mappers(dict<IdString, operation_list> &mappers)
-	{
-		mappers[ID($logic_not)]         = LOGICAL_NOT;
-
-		// binary ops
-		mappers[ID($and)]        = BITWISE_AND;
-		mappers[ID($or)]         = BITWISE_OR;
-		mappers[ID($xor)]        = BITWISE_XOR;
-		mappers[ID($xnor)]       = BITWISE_XNOR;
-		// mappers[ID($shl)]         =  
-		// mappers[ID($shr)]         = 
-		// mappers[ID($sshl)]         = 
-		// mappers[ID($sshr)]         = 
-		// mappers[ID($shift)]         =  
-		// mappers[ID($shiftx)]         = 
-		// mappers[ID($lt)]         =  
-		// mappers[ID($le)]         =  
-		// mappers[ID($eq)]         = 
-		// mappers[ID($ne)]         = 
-		// mappers[ID($eqx)]         = 
-		// mappers[ID($nex)]         = 
-		// mappers[ID($ge)]         = 
-		// mappers[ID($gt)]         = 
-		// mappers[ID($add)]         = 
-		// mappers[ID($sub)]         = 
-		// mappers[ID($mul)]         = MULTIPLY;
-		// mappers[ID($div)]         = DIVIDE;
-		// mappers[ID($mod)]         = MODULO;
-		// mappers[ID($divfloor)]         = 
-		// mappers[ID($modfloor)]         = 
-		// mappers[ID($pow)]         = 
-		mappers[ID($logic_and)]         = LOGICAL_AND;
-		mappers[ID($logic_or)]         = LOGICAL_OR;
-		// mappers[ID($concat)]         = 
-		// mappers[ID($macc)]         = 
-		mappers[ID($mux)]		    	= MUX_2;
-
-		//unary ops
-		mappers[ID($not)]         = BITWISE_NOT;
-		mappers[ID($pos)]         = ADD;
-		mappers[ID($neg)]         = MINUS;
-		// mappers[ID($reduce_and)]  =  
-		// mappers[ID($reduce_or)]   =  
-		// mappers[ID($reduce_xor)]  =  
-		// mappers[ID($reduce_xnor)] =  
-		// mappers[ID($reduce_bool)] = 
-		mappers[ID($logic_not)]   =  LOGICAL_NOT;
-		// mappers[ID($slice)]       =  
-		// mappers[ID($lut)]         =  
-		// mappers[ID($sop)]         = 
-
-	}
-
 	int infer_wire_index(RTLIL::SigBit sig) {
 		if (sig.wire != NULL) {
 			return sig.wire->upto ? sig.wire->start_offset+sig.wire->width-sig.offset-1 : sig.wire->start_offset+sig.offset;
@@ -425,23 +375,6 @@ struct OdinoPass : public Pass {
     	}
 	}
 
-	std::string dump_param(RTLIL::Const param) {
-		std::string f;
-		if (param.flags & RTLIL::CONST_FLAG_STRING) {
-			std::string str = param.decode_string();
-			for (char ch : str)
-				if (ch == '"' || ch == '\\')
-					f.append(stringf("\\%c", ch));
-				else if (ch < 32 || ch >= 127)
-					f.append(stringf("\\%03o", ch));
-				else
-					f.append(stringf("%c", ch));
-				f.append(stringf("\"\n"));
-		} else
-			f.append(stringf("%s\n", param.as_string().c_str()));
-		return f;
-	}
-
 	int off(RTLIL::SigBit sig) {
 		if (sig.wire == NULL)
 			return -1;
@@ -453,9 +386,6 @@ struct OdinoPass : public Pass {
 	netlist_t* to_netlist(RTLIL::Module *top_module, RTLIL::Design *design) {
 
 		pool<SigBit> cstr_bits_seen;
-
-		dict<IdString, operation_list> mappers;
-		get_type_mappers(mappers);
 
 		netlist_t* odin_netlist = allocate_netlist();
 		Hashtable* output_nets_hash = new Hashtable();
@@ -506,7 +436,7 @@ struct OdinoPass : public Pass {
 				s1_i_name = (w1 == NULL) ? infer_wire_name(s1[i]) : make_full_ref_name(odin_netlist->identifier, NULL, NULL, infer_wire_name(s1[i]).c_str(), w1->width==1 ? off(s1[i]) : infer_wire_index(s1[i]));
 				s2_i_name = (w2 == NULL) ? infer_wire_name(s2[i]) : make_full_ref_name(odin_netlist->identifier, NULL, NULL, infer_wire_name(s2[i]).c_str(), w2->width==1 ? off(s2[i]) : infer_wire_index(s2[i]));
 
-				log("s1_i_name:%s s2_i_name:%s\n", s1_i_name.c_str(), s2_i_name.c_str());
+				// log("s1_i_name:%s s2_i_name:%s\n", s1_i_name.c_str(), s2_i_name.c_str());
 
 				if (w1 != NULL)
 					connctions[s1_i_name] = s2_i_name;
@@ -523,7 +453,7 @@ struct OdinoPass : public Pass {
 		long hard_id = 0;
 		for(auto cell : top_module->cells()) 
 		{
-			log("cell type: %s %s\n", cell->type.c_str(), str(cell->type).c_str());
+			// log("cell type: %s %s\n", cell->type.c_str(), str(cell->type).c_str());
 
     		nnode_t* new_node = allocate_nnode(my_location);
 			new_node->cell = cell;
@@ -533,30 +463,46 @@ struct OdinoPass : public Pass {
 			// new_node->type = yosys_subckt_strmap[cell->type.c_str()];
 			new_node->type = yosys_subckt_strmap[str(cell->type).c_str()];
 
-			for (auto &conn : cell->connections()) {
-                auto p = cell->getPort(conn.first);
-                auto q = conn.second;
-                log("%s, %s, %s\n", 
-                unescape_id(conn.first).c_str(), 
-                conn.second.as_string().c_str(), 
-                cell->getPort(conn.first).as_string().c_str()
-                );
+			if (new_node->type == NO_OP) {
 
-				if (cell->input(conn.first) /*&& conn.second.size() == 1*/ && conn.second.size()>0) {
+				/**
+				 * ast.cc:1657
+				 * 	std::string modname;
+				 *	if (parameters.size() == 0)
+				 *		modname = stripped_name;
+				 *	else if (para_info.size() > 60)
+				 *		modname = "$paramod$" + sha1(para_info) + stripped_name;
+				 *	else
+				 *		modname = "$paramod" + stripped_name + para_info;
+				 * 
+				 */
+
+				printf("sth weird detected!!! %s\n", str(cell->type).c_str());
+				if (cell->type.begins_with("$paramod"))
+				{
+					std::regex regex("^\\$paramod\\$\\w+\\\\(\\w+)$");
+        			std::smatch m;
+					std::string modname(str(cell->type));
+					if(regex_match(modname, m, regex)) {
+						printf("\tand translated to!!! %s\n", m.str(1).c_str());
+						new_node->type = yosys_subckt_strmap[m.str(1).c_str()];
+					}
+					// printf("hdlname: %s\n", cell->get_string_attribute(ID::hdlname).c_str());
+					//instanceOf = cell->get_string_attribute(ID::hdlname);
+				}
+			}
+
+			for (auto &conn : cell->connections()) {
+
+				if (cell->input(conn.first) && conn.second.size()>0) {
 					// if (conn.first == ID::RD_ARST || conn.first == ID::RD_SRST )
 					// 	continue;
 					map_input_port(conn.second, new_node, odin_netlist->identifier, cstr_bits_seen);
 				}
 
-				if (cell->output(conn.first) /*&& conn.second.size() == 1*/ && conn.second.size()>0) {
+				if (cell->output(conn.first) && conn.second.size()>0) {
 					map_output_port(conn.second, new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
 				}
-
-                // if (conn.second.size() == 1) {
-				// 	log(" .%s=%s\n", unescape_id(conn.first).c_str(), str(conn.second[0]).c_str());
-
-				// 	continue;
-				// }
 
 				// Module *m = design->module(cell->type);
 				// Wire *w = m ? m->wire(conn.first) : nullptr;
@@ -701,19 +647,19 @@ struct OdinoPass : public Pass {
 
 		}
 
-		for (auto bit : cstr_bits_seen)
-			log("pool %s[%d]\n", infer_wire_name(bit).c_str(), infer_wire_index(bit));
+		// for (auto bit : cstr_bits_seen)
+		// 	log("pool %s[%d]\n", infer_wire_name(bit).c_str(), infer_wire_index(bit));
 		
-		for (auto &conn : top_module->connections())
-		for (int i = 0; i < conn.first.size(); i++)
-		{
-			SigBit lhs_bit = conn.first[i];
-			SigBit rhs_bit = conn.second[i];
+		// for (auto &conn : top_module->connections())
+		// for (int i = 0; i < conn.first.size(); i++)
+		// {
+		// 	SigBit lhs_bit = conn.first[i];
+		// 	SigBit rhs_bit = conn.second[i];
 
 			// if (cstr_bits_seen.count(lhs_bit) != 0)
 			// 	continue;
-			log("found something %s[%d] %s[%d]\n", infer_wire_name(lhs_bit).c_str(), infer_wire_index(lhs_bit), infer_wire_name(rhs_bit).c_str(), infer_wire_index(rhs_bit));
-		}
+			// log("found something %s[%d] %s[%d]\n", infer_wire_name(lhs_bit).c_str(), infer_wire_index(lhs_bit), infer_wire_name(rhs_bit).c_str(), infer_wire_index(rhs_bit));
+		// }
 
 		// add intermediate buffer nodes
 		for (auto &conn : top_module->connections())
@@ -771,13 +717,152 @@ struct OdinoPass : public Pass {
 			// vtr::free(output_pin_name);
 		}
 
-		output_nets_hash->log();
+		// output_nets_hash->log();
 		// print_netlist_for_checking(odin_netlist, "pre");
 		// hook_up_nets(odin_netlist, output_nets_hash, top_module);
 		hook_up_nets(odin_netlist, output_nets_hash, connctions);
 		log("after hookup\n");
 		delete output_nets_hash;
 		return odin_netlist;
+	}
+
+	void get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_mode* mode) {
+    	for (int i = 0; i < mode->num_pb_type_children; i++) {
+        	get_physical_luts(pb_lut_list, &mode->pb_type_children[i]);
+	    }
+	}
+
+	void get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_pb_type* pb_type) {
+    	if (pb_type) {
+        	if (pb_type->class_type == LUT_CLASS) {
+            	pb_lut_list.push_back(pb_type);
+	        } else {
+    	        for (int i = 0; i < pb_type->num_modes; i++) {
+        	        get_physical_luts(pb_lut_list, &pb_type->modes[i]);
+            	}
+	        }
+    	}
+	}
+
+	void set_physical_lut_size(std::vector<t_logical_block_type>& logical_block_types) {
+    	std::vector<t_pb_type*> pb_lut_list;
+
+	    for (t_logical_block_type& logical_block : logical_block_types) {
+    	    if (logical_block.index != EMPTY_TYPE_INDEX) {
+        	    get_physical_luts(pb_lut_list, logical_block.pb_type);
+	        }
+    	}
+	    for (t_pb_type* pb_lut : pb_lut_list) {
+    	    if (pb_lut) {
+        	    if (pb_lut->num_input_pins < physical_lut_size || physical_lut_size < 1) {
+            	    physical_lut_size = pb_lut->num_input_pins;
+	            }
+    	    }
+	    }
+	}
+
+	void elaborate(netlist_t *odin_netlist) {
+    	double elaboration_time = wall_time();
+
+	    /* Perform any initialization routines here */
+    	find_hard_multipliers();
+    	find_hard_adders();
+    	//find_hard_adders_for_sub();
+    	register_hard_blocks();
+
+    	// module_names_to_idx = sc_new_string_cache();
+
+		blif_elaborate_top(odin_netlist);
+
+    	elaboration_time = wall_time() - elaboration_time;
+    	printf("\nElaboration Time: ");
+    	print_time(elaboration_time);
+    	printf("\n--------------------------------------------------------------------\n");
+	}
+
+	void optimization(netlist_t *odin_netlist) {
+    	double optimization_time = wall_time();
+
+	    if (odin_netlist) {
+    	    // Can't levelize yet since the large muxes can look like combinational loops when they're not
+        	check_netlist(odin_netlist);
+
+	        //START ################# NETLIST OPTIMIZATION ############################
+
+    	    /* point for all netlist optimizations. */
+        	log("Performing Optimization on the Netlist\n");
+	        if (hard_multipliers) {
+    	        /* Perform a splitting of the multipliers for hard block mults */
+        	    reduce_operations(odin_netlist, MULTIPLY);
+            	iterate_multipliers(odin_netlist);
+	            clean_multipliers();
+    	    }
+
+	        if (block_memories_info.read_only_memory_list || block_memories_info.block_memory_list) {
+    	        /* Perform a hard block registration and splitting in width for Yosys generated memory blocks */
+        	    iterate_block_memories(odin_netlist);
+            	free_block_memories();
+        	}
+
+	        if (single_port_rams || dual_port_rams) {
+    	        /* Perform a splitting of any hard block memories */
+        	    iterate_memories(odin_netlist);
+            	free_memory_lists();
+        	}
+
+	        if (hard_adders) {
+    	        /* Perform a splitting of the adders for hard block add */
+        	    reduce_operations(odin_netlist, ADD);
+            	iterate_adders(odin_netlist);
+	            clean_adders();
+
+    	        /* Perform a splitting of the adders for hard block sub */
+        	    reduce_operations(odin_netlist, MINUS);
+            	iterate_adders_for_sub(odin_netlist);
+	            clean_adders_for_sub();
+    	    }
+
+        	//END ################# NETLIST OPTIMIZATION ############################
+
+	        if (configuration.output_netlist_graphs)
+    	        graphVizOutputNetlist(configuration.debug_output_path, "optimized", 2, odin_netlist); /* Path is where we are */
+    	}
+
+	    optimization_time = wall_time() - optimization_time;
+    	log("\nOptimization Time: ");
+    	print_time(optimization_time);
+    	log("\n--------------------------------------------------------------------\n");
+	}
+
+	void techmap(netlist_t *odin_netlist) {
+    	double techmap_time = wall_time();
+
+    	if (odin_netlist) {
+        	/* point where we convert netlist to FPGA or other hardware target compatible format */
+	        log("Performing Partial Technology Mapping to the target device\n");
+    	    partial_map_top(odin_netlist);
+        	mixer->perform_optimizations(odin_netlist);
+
+	        /* Find any unused logic in the netlist and remove it */
+    	    remove_unused_logic(odin_netlist);
+    	}
+
+	    techmap_time = wall_time() - techmap_time;
+    	log("\nTechmap Time: ");
+	    print_time(techmap_time);
+    	log("\n--------------------------------------------------------------------\n");
+	}
+
+	void report(netlist_t *odin_netlist) {
+
+    	if (odin_netlist) {
+
+        	report_mult_distribution();
+        	report_add_distribution();
+        	report_sub_distribution();
+
+        	compute_statistics(odin_netlist, true);
+    	}
 	}
 	
 	OdinoPass() : Pass("odino", "ODIN_II partial technology mapper") { }
@@ -811,6 +896,8 @@ struct OdinoPass : public Pass {
 		bool flag_no_pass = false;
 		std::string arch_file_path;
 		std::string top_module_name;
+		std::string yosys_coarsen_blif_output("yosys_coarsen.blif");
+		std::string odin_mapped_blif_output("odin_mapped.blif");
 		
 		log_header(design, "Starting odintechmap pass.\n");
 
@@ -838,141 +925,103 @@ struct OdinoPass : public Pass {
 				top_module_name = args[++argidx];
 				continue;
 			}
+			if (args[argidx] == "-yo" && argidx+1 < args.size()) {
+				yosys_coarsen_blif_output = args[++argidx];
+				continue;
+			}
+			if (args[argidx] == "-oo" && argidx+1 < args.size()) {
+				odin_mapped_blif_output = args[++argidx];
+				continue;
+			}
 		}
 		extra_args(args, argidx, design);
 
-		// CellTypes yosys_types;
-		// yosys_types.setup();
-		// auto ct = yosys_types.cell_types.at(ID($mem_v2));
-		// log("$mem_v2 inputs : %d\n", ct.inputs.size());
-		// for (int i=0; i<ct.inputs.size(); i++) {
-		// 	log("$mem_v2 inputs : %s\n", ct.inputs.element(i));
-		// }
-		
-
-		design->sort();
+		// design->sort();
 
 		if (top_module_name.empty()) {
-			run_pass("hierarchy -check -auto-top", design);
+			run_pass("hierarchy -check -auto-top -purge_lib", design);
 		} else {
 			run_pass("hierarchy -check -top " + top_module_name, design);
 		}
 
 		if(!flag_no_pass) {
+			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
+			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
+		
+
 			run_pass("proc; opt;");
 			run_pass("fsm; opt;");
 			run_pass("memory_collect; memory_dff; opt;");
 			run_pass("autoname");
 			run_pass("check");
+
+			run_pass("techmap -map ../../vtr-verilog-to-routing/ODIN_II/techlib/adff2dff.v");
+        	run_pass("techmap -map ../../vtr-verilog-to-routing/ODIN_II/techlib/adffe2dff.v");
+        	run_pass("techmap */t:$shift */t:$shiftx");
+
 			run_pass("flatten");
 			run_pass("pmuxtree");
 			run_pass("wreduce");
 			run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;");
 			run_pass("autoname");
 			run_pass("stat");
+			run_pass("write_blif -blackbox -param -impltf " + yosys_coarsen_blif_output);
 		}
 
-		
-/*
-		for(auto module : design->modules()) 
-		{
-
-			log("%s\n", module->name.c_str());
-			auto &conns = module->connections();
-			for(auto sigsig : conns)
-			{
-				log("----------------------------------------\n");
-				auto s1 = sigsig.first;
-				auto s2 = sigsig.second;
-				log("%s|%s\n", log_signal(s1), log_signal(s2));
-				for(int i=0; i<s1.size(); i++)
-				{
-					auto sb_1 = s1[i];
-					auto w1 = s1[i].wire;
-					log("sigbit_1[%d]: %s | wire: %s %d %d %d %d %d %d %d\n", i, str(sb_1).c_str(), log_id(w1->name), w1->width, w1->start_offset, w1->port_id, w1->port_input, w1->port_output, w1->upto, w1->is_signed);
-				}
-
-				for(int i=0; i<s2.size(); i++)
-				{
-					auto sb_2 = s2[i];
-					auto w2 = s2[i].wire;
-					log("sigbit_2[%d]: %s | wire: %s %d %d %d %d %d %d %d\n", i, str(sb_2).c_str(), log_id(w2->name), w2->width, w2->start_offset, w2->port_id, w2->port_input, w2->port_output, w2->upto, w2->is_signed);
-				}
-				
-
-				int len1 = s1.size();
-				int len2 = s2.size();
-				log("%d|%d\n", len1, len2);
-
-			}
-
-			for (const auto &port_name : module->ports) {
-				log("port in module: %s\n",log_id(port_name));
-			}
-
-			log("cells:\n");
-			
-			for(auto cell : module->cells())
-			{
-				if (cell->hasPort(ID::A)) {
-					auto port_A = cell->getPort(ID::A);
-					for(int i=0; i<port_A.size(); i++)
-					{
-						auto pb_a = port_A[i];
-						auto w1 = pb_a.wire;
-						log("port_A[%s].sigbit_A[%d]: %s | wire: %s %d %d %d %d %d %d %d\n", log_signal(port_A), i, str(pb_a).c_str(), log_id(w1->name), w1->width, w1->start_offset, w1->port_id, w1->port_input, w1->port_output, w1->upto, w1->is_signed);
-					}
-				}
-				if (cell->hasPort(ID::B)) {
-					auto port_B = cell->getPort(ID::B);
-					for(int i=0; i<port_B.size(); i++)
-					{
-						auto pb_b = port_B[i];
-						auto w1 = pb_b.wire;
-						log("port_B[%s].sigbit_B[%d]: %s | wire: %s %d %d %d %d %d %d %d\n", log_signal(port_B), i, str(pb_b).c_str(), log_id(w1->name), w1->width, w1->start_offset, w1->port_id, w1->port_input, w1->port_output, w1->upto, w1->is_signed);
-					}
-				}
-				if (cell->hasPort(ID::Y)) {
-					auto port_Y = cell->getPort(ID::Y);
-					for(int i=0; i<port_Y.size(); i++)
-					{
-						auto pb_y = port_Y[i];
-						auto w1 = pb_y.wire;
-						log("port_Y[%s].sigbit_Y[%d]: %s | wire: %s %d %d %d %d %d %d %d\n", log_signal(port_Y), i, str(pb_y).c_str(), log_id(w1->name), w1->width, w1->start_offset, w1->port_id, w1->port_input, w1->port_output, w1->upto, w1->is_signed);
-					}
-				}
-				log("\t%s of type %s\n", log_id(cell->name), log_id(cell->type));
-				for (auto it : cell->connections()) {
-					log("\t\t%s\n", log_id(it.first));
-					auto s = it.second;
-					for(int i=0; i<s.size(); i++)
-					{
-						auto sb = s[i];
-						auto w = s[i].wire;
-						log("sigbit[%d]: %s | wire: %s %d %d %d %d %d %d %d\n", i, str(sb).c_str(), log_id(w->name), w->width, w->start_offset, w->port_id, w->port_input, w->port_output, w->upto, w->is_signed);
-					}
-				}
-			
-			}
-		}
-*/		
-		mixer = new HardSoftLogicMixer();
-		set_default_config();
-
-		/* Perform any initialization routines here */
-    	find_hard_multipliers();
-    	find_hard_adders();
-    	//find_hard_adders_for_sub();
-    	register_hard_blocks();
-
-        /* Some initialization */
-        one_string = vtr::strdup(ONE_VCC_CNS);
-        zero_string = vtr::strdup(ZERO_GND_ZERO);
-        pad_string = vtr::strdup(ZERO_PAD_ZERO);
-
+		design->sort();
 
 		if (design->top_module()->processes.size() != 0)
 			log_error("Found unmapped processes in top module %s: unmapped processes are not supported in odintechmap pass!\n", log_id(design->top_module()->name));
+		if (design->top_module()->memories.size() != 0)
+			log_error("Found unmapped memories in module %s: unmapped memories are not supported in BLIF backend!\n", log_id(design->top_module()->name));
+
+		// t_arch Arch;
+		global_args_t global_args;
+		std::vector<t_physical_tile_type> physical_tile_types;
+		std::vector<t_logical_block_type> logical_block_types;
+
+		try {
+        	/* Some initialization */
+        	one_string = vtr::strdup(ONE_VCC_CNS);
+        	zero_string = vtr::strdup(ZERO_GND_ZERO);
+        	pad_string = vtr::strdup(ZERO_PAD_ZERO);
+
+    	} catch (vtr::VtrError& vtr_error) {
+        	log_error("Odin failed to initialize %s with exit code%d\n", vtr_error.what(), ERROR_INITIALIZATION);
+    	}
+
+		mixer = new HardSoftLogicMixer();
+		set_default_config();
+
+		/* read the confirguration file ??? */
+
+		if (flag_arch_file) {
+			log("Architecture: %s\n", arch_file_path.c_str());
+
+			log("Reading FPGA Architecture file\n");
+        	try {
+            	XmlReadArch(arch_file_path.c_str(), false, &Arch, physical_tile_types, logical_block_types);
+	            set_physical_lut_size(logical_block_types);
+    	    } catch (vtr::VtrError& vtr_error) {
+        	    log_error("Odin Failed to load architecture file: %s with exit code%d\n", vtr_error.what(), ERROR_PARSE_ARCH);
+        	}
+		}
+		log("Using Lut input width of: %d\n", physical_lut_size);
+
+		double synthesis_time = wall_time();
+
+		log("--------------------------------------------------------------------\n");
+    	log("High-level Synthesis Begin\n");
+
+    	/* Performing elaboration for input digital circuits */
+		/* elaborate() */
+		
+		// double elaboration_time = wall_time();
+		/* Perform any initialization routines here */
+    	// find_hard_multipliers();
+    	// find_hard_adders();
+    	// //find_hard_adders_for_sub();
+    	// register_hard_blocks();
 
 		netlist_t* transformed = to_netlist(design->top_module(), design);
 
@@ -980,66 +1029,98 @@ struct OdinoPass : public Pass {
 		// check_netlist(transformed);
 		graphVizOutputNetlist(configuration.debug_output_path, "before", 1, transformed);
 
-		printf("Elaborating the netlist created from the input BLIF file\n");
+		// log("Elaborating the netlist created from the input (new_node->type == NO_OP)BLIF file\n");
     	//blif_elaborate_top(transformed);
 		        /* do the elaboration without any larger structures identified */
-        depth_first_traversal_to_blif_elaborate(BLIF_ELABORATE_TRAVERSE_VALUE, transformed);
+        // depth_first_traversal_to_blif_elaborate(BLIF_ELABORATE_TRAVERSE_VALUE, transformed);
 
 		// GenericWriter before_writer = GenericWriter();
 		// before_writer._create_file("before.blif", _BLIF);
 		// before_writer._write(transformed);
 
+		// elaboration_time = wall_time() - elaboration_time;
+    	// log("\nElaboration Time: ");
+    	// print_time(elaboration_time);
+    	// log("\n--------------------------------------------------------------------\n");
+
+		/* Performing elaboration for input digital circuits */
+    	try {
+        	elaborate(transformed);
+        	log("Successful Elaboration of the design by Odin-II\n");
+    	} catch (vtr::VtrError& vtr_error) {
+        	log_error("Odin-II Failed to parse Verilog / load BLIF file: %s with exit code:%d \n", vtr_error.what(), ERROR_ELABORATION);
+    	}
+
+		/* Performing netlist optimizations */
+    	try {
+        	optimization(transformed);
+        	log("Successful Optimization of netlist by Odin-II\n");
+    	} catch (vtr::VtrError& vtr_error) {
+        	log_error("Odin-II Failed to perform netlist optimization %s with exit code:%d \n", vtr_error.what(), ERROR_OPTIMIZATION);
+    	}
+		
+
 		//START ################# NETLIST OPTIMIZATION ############################
 
         /* point for all netlist optimizations. */
-        printf("Performing Optimization on the Netlist\n");
-        if (hard_multipliers) {
-            /* Perform a splitting of the multipliers for hard block mults */
-            reduce_operations(transformed, MULTIPLY);
-            iterate_multipliers(transformed);
-            clean_multipliers();
-        }
+        // log("Performing Optimization on the Netlist\n");
+        // if (hard_multipliers) {
+        //     /* Perform a splitting of the multipliers for hard block mults */
+        //     reduce_operations(transformed, MULTIPLY);
+        //     iterate_multipliers(transformed);
+        //     clean_multipliers();
+        // }
 
-        if (block_memories_info.read_only_memory_list || block_memories_info.block_memory_list) {
-            /* Perform a hard block registration and splitting in width for Yosys generated memory blocks */
-            iterate_block_memories(transformed);
-            free_block_memories();
-        }
+        // if (block_memories_info.read_only_memory_list || block_memories_info.block_memory_list) {
+        //     /* Perform a hard block registration and splitting in width for Yosys generated memory blocks */
+        //     iterate_block_memories(transformed);
+        //     free_block_memories();
+        // }
 
-        if (single_port_rams || dual_port_rams) {
-            /* Perform a splitting of any hard block memories */
-            iterate_memories(transformed);
-            free_memory_lists();
-        }
+        // if (single_port_rams || dual_port_rams) {
+        //     /* Perform a splitting of any hard block memories */
+        //     iterate_memories(transformed);
+        //     free_memory_lists();
+        // }
 
-        if (hard_adders) {
-            /* Perform a splitting of the adders for hard block add */
-            reduce_operations(transformed, ADD);
-            iterate_adders(transformed);
-            clean_adders();
+        // if (hard_adders) {
+        //     /* Perform a splitting of the adders for hard block add */
+        //     reduce_operations(transformed, ADD);
+        //     iterate_adders(transformed);
+        //     clean_adders();
 
-            /* Perform a splitting of the adders for hard block sub */
-            reduce_operations(transformed, MINUS);
-            iterate_adders_for_sub(transformed);
-            clean_adders_for_sub();
-        }
+        //     /* Perform a splitting of the adders for hard block sub */
+        //     reduce_operations(transformed, MINUS);
+        //     iterate_adders_for_sub(transformed);
+        //     clean_adders_for_sub();
+        // }
 
         //END ################# NETLIST OPTIMIZATION ############################
 
+		/* Performaing partial tech. map to the target device */
+    	try {
+        	techmap(transformed);
+        	log("Successful Partial Technology Mapping by Odin-II\n");
+    	} catch (vtr::VtrError& vtr_error) {
+        	log_error("Odin-II Failed to perform partial mapping to target device %s with exit code:%d \n", vtr_error.what(), ERROR_TECHMAP);
+    	}
 
-		// print_netlist_for_checking(transformed, "before");
 
-		printf("Performing Partial Mapping on the Netlist\n");
+		// // print_netlist_for_checking(transformed, "before");
 
-		// GenericWriter middle_writer = GenericWriter();
-		// middle_writer._create_file("middle.blif", _BLIF);
-		// middle_writer._write(transformed);
+		// printf("Performing Partial Mapping on the Netlist\n");
 
-		depth_first_traversal_to_partial_map(PARTIAL_MAP_TRAVERSE_VALUE, transformed);
-		mixer->perform_optimizations(transformed);
+		// // GenericWriter middle_writer = GenericWriter();
+		// // middle_writer._create_file("middle.blif", _BLIF);
+		// // middle_writer._write(transformed);
 
-        /* Find any unused logic in the netlist and remove it */
-        remove_unused_logic(transformed);
+		// depth_first_traversal_to_partial_map(PARTIAL_MAP_TRAVERSE_VALUE, transformed);
+		// mixer->perform_optimizations(transformed);
+
+        // /* Find any unused logic in the netlist and remove it */
+        // remove_unused_logic(transformed);
+
+		synthesis_time = wall_time() - synthesis_time;
 
 		// check_netlist(transformed);
 		graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
@@ -1049,12 +1130,21 @@ struct OdinoPass : public Pass {
 		printf("Writing Netlist to BLIF file\n");
 
 		GenericWriter after_writer = GenericWriter();
-		after_writer._create_file("after.blif", _BLIF);
+		after_writer._create_file(odin_mapped_blif_output.c_str(), _BLIF);
 		after_writer._write(transformed);
 
-		compute_statistics(transformed, true);
+		report(transformed);
+		// compute_statistics(transformed, true);
+
+		log("\nTotal Synthesis Time: ");
+    	print_time(synthesis_time);
+    	log("\n--------------------------------------------------------------------\n");
 
 		free_netlist(transformed);
+		free_arch(&Arch);
+    	free_type_descriptors(logical_block_types);
+    	free_type_descriptors(physical_tile_types);
+
 		if (one_string)
         	vtr::free(one_string);
     	if (zero_string)
