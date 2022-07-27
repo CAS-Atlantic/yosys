@@ -776,7 +776,7 @@ struct OdinoPass : public Pass {
 
     	elaboration_time = wall_time() - elaboration_time;
     	printf("\nElaboration Time: ");
-    	print_time(elaboration_time);
+    	log_time(elaboration_time);
     	printf("\n--------------------------------------------------------------------\n");
 	}
 
@@ -830,7 +830,7 @@ struct OdinoPass : public Pass {
 
 	    optimization_time = wall_time() - optimization_time;
     	log("\nOptimization Time: ");
-    	print_time(optimization_time);
+    	log_time(optimization_time);
     	log("\n--------------------------------------------------------------------\n");
 	}
 
@@ -849,7 +849,7 @@ struct OdinoPass : public Pass {
 
 	    techmap_time = wall_time() - techmap_time;
     	log("\nTechmap Time: ");
-	    print_time(techmap_time);
+	    log_time(techmap_time);
     	log("\n--------------------------------------------------------------------\n");
 	}
 
@@ -863,6 +863,10 @@ struct OdinoPass : public Pass {
 
         	compute_statistics(odin_netlist, true);
     	}
+	}
+
+	void log_time(double time) {
+    	log("%.1fms", time * 1000);
 	}
 	
 	OdinoPass() : Pass("odino", "ODIN_II partial technology mapper") { }
@@ -894,10 +898,13 @@ struct OdinoPass : public Pass {
 		bool flag_arch_info = false;
 		bool flag_simple_map = true;
 		bool flag_no_pass = false;
+		bool flag_load_primitives = false;
+		bool flag_read_verilog_input = false;
 		std::string arch_file_path;
 		std::string top_module_name;
 		std::string yosys_coarsen_blif_output("yosys_coarsen.blif");
 		std::string odin_mapped_blif_output("odin_mapped.blif");
+		std::string verilog_input_path;
 		
 		log_header(design, "Starting odintechmap pass.\n");
 
@@ -933,10 +940,34 @@ struct OdinoPass : public Pass {
 				odin_mapped_blif_output = args[++argidx];
 				continue;
 			}
+			if (args[argidx] == "-prim") {
+				flag_load_primitives = true;
+				continue;
+			}
+			if (args[argidx] == "-v" && argidx+1 < args.size()) {
+				flag_read_verilog_input = true;
+				verilog_input_path = args[++argidx];
+				continue;
+			}
 		}
 		extra_args(args, argidx, design);
 
 		// design->sort();
+
+		if(flag_load_primitives) {
+
+		}
+
+		if(!flag_no_pass) {
+			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/primitives.v");
+			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
+			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
+		}
+
+		if (flag_read_verilog_input) {
+			run_pass("read_verilog -sv -nolatches " + verilog_input_path);
+			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/arch_dsp.v");
+		}
 
 		if (top_module_name.empty()) {
 			run_pass("hierarchy -check -auto-top -purge_lib", design);
@@ -945,18 +976,14 @@ struct OdinoPass : public Pass {
 		}
 
 		if(!flag_no_pass) {
-			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
-			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
-		
-
 			run_pass("proc; opt;");
 			run_pass("fsm; opt;");
 			run_pass("memory_collect; memory_dff; opt;");
 			run_pass("autoname");
 			run_pass("check");
 
-			run_pass("techmap -map ../../vtr-verilog-to-routing/ODIN_II/techlib/adff2dff.v");
-        	run_pass("techmap -map ../../vtr-verilog-to-routing/ODIN_II/techlib/adffe2dff.v");
+			run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adff2dff.v");
+        	run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adffe2dff.v");
         	run_pass("techmap */t:$shift */t:$shiftx");
 
 			run_pass("flatten");
@@ -1027,7 +1054,7 @@ struct OdinoPass : public Pass {
 
 		// configuration.output_netlist_graphs = true;
 		// check_netlist(transformed);
-		graphVizOutputNetlist(configuration.debug_output_path, "before", 1, transformed);
+		// graphVizOutputNetlist(configuration.debug_output_path, "before", 1, transformed);
 
 		// log("Elaborating the netlist created from the input (new_node->type == NO_OP)BLIF file\n");
     	//blif_elaborate_top(transformed);
@@ -1040,7 +1067,7 @@ struct OdinoPass : public Pass {
 
 		// elaboration_time = wall_time() - elaboration_time;
     	// log("\nElaboration Time: ");
-    	// print_time(elaboration_time);
+    	// log_time(elaboration_time);
     	// log("\n--------------------------------------------------------------------\n");
 
 		/* Performing elaboration for input digital circuits */
@@ -1123,7 +1150,7 @@ struct OdinoPass : public Pass {
 		synthesis_time = wall_time() - synthesis_time;
 
 		// check_netlist(transformed);
-		graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
+		// graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
 
 		// print_netlist_for_checking(transformed, "after");
 
@@ -1137,7 +1164,7 @@ struct OdinoPass : public Pass {
 		// compute_statistics(transformed, true);
 
 		log("\nTotal Synthesis Time: ");
-    	print_time(synthesis_time);
+    	log_time(synthesis_time);
     	log("\n--------------------------------------------------------------------\n");
 
 		free_netlist(transformed);
