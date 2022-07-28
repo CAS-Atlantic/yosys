@@ -38,6 +38,7 @@
 #include "partial_map.h"
 
 #include "GenericWriter.hpp"
+#include "GenericReader.hpp"
 
 #include "netlist_visualizer.h"
 
@@ -891,6 +892,18 @@ struct OdinoPass : public Pass {
 		log("    -top top_module\n");
 		log("        set the specified module as design top module\n");
 		log("\n");
+		log("    -L PRIMARY_INPUTS\n");
+		log("        list of primary inputs to hold high at cycle 0, and low for all subsequent cycles\n");
+		log("\n");
+		log("    -H PRIMARY_INPUTS\n");
+		log("        list of primary inputs to hold low at cycle 0, and high for all subsequent cycles\n");
+		log("\n");
+		log("    -t INPUT_VECTOR_FILE\n");
+		log("        File of predefined input vectors to simulate\n");
+		log("\n");
+		log("    -T OUTPUT_VECTOR_FILE\n");
+		log("        File of predefined output vectors to check against simulation\n");
+		log("\n");
 	}
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
 	{
@@ -900,11 +913,15 @@ struct OdinoPass : public Pass {
 		bool flag_no_pass = false;
 		bool flag_load_primitives = false;
 		bool flag_read_verilog_input = false;
+		bool flag_sim_hold_low = false;
+		bool flag_sim_hold_high = false;
 		std::string arch_file_path;
 		std::string top_module_name;
 		std::string yosys_coarsen_blif_output("yosys_coarsen.blif");
 		std::string odin_mapped_blif_output("odin_mapped.blif");
 		std::string verilog_input_path;
+		std::vector<std::string> sim_hold_low;
+		std::vector<std::string> sim_hold_high;
 		
 		log_header(design, "Starting odintechmap pass.\n");
 
@@ -949,8 +966,36 @@ struct OdinoPass : public Pass {
 				verilog_input_path = args[++argidx];
 				continue;
 			}
+			if (args[argidx] == "-H" && argidx+1 < args.size()) {
+				flag_sim_hold_low = true;
+				sim_hold_low.push_back(args[++argidx]);
+				continue;
+			}
+			if (args[argidx] == "-L" && argidx+1 < args.size()) {
+				flag_sim_hold_high = true;
+				sim_hold_high.push_back(args[++argidx]);
+				continue;
+			}
+			if (args[argidx] == "-t" && argidx+1 < args.size()) {
+				global_args.sim_vector_input_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
+				continue;
+			}
+			if (args[argidx] == "-T" && argidx+1 < args.size()) {
+				global_args.sim_vector_output_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
+				continue;
+			}
 		}
 		extra_args(args, argidx, design);
+
+		if (flag_sim_hold_low) {
+			global_args.sim_hold_low.set(sim_hold_low, argparse::Provenance::SPECIFIED);
+		}
+
+		if (flag_sim_hold_high) {
+			global_args.sim_hold_high.set(sim_hold_high, argparse::Provenance::SPECIFIED);
+		}
+
+		global_args.sim_directory.set(".", argparse::Provenance::SPECIFIED);
 
 		// design->sort();
 
@@ -1003,7 +1048,7 @@ struct OdinoPass : public Pass {
 			log_error("Found unmapped memories in module %s: unmapped memories are not supported in BLIF backend!\n", log_id(design->top_module()->name));
 
 		// t_arch Arch;
-		global_args_t global_args;
+		// global_args_t global_args;
 		std::vector<t_physical_tile_type> physical_tile_types;
 		std::vector<t_logical_block_type> logical_block_types;
 
@@ -1019,6 +1064,7 @@ struct OdinoPass : public Pass {
 
 		mixer = new HardSoftLogicMixer();
 		set_default_config();
+		configuration.coarsen = true;
 
 		/* read the confirguration file ??? */
 
@@ -1166,6 +1212,48 @@ struct OdinoPass : public Pass {
 		log("\nTotal Synthesis Time: ");
     	log_time(synthesis_time);
     	log("\n--------------------------------------------------------------------\n");
+
+		/*************************************************************
+     	* begin simulation section
+     	*/
+	    global_args.parralelized_simulation.set(1, argparse::Provenance::SPECIFIED);
+	 	global_args.blif_file.set(odin_mapped_blif_output, argparse::Provenance::SPECIFIED);
+    	netlist_t* sim_netlist = NULL;
+    	if ((global_args.blif_file.provenance() == argparse::Provenance::SPECIFIED && !coarsen_cleanup)
+        	|| global_args.interactive_simulation
+        	|| global_args.sim_num_test_vectors
+        	|| global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED) {
+
+			configuration.input_file_type = file_type_e::_BLIF;
+			configuration.list_of_file_names = {odin_mapped_blif_output};
+            my_location.file = 0;
+
+			try {
+            /**
+             * The blif file for simulation should follow odin_ii blif style 
+             * So, here we call odin_ii's read_blif
+             */
+				GenericReader generic_reader = GenericReader();
+            	sim_netlist = static_cast<netlist_t*>(generic_reader._read());
+        	} catch (vtr::VtrError& vtr_error) {
+            	printf("Odin Failed to load BLIF file: %s with exit code:%d \n", vtr_error.what(), ERROR_PARSE_BLIF);
+            	exit(ERROR_PARSE_BLIF);
+        	}
+			
+			/* Simulate netlist */
+	    	if (sim_netlist && !global_args.interactive_simulation
+    	    	&& (global_args.sim_num_test_vectors || (global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED))) {
+        		printf("Netlist Simulation Begin\n");
+        		// create_directory(global_args.sim_directory);
+
+        		simulate_netlist(sim_netlist);
+    		}
+
+    		compute_statistics(sim_netlist, true);
+    	}
+
+
+
 
 		free_netlist(transformed);
 		free_arch(&Arch);
