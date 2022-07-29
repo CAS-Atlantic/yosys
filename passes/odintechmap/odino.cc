@@ -876,8 +876,8 @@ struct OdinoPass : public Pass {
 		log("\n");
 		log("This pass calls simplemap pass by default.\n");
 		log("\n");
-		log("    -arch <filename>\n");
-		log("        to read fpga architecture file\n");
+		log("    -a ARCHITECTURE_FILE\n");
+		log("        VTR FPGA architecture description file (XML)\n");
 		log("\n");
 		log("    -info\n");
 		log("        shows available hardblocks inside the architecture file\n");
@@ -892,6 +892,12 @@ struct OdinoPass : public Pass {
 		log("    -top top_module\n");
 		log("        set the specified module as design top module\n");
 		log("\n");
+		log("    -y YOSYS_OUTPUT_FILE_PATH\n");
+		log("        Output blif file path after yosys elaboration\n");
+		log("\n");
+		log("    -o ODIN_OUTPUT_FILE_PATH\n");
+		log("        Output blif file path after odin partial mapper\n");
+		log("\n");
 		log("    -L PRIMARY_INPUTS\n");
 		log("        list of primary inputs to hold high at cycle 0, and low for all subsequent cycles\n");
 		log("\n");
@@ -903,6 +909,9 @@ struct OdinoPass : public Pass {
 		log("\n");
 		log("    -T OUTPUT_VECTOR_FILE\n");
 		log("        File of predefined output vectors to check against simulation\n");
+		log("\n");
+		log("    -sim_dir SIMULATION_DIRECTORY\n");
+		log("        Directory output for simulation, if not specified current directory will be used by default\n");
 		log("\n");
 	}
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
@@ -922,13 +931,16 @@ struct OdinoPass : public Pass {
 		std::string verilog_input_path;
 		std::vector<std::string> sim_hold_low;
 		std::vector<std::string> sim_hold_high;
+		std::string DEFAULT_OUTPUT(".");
+		
+		global_args.sim_directory.set(DEFAULT_OUTPUT, argparse::Provenance::DEFAULT);
 		
 		log_header(design, "Starting odintechmap pass.\n");
 
 		size_t argidx;
 		for (argidx = 1; argidx < args.size(); argidx++)
 		{
-			if (args[argidx] == "-arch" && argidx+1 < args.size()) {
+			if (args[argidx] == "-a" && argidx+1 < args.size()) {
 				arch_file_path = args[++argidx];
 				flag_arch_file = true;
 				continue;
@@ -949,11 +961,12 @@ struct OdinoPass : public Pass {
 				top_module_name = args[++argidx];
 				continue;
 			}
-			if (args[argidx] == "-yo" && argidx+1 < args.size()) {
+			if (args[argidx] == "-y" && argidx+1 < args.size()) {
 				yosys_coarsen_blif_output = args[++argidx];
 				continue;
 			}
-			if (args[argidx] == "-oo" && argidx+1 < args.size()) {
+			if (args[argidx] == "-o" && argidx+1 < args.size()) {
+				// global_args.output_file @TODO
 				odin_mapped_blif_output = args[++argidx];
 				continue;
 			}
@@ -982,6 +995,10 @@ struct OdinoPass : public Pass {
 			}
 			if (args[argidx] == "-T" && argidx+1 < args.size()) {
 				global_args.sim_vector_output_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
+				continue;
+			}
+			if (args[argidx] == "-sim_dir" && argidx+1 < args.size()) {
+				global_args.sim_directory.set(args[++argidx], argparse::Provenance::SPECIFIED);
 				continue;
 			}
 		}
@@ -1086,35 +1103,7 @@ struct OdinoPass : public Pass {
 		log("--------------------------------------------------------------------\n");
     	log("High-level Synthesis Begin\n");
 
-    	/* Performing elaboration for input digital circuits */
-		/* elaborate() */
-		
-		// double elaboration_time = wall_time();
-		/* Perform any initialization routines here */
-    	// find_hard_multipliers();
-    	// find_hard_adders();
-    	// //find_hard_adders_for_sub();
-    	// register_hard_blocks();
-
 		netlist_t* transformed = to_netlist(design->top_module(), design);
-
-		// configuration.output_netlist_graphs = true;
-		// check_netlist(transformed);
-		// graphVizOutputNetlist(configuration.debug_output_path, "before", 1, transformed);
-
-		// log("Elaborating the netlist created from the input (new_node->type == NO_OP)BLIF file\n");
-    	//blif_elaborate_top(transformed);
-		        /* do the elaboration without any larger structures identified */
-        // depth_first_traversal_to_blif_elaborate(BLIF_ELABORATE_TRAVERSE_VALUE, transformed);
-
-		// GenericWriter before_writer = GenericWriter();
-		// before_writer._create_file("before.blif", _BLIF);
-		// before_writer._write(transformed);
-
-		// elaboration_time = wall_time() - elaboration_time;
-    	// log("\nElaboration Time: ");
-    	// log_time(elaboration_time);
-    	// log("\n--------------------------------------------------------------------\n");
 
 		/* Performing elaboration for input digital circuits */
     	try {
@@ -1131,44 +1120,6 @@ struct OdinoPass : public Pass {
     	} catch (vtr::VtrError& vtr_error) {
         	log_error("Odin-II Failed to perform netlist optimization %s with exit code:%d \n", vtr_error.what(), ERROR_OPTIMIZATION);
     	}
-		
-
-		//START ################# NETLIST OPTIMIZATION ############################
-
-        /* point for all netlist optimizations. */
-        // log("Performing Optimization on the Netlist\n");
-        // if (hard_multipliers) {
-        //     /* Perform a splitting of the multipliers for hard block mults */
-        //     reduce_operations(transformed, MULTIPLY);
-        //     iterate_multipliers(transformed);
-        //     clean_multipliers();
-        // }
-
-        // if (block_memories_info.read_only_memory_list || block_memories_info.block_memory_list) {
-        //     /* Perform a hard block registration and splitting in width for Yosys generated memory blocks */
-        //     iterate_block_memories(transformed);
-        //     free_block_memories();
-        // }
-
-        // if (single_port_rams || dual_port_rams) {
-        //     /* Perform a splitting of any hard block memories */
-        //     iterate_memories(transformed);
-        //     free_memory_lists();
-        // }
-
-        // if (hard_adders) {
-        //     /* Perform a splitting of the adders for hard block add */
-        //     reduce_operations(transformed, ADD);
-        //     iterate_adders(transformed);
-        //     clean_adders();
-
-        //     /* Perform a splitting of the adders for hard block sub */
-        //     reduce_operations(transformed, MINUS);
-        //     iterate_adders_for_sub(transformed);
-        //     clean_adders_for_sub();
-        // }
-
-        //END ################# NETLIST OPTIMIZATION ############################
 
 		/* Performaing partial tech. map to the target device */
     	try {
@@ -1200,7 +1151,7 @@ struct OdinoPass : public Pass {
 
 		// print_netlist_for_checking(transformed, "after");
 
-		printf("Writing Netlist to BLIF file\n");
+		log("Writing Netlist to BLIF file\n");
 
 		GenericWriter after_writer = GenericWriter();
 		after_writer._create_file(odin_mapped_blif_output.c_str(), _BLIF);
@@ -1236,24 +1187,22 @@ struct OdinoPass : public Pass {
 				GenericReader generic_reader = GenericReader();
             	sim_netlist = static_cast<netlist_t*>(generic_reader._read());
         	} catch (vtr::VtrError& vtr_error) {
-            	printf("Odin Failed to load BLIF file: %s with exit code:%d \n", vtr_error.what(), ERROR_PARSE_BLIF);
-            	exit(ERROR_PARSE_BLIF);
+            	log_error("Odin Failed to load BLIF file: %s with exit code:%d \n", vtr_error.what(), ERROR_PARSE_BLIF);
         	}
 			
 			/* Simulate netlist */
 	    	if (sim_netlist && !global_args.interactive_simulation
     	    	&& (global_args.sim_num_test_vectors || (global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED))) {
-        		printf("Netlist Simulation Begin\n");
+        		log("Netlist Simulation Begin\n");
         		// create_directory(global_args.sim_directory);
 
         		simulate_netlist(sim_netlist);
     		}
 
     		compute_statistics(sim_netlist, true);
+
+			printf("--------------------------------------------------------------------\n");
     	}
-
-
-
 
 		free_netlist(transformed);
 		free_arch(&Arch);
