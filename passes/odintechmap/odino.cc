@@ -1019,7 +1019,7 @@ struct OdinoPass : public Pass {
 			global_args.sim_hold_high.set(sim_hold_high, argparse::Provenance::SPECIFIED);
 		}
 
-		global_args.sim_directory.set(".", argparse::Provenance::SPECIFIED);
+		// global_args.sim_directory.set(".", argparse::Provenance::SPECIFIED);
 
 		//adjust thread count
     	int thread_requested = global_args.parralelized_simulation;
