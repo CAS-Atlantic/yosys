@@ -910,6 +910,9 @@ struct OdinoPass : public Pass {
 		log("    -T OUTPUT_VECTOR_FILE\n");
 		log("        File of predefined output vectors to check against simulation\n");
 		log("\n");
+		log("    -j PARALEL_NODE_COUNT\n");
+		log("        Number of threads allowed for simulator to use, by default 1\n");
+		log("\n");
 		log("    -sim_dir SIMULATION_DIRECTORY\n");
 		log("        Directory output for simulation, if not specified current directory will be used by default\n");
 		log("\n");
@@ -997,6 +1000,10 @@ struct OdinoPass : public Pass {
 				global_args.sim_vector_output_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
 				continue;
 			}
+			if (args[argidx] == "-j" && argidx+1 < args.size()) {
+				global_args.parralelized_simulation.set(atoi(args[++argidx].c_str()), argparse::Provenance::SPECIFIED);
+				continue;
+			}
 			if (args[argidx] == "-sim_dir" && argidx+1 < args.size()) {
 				global_args.sim_directory.set(args[++argidx], argparse::Provenance::SPECIFIED);
 				continue;
@@ -1013,6 +1020,13 @@ struct OdinoPass : public Pass {
 		}
 
 		global_args.sim_directory.set(".", argparse::Provenance::SPECIFIED);
+
+		//adjust thread count
+    	int thread_requested = global_args.parralelized_simulation;
+    	int max_thread = std::thread::hardware_concurrency();
+
+    	global_args.parralelized_simulation.set(
+        std::max(1, std::min(thread_requested, std::min((CONCURENCY_LIMIT - 1), max_thread))), argparse::Provenance::SPECIFIED);
 
 		// design->sort();
 
@@ -1167,7 +1181,6 @@ struct OdinoPass : public Pass {
 		/*************************************************************
      	* begin simulation section
      	*/
-	    global_args.parralelized_simulation.set(1, argparse::Provenance::SPECIFIED);
 	 	global_args.blif_file.set(odin_mapped_blif_output, argparse::Provenance::SPECIFIED);
     	netlist_t* sim_netlist = NULL;
     	if ((global_args.blif_file.provenance() == argparse::Provenance::SPECIFIED && !coarsen_cleanup)
@@ -1194,7 +1207,7 @@ struct OdinoPass : public Pass {
 	    	if (sim_netlist && !global_args.interactive_simulation
     	    	&& (global_args.sim_num_test_vectors || (global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED))) {
         		log("Netlist Simulation Begin\n");
-        		// create_directory(global_args.sim_directory);
+        		create_directory(global_args.sim_directory);
 
         		simulate_netlist(sim_netlist);
     		}
