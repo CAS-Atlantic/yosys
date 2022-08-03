@@ -1067,11 +1067,11 @@ function sim() {
 
 					yosys_synthesis_command="tee -a ${DIR}/${synthesis_log_file_name} odino
 										${arch_cmd}
+										${_synthesis_params}
 										-v ${input_verilog_file}
 										-o ${generated_blif_file}"
 
 					synthesis_command="${YOSYS_EXEC}
-										${_synthesis_params}
 										${DIR}/${yosys_synthesis_script_file_name}"
 
 					_echo_args "${wrapper_command}"	\

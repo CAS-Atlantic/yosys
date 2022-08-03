@@ -197,19 +197,20 @@
     },
     "syntax/basic_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/basic_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "basic_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "basic_expression_in_function_port.v:20 syntax error, unexpected '.'", 
+            "basic_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
     "syntax/basic_expression_in_function_port/no_arch": {
         "test_name": "syntax/basic_expression_in_function_port/no_arch",
         "verilog": "basic_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "basic_expression_in_function_port.v:20 syntax error, unexpected '.'", 
+            "basic_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
     "syntax/basic_expression_in_module_port/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -251,36 +252,38 @@
     },
     "syntax/basic_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/basic_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "basic_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "basic_expression_in_task_port.v:12 syntax error, unexpected '.'", 
+            "basic_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
     "syntax/basic_expression_in_task_port/no_arch": {
         "test_name": "syntax/basic_expression_in_task_port/no_arch",
         "verilog": "basic_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "basic_expression_in_task_port.v:12 syntax error, unexpected '.'", 
+            "basic_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
     "syntax/bitwise_op_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bitwise_op_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bitwise_op_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'", 
+            "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'"
         ]
     },
     "syntax/bitwise_op_expression_in_function_port/no_arch": {
         "test_name": "syntax/bitwise_op_expression_in_function_port/no_arch",
         "verilog": "bitwise_op_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'", 
+            "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'"
         ]
     },
     "syntax/bitwise_op_expression_in_module_port/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -322,19 +325,20 @@
     },
     "syntax/bitwise_op_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bitwise_op_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bitwise_op_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'", 
+            "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
     "syntax/bitwise_op_expression_in_task_port/no_arch": {
         "test_name": "syntax/bitwise_op_expression_in_task_port/no_arch",
         "verilog": "bitwise_op_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'", 
+            "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
     "syntax/bm_dag5_mod/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -606,36 +610,38 @@
     },
     "syntax/bm_function_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bm_function_1/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_function_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Multiple edge sensitive events found for this signal!", 
+            "Multiple edge sensitive events found for this signal!"
         ]
     },
     "syntax/bm_function_1/no_arch": {
         "test_name": "syntax/bm_function_1/no_arch",
         "verilog": "bm_function_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Multiple edge sensitive events found for this signal!", 
+            "Multiple edge sensitive events found for this signal!"
         ]
     },
     "syntax/bm_function_2/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bm_function_2/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_function_2.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Multiple edge sensitive events found for this signal!", 
+            "Multiple edge sensitive events found for this signal!"
         ]
     },
     "syntax/bm_function_2/no_arch": {
         "test_name": "syntax/bm_function_2/no_arch",
         "verilog": "bm_function_2.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Multiple edge sensitive events found for this signal!", 
+            "Multiple edge sensitive events found for this signal!"
         ]
     },
     "syntax/bm_jk_rtl/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -900,19 +906,20 @@
     },
     "syntax/conditional_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/conditional_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "conditional_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'",
+            "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/conditional_expression_in_function_port/no_arch": {
         "test_name": "syntax/conditional_expression_in_function_port/no_arch",
         "verilog": "conditional_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'", 
+            "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/conditional_expression_in_module_port/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -954,19 +961,20 @@
     },
     "syntax/conditional_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/conditional_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "conditional_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'", 
+            "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
     "syntax/conditional_expression_in_task_port/no_arch": {
         "test_name": "syntax/conditional_expression_in_task_port/no_arch",
         "verilog": "conditional_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'", 
+            "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
     "syntax/constant_module_inst/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -1007,19 +1015,20 @@
     },
     "syntax/deassign/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/deassign/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "deassign.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "deassign.v:19 syntax error, unexpected TOK_ASSIGN", 
+            "deassign.v:19 syntax error, unexpected TOK_ASSIGN"
         ]
     },
     "syntax/deassign/no_arch": {
         "test_name": "syntax/deassign/no_arch",
         "verilog": "deassign.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "deassign.v:19 syntax error, unexpected TOK_ASSIGN", 
+            "deassign.v:19 syntax error, unexpected TOK_ASSIGN"
         ]
     },
     "syntax/delay_syntax/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -1183,19 +1192,20 @@
     },
     "syntax/fir_scu_rtl_restructured_for_cmm_exp/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/fir_scu_rtl_restructured_for_cmm_exp/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "fir_scu_rtl_restructured_for_cmm_exp.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID", 
+            "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID"
         ]
     },
     "syntax/fir_scu_rtl_restructured_for_cmm_exp/no_arch": {
         "test_name": "syntax/fir_scu_rtl_restructured_for_cmm_exp/no_arch",
         "verilog": "fir_scu_rtl_restructured_for_cmm_exp.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID", 
+            "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID"
         ]
     },
     "syntax/flip_flop_enable/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -1765,45 +1775,47 @@
     },
     "syntax/instantiated_by_name_function_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_function_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_function_invalid_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/instantiated_by_name_function_invalid_1/no_arch": {
         "test_name": "syntax/instantiated_by_name_function_invalid_1/no_arch",
         "verilog": "instantiated_by_name_function_invalid_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'"        
         ]
     },
     "syntax/instantiated_by_name_function_invalid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_function_invalid/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_function_invalid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/instantiated_by_name_function_invalid/no_arch": {
         "test_name": "syntax/instantiated_by_name_function_invalid/no_arch",
         "verilog": "instantiated_by_name_function_invalid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/instantiated_by_name_function_valid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_function_valid/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_function_valid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 66.2,
         "exec_time(ms)": 164.4,
@@ -1815,9 +1827,10 @@
     "syntax/instantiated_by_name_function_valid/no_arch": {
         "test_name": "syntax/instantiated_by_name_function_valid/no_arch",
         "verilog": "instantiated_by_name_function_valid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 45.9,
         "exec_time(ms)": 74.5,
@@ -1828,45 +1841,47 @@
     },
     "syntax/instantiated_by_name_task_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_task_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_task_invalid_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/instantiated_by_name_task_invalid_1/no_arch": {
         "test_name": "syntax/instantiated_by_name_task_invalid_1/no_arch",
         "verilog": "instantiated_by_name_task_invalid_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/instantiated_by_name_task_invalid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_task_invalid/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_task_invalid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/instantiated_by_name_task_invalid/no_arch": {
         "test_name": "syntax/instantiated_by_name_task_invalid/no_arch",
         "verilog": "instantiated_by_name_task_invalid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
     "syntax/instantiated_by_name_task_valid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_task_valid/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_task_valid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 60.1,
         "exec_time(ms)": 153.6,
@@ -1878,9 +1893,10 @@
     "syntax/instantiated_by_name_task_valid/no_arch": {
         "test_name": "syntax/instantiated_by_name_task_valid/no_arch",
         "verilog": "instantiated_by_name_task_valid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'", 
+            "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 39.4,
         "exec_time(ms)": 53,
@@ -1891,62 +1907,65 @@
     },
     "syntax/instantiating_by_name_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_invalid_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
     "syntax/instantiating_by_name_invalid_1/no_arch": {
         "test_name": "syntax/instantiating_by_name_invalid_1/no_arch",
         "verilog": "instantiating_by_name_invalid_1.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
     "syntax/instantiating_by_name_invalid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_invalid/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_invalid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
     "syntax/instantiating_by_name_invalid_mix_ports/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_invalid_mix_ports/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_invalid_mix_ports.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports.", 
+            "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports."
         ]
     },
     "syntax/instantiating_by_name_invalid_mix_ports/no_arch": {
         "test_name": "syntax/instantiating_by_name_invalid_mix_ports/no_arch",
         "verilog": "instantiating_by_name_invalid_mix_ports.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports.", 
+            "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports."
         ]
     },
     "syntax/instantiating_by_name_invalid/no_arch": {
         "test_name": "syntax/instantiating_by_name_invalid/no_arch",
         "verilog": "instantiating_by_name_invalid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
+            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
     "syntax/instantiating_by_name_valid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_valid/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_valid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header.", 
+            "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header."
         ],
         "max_rss(MiB)": 64.3,
         "exec_time(ms)": 161.1,
@@ -1958,9 +1977,10 @@
     "syntax/instantiating_by_name_valid/no_arch": {
         "test_name": "syntax/instantiating_by_name_valid/no_arch",
         "verilog": "instantiating_by_name_valid.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header.", 
+            "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header."
         ],
         "max_rss(MiB)": 43.7,
         "exec_time(ms)": 84.9,
@@ -2047,19 +2067,20 @@
     },
     "syntax/matrix_multiplication/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/matrix_multiplication/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "matrix_multiplication.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Multiple edge sensitive events found for this signal!", 
+            "Multiple edge sensitive events found for this signal!"
         ]
     },
     "syntax/matrix_multiplication/no_arch": {
         "test_name": "syntax/matrix_multiplication/no_arch",
         "verilog": "matrix_multiplication.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Multiple edge sensitive events found for this signal!", 
+            "Multiple edge sensitive events found for this signal!"
         ]
     },
     "syntax/memlooptesting/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -2147,19 +2168,20 @@
     },
     "syntax/mix_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/mix_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "mix_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "mix_expression_in_function_port.v:20 syntax error, unexpected '.'", 
+            "mix_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
     "syntax/mix_expression_in_function_port/no_arch": {
         "test_name": "syntax/mix_expression_in_function_port/no_arch",
         "verilog": "mix_expression_in_function_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "mix_expression_in_function_port.v:20 syntax error, unexpected '.'", 
+            "mix_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
     "syntax/mix_expression_in_module_port/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -2238,19 +2260,20 @@
     },
     "syntax/mix_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/mix_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "mix_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "mix_expression_in_task_port.v:11 syntax error, unexpected '.'", 
+            "mix_expression_in_task_port.v:11 syntax error, unexpected '.'"
         ]
     },
     "syntax/mix_expression_in_task_port/no_arch": {
         "test_name": "syntax/mix_expression_in_task_port/no_arch",
         "verilog": "mix_expression_in_task_port.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "mix_expression_in_task_port.v:11 syntax error, unexpected '.'", 
+            "mix_expression_in_task_port.v:11 syntax error, unexpected '.'"
         ]
     },
     "syntax/multi_assignment/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -2616,53 +2639,56 @@
     },
     "syntax/preprocessor_complex_define/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/preprocessor_complex_define/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "preprocessor_complex_define.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num.", 
+            "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
     "syntax/preprocessor_complex_define/no_arch": {
         "test_name": "syntax/preprocessor_complex_define/no_arch",
         "verilog": "preprocessor_complex_define.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num.", 
+            "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
     "syntax/preprocessor_define/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/preprocessor_define/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "preprocessor_define.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num.",
+            "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
     "syntax/preprocessor_define/no_arch": {
         "test_name": "syntax/preprocessor_define/no_arch",
         "verilog": "preprocessor_define.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num.",
+            "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
     "syntax/preprocessor_define_with_comment/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/preprocessor_define_with_comment/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "preprocessor_define_with_comment.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num.",
+            "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
     "syntax/preprocessor_define_with_comment/no_arch": {
         "test_name": "syntax/preprocessor_define_with_comment/no_arch",
         "verilog": "preprocessor_define_with_comment.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num.",
+            "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
     "syntax/rs_decoder_1/k6_frac_N10_frac_chain_mem32K_40nm": {
@@ -3041,19 +3067,20 @@
     },
     "syntax/top_and/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/top_and/k6_frac_N10_frac_chain_mem32K_40nm",
-        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "top_and.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design.", 
+            "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design."
         ]
     },
     "syntax/top_and/no_arch": {
         "test_name": "syntax/top_and/no_arch",
         "verilog": "top_and.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design.", 
+            "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design."
         ]
     },
     "syntax/unconnected_input/k6_frac_N10_frac_chain_mem32K_40nm": {

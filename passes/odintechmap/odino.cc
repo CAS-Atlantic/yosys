@@ -920,6 +920,9 @@ struct OdinoPass : public Pass {
 		log("    -sim_dir SIMULATION_DIRECTORY\n");
 		log("        Directory output for simulation, if not specified current directory will be used by default\n");
 		log("\n");
+		log("    -fflegalize\n");
+		log("        Make all flip-flops rising edge to be compatible with VPR (may add inverters)\n");
+		log("\n");
 	}
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
 	{
@@ -1028,6 +1031,10 @@ struct OdinoPass : public Pass {
 			}
 			if (args[argidx] == "-b" && argidx+1 < args.size()) {
 				global_args.blif_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
+				continue;
+			}
+			if (args[argidx] == "-fflegalize") {
+				configuration.fflegalize = true;
 				continue;
 			}
 		}
