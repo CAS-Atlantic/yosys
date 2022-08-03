@@ -923,6 +923,12 @@ struct OdinoPass : public Pass {
 		log("    -fflegalize\n");
 		log("        Make all flip-flops rising edge to be compatible with VPR (may add inverters)\n");
 		log("\n");
+		log("    -exact_mults int_value\n");
+		log("        To enable mixing hard block and soft logic implementation of adders\n");
+		log("\n");
+		log("    -mults_ratio float_value\n");
+		log("        To enable mixing hard block and soft logic implementation of adders\n");
+		log("\n");
 	}
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
 	{
@@ -944,6 +950,9 @@ struct OdinoPass : public Pass {
 		std::string DEFAULT_OUTPUT(".");
 		
 		global_args.sim_directory.set(DEFAULT_OUTPUT, argparse::Provenance::DEFAULT);
+
+		global_args.exact_mults.set(-1, argparse::Provenance::DEFAULT);
+		global_args.mults_ratio.set(-1.0, argparse::Provenance::DEFAULT);
 		
 		log_header(design, "Starting odintechmap pass.\n");
 
@@ -1037,6 +1046,14 @@ struct OdinoPass : public Pass {
 				configuration.fflegalize = true;
 				continue;
 			}
+			if (args[argidx] == "-exact_mults" && argidx+1 < args.size()) {
+				global_args.exact_mults.set(atoi(args[++argidx].c_str()), argparse::Provenance::SPECIFIED);
+				continue;
+			}
+			if (args[argidx] == "-mults_ratio" && argidx+1 < args.size()) {
+				global_args.mults_ratio.set(atof(args[++argidx].c_str()), argparse::Provenance::SPECIFIED);
+				continue;
+			}
 		}
 		extra_args(args, argidx, design);
 
@@ -1054,6 +1071,8 @@ struct OdinoPass : public Pass {
 
     	global_args.parralelized_simulation.set(
         std::max(1, std::min(thread_requested, std::min((CONCURENCY_LIMIT - 1), max_thread))), argparse::Provenance::SPECIFIED);
+
+
 
 		// design->sort();
 
@@ -1123,6 +1142,15 @@ struct OdinoPass : public Pass {
 
 		mixer = new HardSoftLogicMixer();
 		set_default_config();
+
+		if (global_args.mults_ratio >= 0.0 && global_args.mults_ratio <= 1.0) {
+        	delete mixer->_opts[MULTIPLY];
+        	mixer->_opts[MULTIPLY] = new MultsOpt(global_args.mults_ratio);
+    	} else if (global_args.exact_mults >= 0) {
+        	delete mixer->_opts[MULTIPLY];
+        	mixer->_opts[MULTIPLY] = new MultsOpt(global_args.exact_mults);
+    	}
+
 		configuration.coarsen = true;
 
 		/* read the confirguration file ??? */
