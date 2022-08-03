@@ -54,6 +54,8 @@
 #include "arch_util.h"
 #include "read_xml_config_file.h"
 
+#include "Verilog.hpp"
+
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
 
@@ -1147,12 +1149,27 @@ struct OdinoPass : public Pass {
 			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
 		}
 
-		// dsp
+		// ********* start dsp handling ************
+		Verilog::Writer vw = Verilog::Writer();
+    	vw._create_file(configuration.dsp_verilog.c_str());
+
+    	t_model* hb = Arch.models;
+    	while (hb) {
+        	// declare hardblocks in a verilog file
+        	if (strcmp(hb->name, SINGLE_PORT_RAM_string) && strcmp(hb->name, DUAL_PORT_RAM_string) && strcmp(hb->name, "multiply") && strcmp(hb->name, "adder"))
+            	vw.declare_blackbox(hb->name);
+
+        	hb = hb->next;
+    	}
+
+    	vw._write(NULL);
+    	run_pass(std::string("read_verilog -nomem2reg " + configuration.dsp_verilog));
+		// ********* finished dsp handling ************
 
 		if (flag_read_verilog_input) {
 			log("Verilog: %s\n", vtr::basename(verilog_input_path).c_str());
 			run_pass("read_verilog -sv -nolatches " + verilog_input_path);
-			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/arch_dsp.v");
+			// run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/arch_dsp.v");
 		}
 
 		if (top_module_name.empty()) {
