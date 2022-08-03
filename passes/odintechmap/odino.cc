@@ -52,6 +52,7 @@
 #include "netlist_cleanup.h"
 #include "netlist_statistic.h"
 #include "arch_util.h"
+#include "read_xml_config_file.h"
 
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
@@ -880,6 +881,9 @@ struct OdinoPass : public Pass {
 		log("    -a ARCHITECTURE_FILE\n");
 		log("        VTR FPGA architecture description file (XML)\n");
 		log("\n");
+		log("    -c XML_CONFIGURATION_FILE\n");
+		log("        Configuration file\n");
+		log("\n");
 		log("    -info\n");
 		log("        shows available hardblocks inside the architecture file\n");
 		log("\n");
@@ -933,6 +937,7 @@ struct OdinoPass : public Pass {
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
 	{
 		bool flag_arch_file = false;
+		bool flag_config_file = false;
 		bool flag_arch_info = false;
 		bool flag_simple_map = true;
 		bool flag_no_pass = false;
@@ -941,6 +946,7 @@ struct OdinoPass : public Pass {
 		bool flag_sim_hold_low = false;
 		bool flag_sim_hold_high = false;
 		std::string arch_file_path;
+		std::string config_file_path;
 		std::string top_module_name;
 		std::string yosys_coarsen_blif_output("yosys_coarsen.blif");
 		std::string odin_mapped_blif_output("odin_mapped.blif");
@@ -962,6 +968,11 @@ struct OdinoPass : public Pass {
 			if (args[argidx] == "-a" && argidx+1 < args.size()) {
 				arch_file_path = args[++argidx];
 				flag_arch_file = true;
+				continue;
+			}
+			if (args[argidx] == "-c" && argidx+1 < args.size()) {
+				config_file_path = args[++argidx];
+				flag_config_file = true;
 				continue;
 			}
 			if (args[argidx] == "-info") {
@@ -1153,7 +1164,15 @@ struct OdinoPass : public Pass {
 
 		configuration.coarsen = true;
 
-		/* read the confirguration file ??? */
+		/* read the confirguration file .. get options presets the config values just in case theyr'e not read in with config file */
+    	if (flag_config_file) {
+        	log("Reading Configuration file\n");
+        	try {
+            	read_config_file(config_file_path.c_str());
+        	} catch (vtr::VtrError& vtr_error) {
+            	log_error("Odin Failed Reading Configuration file %s with exit code%d\n", vtr_error.what(), ERROR_PARSE_CONFIG);
+        	}
+    	}
 
 		if (flag_arch_file) {
 			log("Architecture: %s\n", vtr::basename(arch_file_path).c_str());

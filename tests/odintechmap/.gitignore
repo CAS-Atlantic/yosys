@@ -1,2 +1,4 @@
 regression_test/run*
 regression_test/latest
+yosys_coarsen.blif
+odin_mapped.blif
