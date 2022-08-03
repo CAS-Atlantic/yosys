@@ -1,0 +1,24 @@
+[00000.000000] 
+[00000.000039]  /----------------------------------------------------------------------------\
+[00000.000067]  |                                                                            |
+[00000.000082]  |  yosys -- Yosys Open SYnthesis Suite                                       |
+[00000.000089]  |                                                                            |
+[00000.000095]  |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+[00000.000101]  |                                                                            |
+[00000.000107]  |  Permission to use, copy, modify, and/or distribute this software for any  |
+[00000.000113]  |  purpose with or without fee is hereby granted, provided that the above    |
+[00000.000119]  |  copyright notice and this permission notice appear in all copies.         |
+[00000.000125]  |                                                                            |
+[00000.000131]  |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+[00000.000137]  |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+[00000.000143]  |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+[00000.000150]  |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+[00000.000156]  |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+[00000.000162]  |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+[00000.000167]  |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+[00000.000176]  |                                                                            |
+[00000.000184]  \----------------------------------------------------------------------------/
+[00000.000193] 
+[00000.000203]  Yosys 0.9+4254 (git sha1 d02c8e2e2, clang 10.0.0-4ubuntu1 -fPIC -Os)
+[00000.000212] 
+[00000.003144] ERROR: Can't guess frontend for input file `100' (missing -f option)!

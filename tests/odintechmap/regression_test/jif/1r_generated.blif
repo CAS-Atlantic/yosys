@@ -1,0 +1,1439 @@
+.model twoR_twoW
+.inputs twoR_twoW^clock twoR_twoW^addr1~0 twoR_twoW^addr1~1 twoR_twoW^addr1~2 twoR_twoW^addr1~3
+.outputs twoR_twoW^rd_data1~0 twoR_twoW^rd_data1~1 twoR_twoW^rd_data1~2 twoR_twoW^rd_data1~3 twoR_twoW^rd_data1~4 twoR_twoW^rd_data1~5 twoR_twoW^rd_data1~6 twoR_twoW^rd_data1~7
+
+.names gnd
+.names unconn
+.names vcc
+1
+
+.names single_port_ram^MEM~1^lAND~6 gnd single_port_ram^MEM~1^lAND~22
+11 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~40
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~40 unconn single_port_ram^MEM~1^FF~41 single_port_ram^MEM~1^MUX_2~39
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~39 single_port_ram^MEM~1^FF~41 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~41 single_port_ram^MEM~1^FF~44 single_port_ram^MEM~1^FF~47 single_port_ram^MEM~1^FF~50 single_port_ram^MEM~1^FF~53 single_port_ram^MEM~1^FF~56 single_port_ram^MEM~1^FF~59 single_port_ram^MEM~1^FF~62 single_port_ram^MEM~1^FF~65 single_port_ram^MEM~1^FF~68 single_port_ram^MEM~1^FF~71 single_port_ram^MEM~1^FF~74 single_port_ram^MEM~1^FF~77 single_port_ram^MEM~1^FF~80 single_port_ram^MEM~1^FF~83 single_port_ram^MEM~1^FF~86 single_port_ram^MEM~1^nMUX~38^MUX_2~87
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~90
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~90 unconn single_port_ram^MEM~1^FF~91 single_port_ram^MEM~1^MUX_2~89
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~89 single_port_ram^MEM~1^FF~91 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~91 single_port_ram^MEM~1^FF~94 single_port_ram^MEM~1^FF~97 single_port_ram^MEM~1^FF~100 single_port_ram^MEM~1^FF~103 single_port_ram^MEM~1^FF~106 single_port_ram^MEM~1^FF~109 single_port_ram^MEM~1^FF~112 single_port_ram^MEM~1^FF~115 single_port_ram^MEM~1^FF~118 single_port_ram^MEM~1^FF~121 single_port_ram^MEM~1^FF~124 single_port_ram^MEM~1^FF~127 single_port_ram^MEM~1^FF~130 single_port_ram^MEM~1^FF~133 single_port_ram^MEM~1^FF~136 single_port_ram^MEM~1^nMUX~88^MUX_2~137
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~140
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~140 unconn single_port_ram^MEM~1^FF~141 single_port_ram^MEM~1^MUX_2~139
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~139 single_port_ram^MEM~1^FF~141 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~141 single_port_ram^MEM~1^FF~144 single_port_ram^MEM~1^FF~147 single_port_ram^MEM~1^FF~150 single_port_ram^MEM~1^FF~153 single_port_ram^MEM~1^FF~156 single_port_ram^MEM~1^FF~159 single_port_ram^MEM~1^FF~162 single_port_ram^MEM~1^FF~165 single_port_ram^MEM~1^FF~168 single_port_ram^MEM~1^FF~171 single_port_ram^MEM~1^FF~174 single_port_ram^MEM~1^FF~177 single_port_ram^MEM~1^FF~180 single_port_ram^MEM~1^FF~183 single_port_ram^MEM~1^FF~186 single_port_ram^MEM~1^nMUX~138^MUX_2~187
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~190
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~190 unconn single_port_ram^MEM~1^FF~191 single_port_ram^MEM~1^MUX_2~189
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~189 single_port_ram^MEM~1^FF~191 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~191 single_port_ram^MEM~1^FF~194 single_port_ram^MEM~1^FF~197 single_port_ram^MEM~1^FF~200 single_port_ram^MEM~1^FF~203 single_port_ram^MEM~1^FF~206 single_port_ram^MEM~1^FF~209 single_port_ram^MEM~1^FF~212 single_port_ram^MEM~1^FF~215 single_port_ram^MEM~1^FF~218 single_port_ram^MEM~1^FF~221 single_port_ram^MEM~1^FF~224 single_port_ram^MEM~1^FF~227 single_port_ram^MEM~1^FF~230 single_port_ram^MEM~1^FF~233 single_port_ram^MEM~1^FF~236 single_port_ram^MEM~1^nMUX~188^MUX_2~237
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~240
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~240 unconn single_port_ram^MEM~1^FF~241 single_port_ram^MEM~1^MUX_2~239
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~239 single_port_ram^MEM~1^FF~241 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~241 single_port_ram^MEM~1^FF~244 single_port_ram^MEM~1^FF~247 single_port_ram^MEM~1^FF~250 single_port_ram^MEM~1^FF~253 single_port_ram^MEM~1^FF~256 single_port_ram^MEM~1^FF~259 single_port_ram^MEM~1^FF~262 single_port_ram^MEM~1^FF~265 single_port_ram^MEM~1^FF~268 single_port_ram^MEM~1^FF~271 single_port_ram^MEM~1^FF~274 single_port_ram^MEM~1^FF~277 single_port_ram^MEM~1^FF~280 single_port_ram^MEM~1^FF~283 single_port_ram^MEM~1^FF~286 single_port_ram^MEM~1^nMUX~238^MUX_2~287
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~290
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~290 unconn single_port_ram^MEM~1^FF~291 single_port_ram^MEM~1^MUX_2~289
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~289 single_port_ram^MEM~1^FF~291 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~291 single_port_ram^MEM~1^FF~294 single_port_ram^MEM~1^FF~297 single_port_ram^MEM~1^FF~300 single_port_ram^MEM~1^FF~303 single_port_ram^MEM~1^FF~306 single_port_ram^MEM~1^FF~309 single_port_ram^MEM~1^FF~312 single_port_ram^MEM~1^FF~315 single_port_ram^MEM~1^FF~318 single_port_ram^MEM~1^FF~321 single_port_ram^MEM~1^FF~324 single_port_ram^MEM~1^FF~327 single_port_ram^MEM~1^FF~330 single_port_ram^MEM~1^FF~333 single_port_ram^MEM~1^FF~336 single_port_ram^MEM~1^nMUX~288^MUX_2~337
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~340
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~340 unconn single_port_ram^MEM~1^FF~341 single_port_ram^MEM~1^MUX_2~339
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~339 single_port_ram^MEM~1^FF~341 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~341 single_port_ram^MEM~1^FF~344 single_port_ram^MEM~1^FF~347 single_port_ram^MEM~1^FF~350 single_port_ram^MEM~1^FF~353 single_port_ram^MEM~1^FF~356 single_port_ram^MEM~1^FF~359 single_port_ram^MEM~1^FF~362 single_port_ram^MEM~1^FF~365 single_port_ram^MEM~1^FF~368 single_port_ram^MEM~1^FF~371 single_port_ram^MEM~1^FF~374 single_port_ram^MEM~1^FF~377 single_port_ram^MEM~1^FF~380 single_port_ram^MEM~1^FF~383 single_port_ram^MEM~1^FF~386 single_port_ram^MEM~1^nMUX~338^MUX_2~387
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~390
+0 1
+
+.names single_port_ram^MEM~1^lAND~22 single_port_ram^MEM~1^lNOT~390 unconn single_port_ram^MEM~1^FF~391 single_port_ram^MEM~1^MUX_2~389
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~389 single_port_ram^MEM~1^FF~391 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~6 single_port_ram^MEM~1^lAND~7 single_port_ram^MEM~1^lAND~8 single_port_ram^MEM~1^lAND~9 single_port_ram^MEM~1^lAND~10 single_port_ram^MEM~1^lAND~11 single_port_ram^MEM~1^lAND~12 single_port_ram^MEM~1^lAND~13 single_port_ram^MEM~1^lAND~14 single_port_ram^MEM~1^lAND~15 single_port_ram^MEM~1^lAND~16 single_port_ram^MEM~1^lAND~17 single_port_ram^MEM~1^lAND~18 single_port_ram^MEM~1^lAND~19 single_port_ram^MEM~1^lAND~20 single_port_ram^MEM~1^lAND~21 single_port_ram^MEM~1^FF~391 single_port_ram^MEM~1^FF~394 single_port_ram^MEM~1^FF~397 single_port_ram^MEM~1^FF~400 single_port_ram^MEM~1^FF~403 single_port_ram^MEM~1^FF~406 single_port_ram^MEM~1^FF~409 single_port_ram^MEM~1^FF~412 single_port_ram^MEM~1^FF~415 single_port_ram^MEM~1^FF~418 single_port_ram^MEM~1^FF~421 single_port_ram^MEM~1^FF~424 single_port_ram^MEM~1^FF~427 single_port_ram^MEM~1^FF~430 single_port_ram^MEM~1^FF~433 single_port_ram^MEM~1^FF~436 single_port_ram^MEM~1^nMUX~388^MUX_2~437
+1---------------1--------------- 1
+-1---------------1-------------- 1
+--1---------------1------------- 1
+---1---------------1------------ 1
+----1---------------1----------- 1
+-----1---------------1---------- 1
+------1---------------1--------- 1
+-------1---------------1-------- 1
+--------1---------------1------- 1
+---------1---------------1------ 1
+----------1---------------1----- 1
+-----------1---------------1---- 1
+------------1---------------1--- 1
+-------------1---------------1-- 1
+--------------1---------------1- 1
+---------------1---------------1 1
+
+.names single_port_ram^MEM~1^lAND~7 gnd single_port_ram^MEM~1^lAND~23
+11 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~43
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~43 unconn single_port_ram^MEM~1^FF~44 single_port_ram^MEM~1^MUX_2~42
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~42 single_port_ram^MEM~1^FF~44 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~93
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~93 unconn single_port_ram^MEM~1^FF~94 single_port_ram^MEM~1^MUX_2~92
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~92 single_port_ram^MEM~1^FF~94 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~143
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~143 unconn single_port_ram^MEM~1^FF~144 single_port_ram^MEM~1^MUX_2~142
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~142 single_port_ram^MEM~1^FF~144 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~193
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~193 unconn single_port_ram^MEM~1^FF~194 single_port_ram^MEM~1^MUX_2~192
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~192 single_port_ram^MEM~1^FF~194 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~243
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~243 unconn single_port_ram^MEM~1^FF~244 single_port_ram^MEM~1^MUX_2~242
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~242 single_port_ram^MEM~1^FF~244 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~293
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~293 unconn single_port_ram^MEM~1^FF~294 single_port_ram^MEM~1^MUX_2~292
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~292 single_port_ram^MEM~1^FF~294 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~343
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~343 unconn single_port_ram^MEM~1^FF~344 single_port_ram^MEM~1^MUX_2~342
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~342 single_port_ram^MEM~1^FF~344 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~393
+0 1
+
+.names single_port_ram^MEM~1^lAND~23 single_port_ram^MEM~1^lNOT~393 unconn single_port_ram^MEM~1^FF~394 single_port_ram^MEM~1^MUX_2~392
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~392 single_port_ram^MEM~1^FF~394 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~8 gnd single_port_ram^MEM~1^lAND~24
+11 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~46
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~46 unconn single_port_ram^MEM~1^FF~47 single_port_ram^MEM~1^MUX_2~45
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~45 single_port_ram^MEM~1^FF~47 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~96
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~96 unconn single_port_ram^MEM~1^FF~97 single_port_ram^MEM~1^MUX_2~95
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~95 single_port_ram^MEM~1^FF~97 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~146
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~146 unconn single_port_ram^MEM~1^FF~147 single_port_ram^MEM~1^MUX_2~145
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~145 single_port_ram^MEM~1^FF~147 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~196
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~196 unconn single_port_ram^MEM~1^FF~197 single_port_ram^MEM~1^MUX_2~195
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~195 single_port_ram^MEM~1^FF~197 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~246
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~246 unconn single_port_ram^MEM~1^FF~247 single_port_ram^MEM~1^MUX_2~245
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~245 single_port_ram^MEM~1^FF~247 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~296
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~296 unconn single_port_ram^MEM~1^FF~297 single_port_ram^MEM~1^MUX_2~295
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~295 single_port_ram^MEM~1^FF~297 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~346
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~346 unconn single_port_ram^MEM~1^FF~347 single_port_ram^MEM~1^MUX_2~345
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~345 single_port_ram^MEM~1^FF~347 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~396
+0 1
+
+.names single_port_ram^MEM~1^lAND~24 single_port_ram^MEM~1^lNOT~396 unconn single_port_ram^MEM~1^FF~397 single_port_ram^MEM~1^MUX_2~395
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~395 single_port_ram^MEM~1^FF~397 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~9 gnd single_port_ram^MEM~1^lAND~25
+11 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~49
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~49 unconn single_port_ram^MEM~1^FF~50 single_port_ram^MEM~1^MUX_2~48
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~48 single_port_ram^MEM~1^FF~50 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~99
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~99 unconn single_port_ram^MEM~1^FF~100 single_port_ram^MEM~1^MUX_2~98
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~98 single_port_ram^MEM~1^FF~100 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~149
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~149 unconn single_port_ram^MEM~1^FF~150 single_port_ram^MEM~1^MUX_2~148
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~148 single_port_ram^MEM~1^FF~150 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~199
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~199 unconn single_port_ram^MEM~1^FF~200 single_port_ram^MEM~1^MUX_2~198
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~198 single_port_ram^MEM~1^FF~200 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~249
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~249 unconn single_port_ram^MEM~1^FF~250 single_port_ram^MEM~1^MUX_2~248
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~248 single_port_ram^MEM~1^FF~250 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~299
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~299 unconn single_port_ram^MEM~1^FF~300 single_port_ram^MEM~1^MUX_2~298
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~298 single_port_ram^MEM~1^FF~300 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~349
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~349 unconn single_port_ram^MEM~1^FF~350 single_port_ram^MEM~1^MUX_2~348
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~348 single_port_ram^MEM~1^FF~350 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~399
+0 1
+
+.names single_port_ram^MEM~1^lAND~25 single_port_ram^MEM~1^lNOT~399 unconn single_port_ram^MEM~1^FF~400 single_port_ram^MEM~1^MUX_2~398
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~398 single_port_ram^MEM~1^FF~400 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~10 gnd single_port_ram^MEM~1^lAND~26
+11 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~52
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~52 unconn single_port_ram^MEM~1^FF~53 single_port_ram^MEM~1^MUX_2~51
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~51 single_port_ram^MEM~1^FF~53 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~102
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~102 unconn single_port_ram^MEM~1^FF~103 single_port_ram^MEM~1^MUX_2~101
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~101 single_port_ram^MEM~1^FF~103 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~152
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~152 unconn single_port_ram^MEM~1^FF~153 single_port_ram^MEM~1^MUX_2~151
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~151 single_port_ram^MEM~1^FF~153 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~202
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~202 unconn single_port_ram^MEM~1^FF~203 single_port_ram^MEM~1^MUX_2~201
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~201 single_port_ram^MEM~1^FF~203 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~252
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~252 unconn single_port_ram^MEM~1^FF~253 single_port_ram^MEM~1^MUX_2~251
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~251 single_port_ram^MEM~1^FF~253 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~302
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~302 unconn single_port_ram^MEM~1^FF~303 single_port_ram^MEM~1^MUX_2~301
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~301 single_port_ram^MEM~1^FF~303 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~352
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~352 unconn single_port_ram^MEM~1^FF~353 single_port_ram^MEM~1^MUX_2~351
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~351 single_port_ram^MEM~1^FF~353 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~402
+0 1
+
+.names single_port_ram^MEM~1^lAND~26 single_port_ram^MEM~1^lNOT~402 unconn single_port_ram^MEM~1^FF~403 single_port_ram^MEM~1^MUX_2~401
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~401 single_port_ram^MEM~1^FF~403 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~11 gnd single_port_ram^MEM~1^lAND~27
+11 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~55
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~55 unconn single_port_ram^MEM~1^FF~56 single_port_ram^MEM~1^MUX_2~54
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~54 single_port_ram^MEM~1^FF~56 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~105
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~105 unconn single_port_ram^MEM~1^FF~106 single_port_ram^MEM~1^MUX_2~104
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~104 single_port_ram^MEM~1^FF~106 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~155
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~155 unconn single_port_ram^MEM~1^FF~156 single_port_ram^MEM~1^MUX_2~154
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~154 single_port_ram^MEM~1^FF~156 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~205
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~205 unconn single_port_ram^MEM~1^FF~206 single_port_ram^MEM~1^MUX_2~204
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~204 single_port_ram^MEM~1^FF~206 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~255
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~255 unconn single_port_ram^MEM~1^FF~256 single_port_ram^MEM~1^MUX_2~254
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~254 single_port_ram^MEM~1^FF~256 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~305
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~305 unconn single_port_ram^MEM~1^FF~306 single_port_ram^MEM~1^MUX_2~304
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~304 single_port_ram^MEM~1^FF~306 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~355
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~355 unconn single_port_ram^MEM~1^FF~356 single_port_ram^MEM~1^MUX_2~354
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~354 single_port_ram^MEM~1^FF~356 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~405
+0 1
+
+.names single_port_ram^MEM~1^lAND~27 single_port_ram^MEM~1^lNOT~405 unconn single_port_ram^MEM~1^FF~406 single_port_ram^MEM~1^MUX_2~404
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~404 single_port_ram^MEM~1^FF~406 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~12 gnd single_port_ram^MEM~1^lAND~28
+11 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~58
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~58 unconn single_port_ram^MEM~1^FF~59 single_port_ram^MEM~1^MUX_2~57
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~57 single_port_ram^MEM~1^FF~59 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~108
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~108 unconn single_port_ram^MEM~1^FF~109 single_port_ram^MEM~1^MUX_2~107
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~107 single_port_ram^MEM~1^FF~109 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~158
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~158 unconn single_port_ram^MEM~1^FF~159 single_port_ram^MEM~1^MUX_2~157
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~157 single_port_ram^MEM~1^FF~159 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~208
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~208 unconn single_port_ram^MEM~1^FF~209 single_port_ram^MEM~1^MUX_2~207
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~207 single_port_ram^MEM~1^FF~209 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~258
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~258 unconn single_port_ram^MEM~1^FF~259 single_port_ram^MEM~1^MUX_2~257
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~257 single_port_ram^MEM~1^FF~259 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~308
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~308 unconn single_port_ram^MEM~1^FF~309 single_port_ram^MEM~1^MUX_2~307
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~307 single_port_ram^MEM~1^FF~309 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~358
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~358 unconn single_port_ram^MEM~1^FF~359 single_port_ram^MEM~1^MUX_2~357
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~357 single_port_ram^MEM~1^FF~359 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~408
+0 1
+
+.names single_port_ram^MEM~1^lAND~28 single_port_ram^MEM~1^lNOT~408 unconn single_port_ram^MEM~1^FF~409 single_port_ram^MEM~1^MUX_2~407
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~407 single_port_ram^MEM~1^FF~409 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~13 gnd single_port_ram^MEM~1^lAND~29
+11 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~61
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~61 unconn single_port_ram^MEM~1^FF~62 single_port_ram^MEM~1^MUX_2~60
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~60 single_port_ram^MEM~1^FF~62 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~111
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~111 unconn single_port_ram^MEM~1^FF~112 single_port_ram^MEM~1^MUX_2~110
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~110 single_port_ram^MEM~1^FF~112 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~161
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~161 unconn single_port_ram^MEM~1^FF~162 single_port_ram^MEM~1^MUX_2~160
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~160 single_port_ram^MEM~1^FF~162 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~211
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~211 unconn single_port_ram^MEM~1^FF~212 single_port_ram^MEM~1^MUX_2~210
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~210 single_port_ram^MEM~1^FF~212 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~261
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~261 unconn single_port_ram^MEM~1^FF~262 single_port_ram^MEM~1^MUX_2~260
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~260 single_port_ram^MEM~1^FF~262 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~311
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~311 unconn single_port_ram^MEM~1^FF~312 single_port_ram^MEM~1^MUX_2~310
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~310 single_port_ram^MEM~1^FF~312 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~361
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~361 unconn single_port_ram^MEM~1^FF~362 single_port_ram^MEM~1^MUX_2~360
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~360 single_port_ram^MEM~1^FF~362 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~411
+0 1
+
+.names single_port_ram^MEM~1^lAND~29 single_port_ram^MEM~1^lNOT~411 unconn single_port_ram^MEM~1^FF~412 single_port_ram^MEM~1^MUX_2~410
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~410 single_port_ram^MEM~1^FF~412 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~14 gnd single_port_ram^MEM~1^lAND~30
+11 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~64
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~64 unconn single_port_ram^MEM~1^FF~65 single_port_ram^MEM~1^MUX_2~63
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~63 single_port_ram^MEM~1^FF~65 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~114
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~114 unconn single_port_ram^MEM~1^FF~115 single_port_ram^MEM~1^MUX_2~113
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~113 single_port_ram^MEM~1^FF~115 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~164
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~164 unconn single_port_ram^MEM~1^FF~165 single_port_ram^MEM~1^MUX_2~163
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~163 single_port_ram^MEM~1^FF~165 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~214
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~214 unconn single_port_ram^MEM~1^FF~215 single_port_ram^MEM~1^MUX_2~213
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~213 single_port_ram^MEM~1^FF~215 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~264
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~264 unconn single_port_ram^MEM~1^FF~265 single_port_ram^MEM~1^MUX_2~263
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~263 single_port_ram^MEM~1^FF~265 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~314
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~314 unconn single_port_ram^MEM~1^FF~315 single_port_ram^MEM~1^MUX_2~313
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~313 single_port_ram^MEM~1^FF~315 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~364
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~364 unconn single_port_ram^MEM~1^FF~365 single_port_ram^MEM~1^MUX_2~363
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~363 single_port_ram^MEM~1^FF~365 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~414
+0 1
+
+.names single_port_ram^MEM~1^lAND~30 single_port_ram^MEM~1^lNOT~414 unconn single_port_ram^MEM~1^FF~415 single_port_ram^MEM~1^MUX_2~413
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~413 single_port_ram^MEM~1^FF~415 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~15 gnd single_port_ram^MEM~1^lAND~31
+11 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~67
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~67 unconn single_port_ram^MEM~1^FF~68 single_port_ram^MEM~1^MUX_2~66
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~66 single_port_ram^MEM~1^FF~68 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~117
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~117 unconn single_port_ram^MEM~1^FF~118 single_port_ram^MEM~1^MUX_2~116
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~116 single_port_ram^MEM~1^FF~118 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~167
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~167 unconn single_port_ram^MEM~1^FF~168 single_port_ram^MEM~1^MUX_2~166
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~166 single_port_ram^MEM~1^FF~168 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~217
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~217 unconn single_port_ram^MEM~1^FF~218 single_port_ram^MEM~1^MUX_2~216
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~216 single_port_ram^MEM~1^FF~218 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~267
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~267 unconn single_port_ram^MEM~1^FF~268 single_port_ram^MEM~1^MUX_2~266
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~266 single_port_ram^MEM~1^FF~268 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~317
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~317 unconn single_port_ram^MEM~1^FF~318 single_port_ram^MEM~1^MUX_2~316
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~316 single_port_ram^MEM~1^FF~318 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~367
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~367 unconn single_port_ram^MEM~1^FF~368 single_port_ram^MEM~1^MUX_2~366
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~366 single_port_ram^MEM~1^FF~368 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~417
+0 1
+
+.names single_port_ram^MEM~1^lAND~31 single_port_ram^MEM~1^lNOT~417 unconn single_port_ram^MEM~1^FF~418 single_port_ram^MEM~1^MUX_2~416
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~416 single_port_ram^MEM~1^FF~418 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~16 gnd single_port_ram^MEM~1^lAND~32
+11 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~70
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~70 unconn single_port_ram^MEM~1^FF~71 single_port_ram^MEM~1^MUX_2~69
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~69 single_port_ram^MEM~1^FF~71 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~120
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~120 unconn single_port_ram^MEM~1^FF~121 single_port_ram^MEM~1^MUX_2~119
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~119 single_port_ram^MEM~1^FF~121 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~170
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~170 unconn single_port_ram^MEM~1^FF~171 single_port_ram^MEM~1^MUX_2~169
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~169 single_port_ram^MEM~1^FF~171 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~220
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~220 unconn single_port_ram^MEM~1^FF~221 single_port_ram^MEM~1^MUX_2~219
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~219 single_port_ram^MEM~1^FF~221 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~270
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~270 unconn single_port_ram^MEM~1^FF~271 single_port_ram^MEM~1^MUX_2~269
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~269 single_port_ram^MEM~1^FF~271 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~320
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~320 unconn single_port_ram^MEM~1^FF~321 single_port_ram^MEM~1^MUX_2~319
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~319 single_port_ram^MEM~1^FF~321 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~370
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~370 unconn single_port_ram^MEM~1^FF~371 single_port_ram^MEM~1^MUX_2~369
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~369 single_port_ram^MEM~1^FF~371 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~420
+0 1
+
+.names single_port_ram^MEM~1^lAND~32 single_port_ram^MEM~1^lNOT~420 unconn single_port_ram^MEM~1^FF~421 single_port_ram^MEM~1^MUX_2~419
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~419 single_port_ram^MEM~1^FF~421 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~17 gnd single_port_ram^MEM~1^lAND~33
+11 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~73
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~73 unconn single_port_ram^MEM~1^FF~74 single_port_ram^MEM~1^MUX_2~72
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~72 single_port_ram^MEM~1^FF~74 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~123
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~123 unconn single_port_ram^MEM~1^FF~124 single_port_ram^MEM~1^MUX_2~122
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~122 single_port_ram^MEM~1^FF~124 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~173
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~173 unconn single_port_ram^MEM~1^FF~174 single_port_ram^MEM~1^MUX_2~172
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~172 single_port_ram^MEM~1^FF~174 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~223
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~223 unconn single_port_ram^MEM~1^FF~224 single_port_ram^MEM~1^MUX_2~222
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~222 single_port_ram^MEM~1^FF~224 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~273
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~273 unconn single_port_ram^MEM~1^FF~274 single_port_ram^MEM~1^MUX_2~272
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~272 single_port_ram^MEM~1^FF~274 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~323
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~323 unconn single_port_ram^MEM~1^FF~324 single_port_ram^MEM~1^MUX_2~322
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~322 single_port_ram^MEM~1^FF~324 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~373
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~373 unconn single_port_ram^MEM~1^FF~374 single_port_ram^MEM~1^MUX_2~372
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~372 single_port_ram^MEM~1^FF~374 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~423
+0 1
+
+.names single_port_ram^MEM~1^lAND~33 single_port_ram^MEM~1^lNOT~423 unconn single_port_ram^MEM~1^FF~424 single_port_ram^MEM~1^MUX_2~422
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~422 single_port_ram^MEM~1^FF~424 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~18 gnd single_port_ram^MEM~1^lAND~34
+11 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~76
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~76 unconn single_port_ram^MEM~1^FF~77 single_port_ram^MEM~1^MUX_2~75
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~75 single_port_ram^MEM~1^FF~77 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~126
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~126 unconn single_port_ram^MEM~1^FF~127 single_port_ram^MEM~1^MUX_2~125
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~125 single_port_ram^MEM~1^FF~127 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~176
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~176 unconn single_port_ram^MEM~1^FF~177 single_port_ram^MEM~1^MUX_2~175
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~175 single_port_ram^MEM~1^FF~177 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~226
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~226 unconn single_port_ram^MEM~1^FF~227 single_port_ram^MEM~1^MUX_2~225
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~225 single_port_ram^MEM~1^FF~227 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~276
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~276 unconn single_port_ram^MEM~1^FF~277 single_port_ram^MEM~1^MUX_2~275
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~275 single_port_ram^MEM~1^FF~277 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~326
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~326 unconn single_port_ram^MEM~1^FF~327 single_port_ram^MEM~1^MUX_2~325
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~325 single_port_ram^MEM~1^FF~327 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~376
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~376 unconn single_port_ram^MEM~1^FF~377 single_port_ram^MEM~1^MUX_2~375
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~375 single_port_ram^MEM~1^FF~377 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~426
+0 1
+
+.names single_port_ram^MEM~1^lAND~34 single_port_ram^MEM~1^lNOT~426 unconn single_port_ram^MEM~1^FF~427 single_port_ram^MEM~1^MUX_2~425
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~425 single_port_ram^MEM~1^FF~427 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~19 gnd single_port_ram^MEM~1^lAND~35
+11 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~79
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~79 unconn single_port_ram^MEM~1^FF~80 single_port_ram^MEM~1^MUX_2~78
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~78 single_port_ram^MEM~1^FF~80 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~129
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~129 unconn single_port_ram^MEM~1^FF~130 single_port_ram^MEM~1^MUX_2~128
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~128 single_port_ram^MEM~1^FF~130 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~179
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~179 unconn single_port_ram^MEM~1^FF~180 single_port_ram^MEM~1^MUX_2~178
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~178 single_port_ram^MEM~1^FF~180 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~229
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~229 unconn single_port_ram^MEM~1^FF~230 single_port_ram^MEM~1^MUX_2~228
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~228 single_port_ram^MEM~1^FF~230 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~279
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~279 unconn single_port_ram^MEM~1^FF~280 single_port_ram^MEM~1^MUX_2~278
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~278 single_port_ram^MEM~1^FF~280 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~329
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~329 unconn single_port_ram^MEM~1^FF~330 single_port_ram^MEM~1^MUX_2~328
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~328 single_port_ram^MEM~1^FF~330 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~379
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~379 unconn single_port_ram^MEM~1^FF~380 single_port_ram^MEM~1^MUX_2~378
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~378 single_port_ram^MEM~1^FF~380 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~429
+0 1
+
+.names single_port_ram^MEM~1^lAND~35 single_port_ram^MEM~1^lNOT~429 unconn single_port_ram^MEM~1^FF~430 single_port_ram^MEM~1^MUX_2~428
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~428 single_port_ram^MEM~1^FF~430 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~20 gnd single_port_ram^MEM~1^lAND~36
+11 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~82
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~82 unconn single_port_ram^MEM~1^FF~83 single_port_ram^MEM~1^MUX_2~81
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~81 single_port_ram^MEM~1^FF~83 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~132
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~132 unconn single_port_ram^MEM~1^FF~133 single_port_ram^MEM~1^MUX_2~131
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~131 single_port_ram^MEM~1^FF~133 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~182
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~182 unconn single_port_ram^MEM~1^FF~183 single_port_ram^MEM~1^MUX_2~181
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~181 single_port_ram^MEM~1^FF~183 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~232
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~232 unconn single_port_ram^MEM~1^FF~233 single_port_ram^MEM~1^MUX_2~231
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~231 single_port_ram^MEM~1^FF~233 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~282
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~282 unconn single_port_ram^MEM~1^FF~283 single_port_ram^MEM~1^MUX_2~281
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~281 single_port_ram^MEM~1^FF~283 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~332
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~332 unconn single_port_ram^MEM~1^FF~333 single_port_ram^MEM~1^MUX_2~331
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~331 single_port_ram^MEM~1^FF~333 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~382
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~382 unconn single_port_ram^MEM~1^FF~383 single_port_ram^MEM~1^MUX_2~381
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~381 single_port_ram^MEM~1^FF~383 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~432
+0 1
+
+.names single_port_ram^MEM~1^lAND~36 single_port_ram^MEM~1^lNOT~432 unconn single_port_ram^MEM~1^FF~433 single_port_ram^MEM~1^MUX_2~431
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~431 single_port_ram^MEM~1^FF~433 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~21 gnd single_port_ram^MEM~1^lAND~37
+11 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~85
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~85 unconn single_port_ram^MEM~1^FF~86 single_port_ram^MEM~1^MUX_2~84
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~84 single_port_ram^MEM~1^FF~86 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~135
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~135 unconn single_port_ram^MEM~1^FF~136 single_port_ram^MEM~1^MUX_2~134
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~134 single_port_ram^MEM~1^FF~136 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~185
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~185 unconn single_port_ram^MEM~1^FF~186 single_port_ram^MEM~1^MUX_2~184
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~184 single_port_ram^MEM~1^FF~186 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~235
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~235 unconn single_port_ram^MEM~1^FF~236 single_port_ram^MEM~1^MUX_2~234
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~234 single_port_ram^MEM~1^FF~236 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~285
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~285 unconn single_port_ram^MEM~1^FF~286 single_port_ram^MEM~1^MUX_2~284
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~284 single_port_ram^MEM~1^FF~286 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~335
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~335 unconn single_port_ram^MEM~1^FF~336 single_port_ram^MEM~1^MUX_2~334
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~334 single_port_ram^MEM~1^FF~336 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~385
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~385 unconn single_port_ram^MEM~1^FF~386 single_port_ram^MEM~1^MUX_2~384
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~384 single_port_ram^MEM~1^FF~386 re twoR_twoW^clock 3
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~435
+0 1
+
+.names single_port_ram^MEM~1^lAND~37 single_port_ram^MEM~1^lNOT~435 unconn single_port_ram^MEM~1^FF~436 single_port_ram^MEM~1^MUX_2~434
+1-1- 1
+-1-1 1
+
+.latch single_port_ram^MEM~1^MUX_2~434 single_port_ram^MEM~1^FF~436 re twoR_twoW^clock 3
+
+.names twoR_twoW^addr1~0 single_port_ram^MEM~1^lNOT~2
+0 1
+
+.names single_port_ram^MEM~1^lNOT~2 single_port_ram^MEM~1^lNOT~3 single_port_ram^MEM~1^lNOT~4 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~6
+1111 1
+
+.names single_port_ram^MEM~1^lNOT~2 twoR_twoW^addr1~1 single_port_ram^MEM~1^lNOT~4 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~8
+1111 1
+
+.names single_port_ram^MEM~1^lNOT~2 single_port_ram^MEM~1^lNOT~3 twoR_twoW^addr1~2 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~10
+1111 1
+
+.names single_port_ram^MEM~1^lNOT~2 twoR_twoW^addr1~1 twoR_twoW^addr1~2 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~12
+1111 1
+
+.names single_port_ram^MEM~1^lNOT~2 single_port_ram^MEM~1^lNOT~3 single_port_ram^MEM~1^lNOT~4 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~14
+1111 1
+
+.names single_port_ram^MEM~1^lNOT~2 twoR_twoW^addr1~1 single_port_ram^MEM~1^lNOT~4 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~16
+1111 1
+
+.names single_port_ram^MEM~1^lNOT~2 single_port_ram^MEM~1^lNOT~3 twoR_twoW^addr1~2 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~18
+1111 1
+
+.names single_port_ram^MEM~1^lNOT~2 twoR_twoW^addr1~1 twoR_twoW^addr1~2 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~20
+1111 1
+
+.names twoR_twoW^addr1~0 twoR_twoW^addr1~1 twoR_twoW^addr1~2 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~21
+1111 1
+
+.names twoR_twoW^addr1~0 single_port_ram^MEM~1^lNOT~3 single_port_ram^MEM~1^lNOT~4 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~7
+1111 1
+
+.names twoR_twoW^addr1~0 twoR_twoW^addr1~1 single_port_ram^MEM~1^lNOT~4 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~9
+1111 1
+
+.names twoR_twoW^addr1~0 single_port_ram^MEM~1^lNOT~3 twoR_twoW^addr1~2 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~11
+1111 1
+
+.names twoR_twoW^addr1~0 twoR_twoW^addr1~1 twoR_twoW^addr1~2 single_port_ram^MEM~1^lNOT~5 single_port_ram^MEM~1^lAND~13
+1111 1
+
+.names twoR_twoW^addr1~0 single_port_ram^MEM~1^lNOT~3 single_port_ram^MEM~1^lNOT~4 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~15
+1111 1
+
+.names twoR_twoW^addr1~0 twoR_twoW^addr1~1 single_port_ram^MEM~1^lNOT~4 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~17
+1111 1
+
+.names twoR_twoW^addr1~0 single_port_ram^MEM~1^lNOT~3 twoR_twoW^addr1~2 twoR_twoW^addr1~3 single_port_ram^MEM~1^lAND~19
+1111 1
+
+.names twoR_twoW^addr1~1 single_port_ram^MEM~1^lNOT~3
+0 1
+
+.names twoR_twoW^addr1~2 single_port_ram^MEM~1^lNOT~4
+0 1
+
+.names twoR_twoW^addr1~3 single_port_ram^MEM~1^lNOT~5
+0 1
+
+.names single_port_ram^MEM~1^nMUX~38^MUX_2~87 twoR_twoW^rd_data1~0
+1 1
+
+.names single_port_ram^MEM~1^nMUX~88^MUX_2~137 twoR_twoW^rd_data1~1
+1 1
+
+.names single_port_ram^MEM~1^nMUX~138^MUX_2~187 twoR_twoW^rd_data1~2
+1 1
+
+.names single_port_ram^MEM~1^nMUX~188^MUX_2~237 twoR_twoW^rd_data1~3
+1 1
+
+.names single_port_ram^MEM~1^nMUX~238^MUX_2~287 twoR_twoW^rd_data1~4
+1 1
+
+.names single_port_ram^MEM~1^nMUX~288^MUX_2~337 twoR_twoW^rd_data1~5
+1 1
+
+.names single_port_ram^MEM~1^nMUX~338^MUX_2~387 twoR_twoW^rd_data1~6
+1 1
+
+.names single_port_ram^MEM~1^nMUX~388^MUX_2~437 twoR_twoW^rd_data1~7
+1 1
+
+.end
+
