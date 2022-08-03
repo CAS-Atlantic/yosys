@@ -32,6 +32,7 @@
 
 #include "vtr_util.h"
 #include "vtr_memory.h"
+#include "vtr_path.h"
 
 #include "netlist_check.h"
 
@@ -913,6 +914,9 @@ struct OdinoPass : public Pass {
 		log("    -j PARALEL_NODE_COUNT\n");
 		log("        Number of threads allowed for simulator to use, by default 1\n");
 		log("\n");
+		log("    -g NUM_VECTORS\n");
+		log("        Number of random test vectors to generate\n");
+		log("\n");
 		log("    -sim_dir SIMULATION_DIRECTORY\n");
 		log("        Directory output for simulation, if not specified current directory will be used by default\n");
 		log("\n");
@@ -985,11 +989,21 @@ struct OdinoPass : public Pass {
 			if (args[argidx] == "-H" && argidx+1 < args.size()) {
 				flag_sim_hold_low = true;
 				sim_hold_low.push_back(args[++argidx]);
+
+				while (argidx+1 < args.size() && args[argidx+1][0] != '-') {
+					sim_hold_low.push_back(args[++argidx]);
+				}
+
 				continue;
 			}
 			if (args[argidx] == "-L" && argidx+1 < args.size()) {
 				flag_sim_hold_high = true;
 				sim_hold_high.push_back(args[++argidx]);
+
+				while (argidx+1 < args.size() && args[argidx+1][0] != '-') {
+					sim_hold_high.push_back(args[++argidx]);
+				}
+
 				continue;
 			}
 			if (args[argidx] == "-t" && argidx+1 < args.size()) {
@@ -1008,6 +1022,14 @@ struct OdinoPass : public Pass {
 				global_args.sim_directory.set(args[++argidx], argparse::Provenance::SPECIFIED);
 				continue;
 			}
+			if (args[argidx] == "-g" && argidx+1 < args.size()) {
+				global_args.sim_num_test_vectors.set(atoi(args[++argidx].c_str()), argparse::Provenance::SPECIFIED);
+				continue;
+			}
+			if (args[argidx] == "-b" && argidx+1 < args.size()) {
+				global_args.blif_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
+				continue;
+			}
 		}
 		extra_args(args, argidx, design);
 
@@ -1018,8 +1040,6 @@ struct OdinoPass : public Pass {
 		if (flag_sim_hold_high) {
 			global_args.sim_hold_high.set(sim_hold_high, argparse::Provenance::SPECIFIED);
 		}
-
-		// global_args.sim_directory.set(".", argparse::Provenance::SPECIFIED);
 
 		//adjust thread count
     	int thread_requested = global_args.parralelized_simulation;
@@ -1041,6 +1061,7 @@ struct OdinoPass : public Pass {
 		}
 
 		if (flag_read_verilog_input) {
+			log("Verilog: %s\n", vtr::basename(verilog_input_path).c_str());
 			run_pass("read_verilog -sv -nolatches " + verilog_input_path);
 			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/arch_dsp.v");
 		}
@@ -1100,7 +1121,7 @@ struct OdinoPass : public Pass {
 		/* read the confirguration file ??? */
 
 		if (flag_arch_file) {
-			log("Architecture: %s\n", arch_file_path.c_str());
+			log("Architecture: %s\n", vtr::basename(arch_file_path).c_str());
 
 			log("Reading FPGA Architecture file\n");
         	try {
@@ -1143,27 +1164,7 @@ struct OdinoPass : public Pass {
         	log_error("Odin-II Failed to perform partial mapping to target device %s with exit code:%d \n", vtr_error.what(), ERROR_TECHMAP);
     	}
 
-
-		// // print_netlist_for_checking(transformed, "before");
-
-		// printf("Performing Partial Mapping on the Netlist\n");
-
-		// // GenericWriter middle_writer = GenericWriter();
-		// // middle_writer._create_file("middle.blif", _BLIF);
-		// // middle_writer._write(transformed);
-
-		// depth_first_traversal_to_partial_map(PARTIAL_MAP_TRAVERSE_VALUE, transformed);
-		// mixer->perform_optimizations(transformed);
-
-        // /* Find any unused logic in the netlist and remove it */
-        // remove_unused_logic(transformed);
-
 		synthesis_time = wall_time() - synthesis_time;
-
-		// check_netlist(transformed);
-		// graphVizOutputNetlist(configuration.debug_output_path, "after", 1, transformed);
-
-		// print_netlist_for_checking(transformed, "after");
 
 		log("Writing Netlist to BLIF file\n");
 
@@ -1181,41 +1182,41 @@ struct OdinoPass : public Pass {
 		/*************************************************************
      	* begin simulation section
      	*/
-	 	global_args.blif_file.set(odin_mapped_blif_output, argparse::Provenance::SPECIFIED);
-    	netlist_t* sim_netlist = NULL;
-    	if ((global_args.blif_file.provenance() == argparse::Provenance::SPECIFIED && !coarsen_cleanup)
-        	|| global_args.interactive_simulation
-        	|| global_args.sim_num_test_vectors
-        	|| global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED) {
+	 	//global_args.blif_file.set(odin_mapped_blif_output, argparse::Provenance::SPECIFIED);
+    	// netlist_t* sim_netlist = NULL;
+    	// if ((global_args.blif_file.provenance() == argparse::Provenance::SPECIFIED && !coarsen_cleanup)
+        // 	|| global_args.interactive_simulation
+        // 	|| global_args.sim_num_test_vectors
+        // 	|| global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED) {
 
-			configuration.input_file_type = file_type_e::_BLIF;
-			configuration.list_of_file_names = {odin_mapped_blif_output};
-            my_location.file = 0;
+		// 	configuration.input_file_type = file_type_e::_BLIF;
+		// 	configuration.list_of_file_names = {odin_mapped_blif_output};
+        //     my_location.file = 0;
 
-			try {
-            /**
-             * The blif file for simulation should follow odin_ii blif style 
-             * So, here we call odin_ii's read_blif
-             */
-				GenericReader generic_reader = GenericReader();
-            	sim_netlist = static_cast<netlist_t*>(generic_reader._read());
-        	} catch (vtr::VtrError& vtr_error) {
-            	log_error("Odin Failed to load BLIF file: %s with exit code:%d \n", vtr_error.what(), ERROR_PARSE_BLIF);
-        	}
+		// 	try {
+        //     /**
+        //      * The blif file for simulation should follow odin_ii blif style 
+        //      * So, here we call odin_ii's read_blif
+        //      */
+		// 		GenericReader generic_reader = GenericReader();
+        //     	sim_netlist = static_cast<netlist_t*>(generic_reader._read());
+        // 	} catch (vtr::VtrError& vtr_error) {
+        //     	log_error("Odin Failed to load BLIF file: %s with exit code:%d \n", vtr_error.what(), ERROR_PARSE_BLIF);
+        // 	}
 			
-			/* Simulate netlist */
-	    	if (sim_netlist && !global_args.interactive_simulation
-    	    	&& (global_args.sim_num_test_vectors || (global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED))) {
-        		log("Netlist Simulation Begin\n");
-        		create_directory(global_args.sim_directory);
+		// 	/* Simulate netlist */
+	    // 	if (sim_netlist && !global_args.interactive_simulation
+    	//     	&& (global_args.sim_num_test_vectors || (global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED))) {
+        // 		log("Netlist Simulation Begin\n");
+        // 		create_directory(global_args.sim_directory);
 
-        		simulate_netlist(sim_netlist);
-    		}
+        // 		simulate_netlist(sim_netlist);
+    	// 	}
 
-    		compute_statistics(sim_netlist, true);
+    	// 	compute_statistics(sim_netlist, true);
 
-			printf("--------------------------------------------------------------------\n");
-    	}
+		// 	printf("--------------------------------------------------------------------\n");
+    	// }
 
 		free_netlist(transformed);
 		free_arch(&Arch);

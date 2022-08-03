@@ -61,6 +61,7 @@ OBJS += passes/odintechmap/Division.o
 OBJS += passes/odintechmap/stuff.o
 
 OBJS += passes/odintechmap/odino.o
+OBJS += passes/odintechmap/odinsim.o
 
 OBJS += passes/odintechmap/logger.o
 
