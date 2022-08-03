@@ -1083,59 +1083,6 @@ struct OdinoPass : public Pass {
     	global_args.parralelized_simulation.set(
         std::max(1, std::min(thread_requested, std::min((CONCURENCY_LIMIT - 1), max_thread))), argparse::Provenance::SPECIFIED);
 
-
-
-		// design->sort();
-
-		if(flag_load_primitives) {
-
-		}
-
-		if(!flag_no_pass) {
-			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/primitives.v");
-			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
-			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
-		}
-
-		if (flag_read_verilog_input) {
-			log("Verilog: %s\n", vtr::basename(verilog_input_path).c_str());
-			run_pass("read_verilog -sv -nolatches " + verilog_input_path);
-			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/arch_dsp.v");
-		}
-
-		if (top_module_name.empty()) {
-			run_pass("hierarchy -check -auto-top -purge_lib", design);
-		} else {
-			run_pass("hierarchy -check -top " + top_module_name, design);
-		}
-
-		if(!flag_no_pass) {
-			run_pass("proc; opt;");
-			run_pass("fsm; opt;");
-			run_pass("memory_collect; memory_dff; opt;");
-			run_pass("autoname");
-			run_pass("check");
-
-			run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adff2dff.v");
-        	run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adffe2dff.v");
-        	run_pass("techmap */t:$shift */t:$shiftx");
-
-			run_pass("flatten");
-			run_pass("pmuxtree");
-			run_pass("wreduce");
-			run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;");
-			run_pass("autoname");
-			run_pass("stat");
-			run_pass("write_blif -blackbox -param -impltf " + yosys_coarsen_blif_output);
-		}
-
-		design->sort();
-
-		if (design->top_module()->processes.size() != 0)
-			log_error("Found unmapped processes in top module %s: unmapped processes are not supported in odintechmap pass!\n", log_id(design->top_module()->name));
-		if (design->top_module()->memories.size() != 0)
-			log_error("Found unmapped memories in module %s: unmapped memories are not supported in BLIF backend!\n", log_id(design->top_module()->name));
-
 		// t_arch Arch;
 		// global_args_t global_args;
 		std::vector<t_physical_tile_type> physical_tile_types;
@@ -1186,6 +1133,62 @@ struct OdinoPass : public Pass {
         	}
 		}
 		log("Using Lut input width of: %d\n", physical_lut_size);
+
+
+		// design->sort();
+
+		if(flag_load_primitives) {
+
+		}
+
+		if(!flag_no_pass) {
+			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/primitives.v");
+			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
+			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
+		}
+
+		// dsp
+
+		if (flag_read_verilog_input) {
+			log("Verilog: %s\n", vtr::basename(verilog_input_path).c_str());
+			run_pass("read_verilog -sv -nolatches " + verilog_input_path);
+			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/arch_dsp.v");
+		}
+
+		if (top_module_name.empty()) {
+			run_pass("hierarchy -check -auto-top -purge_lib", design);
+		} else {
+			run_pass("hierarchy -check -top " + top_module_name, design);
+		}
+
+		if(!flag_no_pass) {
+			run_pass("proc; opt;");
+			run_pass("fsm; opt;");
+			run_pass("memory_collect; memory_dff; opt;");
+			run_pass("autoname");
+			run_pass("check");
+
+			run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adff2dff.v");
+        	run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adffe2dff.v");
+        	run_pass("techmap */t:$shift */t:$shiftx");
+
+			run_pass("flatten");
+			run_pass("pmuxtree");
+			run_pass("wreduce");
+			run_pass("opt -undriven -full; opt_muxtree; opt_expr -mux_undef -mux_bool -fine;;;");
+			run_pass("autoname");
+			run_pass("stat");
+			run_pass("write_blif -blackbox -param -impltf " + yosys_coarsen_blif_output);
+		}
+
+		design->sort();
+
+		if (design->top_module()->processes.size() != 0)
+			log_error("Found unmapped processes in top module %s: unmapped processes are not supported in odintechmap pass!\n", log_id(design->top_module()->name));
+		if (design->top_module()->memories.size() != 0)
+			log_error("Found unmapped memories in module %s: unmapped memories are not supported in BLIF backend!\n", log_id(design->top_module()->name));
+
+
 
 		double synthesis_time = wall_time();
 
