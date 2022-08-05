@@ -325,6 +325,24 @@ struct OdinoPass : public Pass {
 		}
 	}
 
+	void map_input_port(RTLIL::IdString mapping, SigSpec in_port, nnode_t *node, char *identifier, pool<SigBit> &cstr_bits_seen) {
+
+		int base_pin_idx = node->num_input_pins;
+
+        allocate_more_input_pins(node, in_port.size()); // port_B.size() + all other input width ?
+		add_input_port_information(node, in_port.size());
+				
+		for (int i=0 ; i<in_port.size() ; i++) {
+
+			char* in_pin_name = sig_full_ref_name_sig(in_port[i], identifier, cstr_bits_seen);
+
+			npin_t* in_pin = allocate_npin();
+			in_pin->name = vtr::strdup(in_pin_name);
+			in_pin->mapping = vtr::strdup(RTLIL::unescape_id(mapping).c_str());
+	        add_input_pin_to_node(node, in_pin, base_pin_idx + i);
+		}
+	}
+
 	void map_output_port(SigSpec out_port, nnode_t *node, char *identifier, Hashtable* output_nets_hash, pool<SigBit> &cstr_bits_seen) {
 		
 		int base_pin_idx = node->num_output_pins;
@@ -337,6 +355,35 @@ struct OdinoPass : public Pass {
 		for (int i=0 ; i<out_port.size() ; i++) {
 			npin_t* out_pin = allocate_npin();
 			out_pin->name = NULL;//vtr::strdup(str(s).c_str());
+            add_output_pin_to_node(node, out_pin, base_pin_idx + i); // if more than one output then i + something
+        			
+			char* output_pin_name = sig_full_ref_name_sig(out_port[i], identifier, cstr_bits_seen);
+			nnet_t* out_net = (nnet_t*)output_nets_hash->get(output_pin_name);
+        	if (out_net == nullptr) {
+            	out_net = allocate_nnet();
+        		out_net->name = vtr::strdup(output_pin_name);
+				output_nets_hash->add(output_pin_name, out_net);
+			}
+        	add_driver_pin_to_net(out_net, out_pin);
+
+			// CLEAN UP
+			vtr::free(output_pin_name);
+		}
+	}
+
+	void map_output_port(RTLIL::IdString mapping, SigSpec out_port, nnode_t *node, char *identifier, Hashtable* output_nets_hash, pool<SigBit> &cstr_bits_seen) {
+		
+		int base_pin_idx = node->num_output_pins;
+
+        allocate_more_output_pins(node, out_port.size()); //?
+        add_output_port_information(node, out_port.size());
+
+        /*add name information and a net(driver) for the output */
+
+		for (int i=0 ; i<out_port.size() ; i++) {
+			npin_t* out_pin = allocate_npin();
+			out_pin->name = NULL;//vtr::strdup(str(s).c_str());
+			out_pin->mapping = vtr::strdup(RTLIL::unescape_id(mapping).c_str());
             add_output_pin_to_node(node, out_pin, base_pin_idx + i); // if more than one output then i + something
         			
 			char* output_pin_name = sig_full_ref_name_sig(out_port[i], identifier, cstr_bits_seen);
@@ -390,6 +437,60 @@ struct OdinoPass : public Pass {
 	
 	netlist_t* to_netlist(RTLIL::Module *top_module, RTLIL::Design *design) {
 
+		std::vector<RTLIL::Module*> mod_list;
+
+		std::string top_module_name;
+		if (top_module_name.empty())
+			for (auto module : design->modules())
+				if (module->get_bool_attribute(ID::top))
+					top_module_name = module->name.str();
+
+		for (auto module : design->modules())
+		{
+
+			if (module->processes.size() != 0)
+				log_error("Found unmapped processes in module %s: unmapped processes are not supported in BLIF backend!\n", log_id(module->name));
+			if (module->memories.size() != 0)
+				log_error("Found unmapped memories in module %s: unmapped memories are not supported in BLIF backend!\n", log_id(module->name));
+
+			if (module->name == RTLIL::escape_id(top_module_name)) {
+				top_module_name.clear();
+				continue;
+			}
+
+			mod_list.push_back(module);
+		}
+/*
+		for (auto module : mod_list) {
+			log("@@@@@@@@@@@@@@\n");
+			log(".model %s\n", str(module->name).c_str());
+
+			std::map<int, RTLIL::Wire*> inputs, outputs;
+
+			for (auto wire : module->wires()) {
+				if (wire->port_input)
+					inputs[wire->port_id] = wire;
+				if (wire->port_output)
+					outputs[wire->port_id] = wire;
+			}
+
+			log(".inputs\n");
+			for (auto &it : inputs) {
+				RTLIL::Wire *wire = it.second;
+				for (int i = 0; i < wire->width; i++)
+					log(" %s", str(RTLIL::SigSpec(wire, i)).c_str());
+			}
+			
+
+			log(".outputs\n");
+			for (auto &it : outputs) {
+				RTLIL::Wire *wire = it.second;
+				for (int i = 0; i < wire->width; i++)
+					log(" %s", str(RTLIL::SigSpec(wire, i)).c_str());
+			}
+			log("\n");
+		}
+*/
 		pool<SigBit> cstr_bits_seen;
 
 		netlist_t* odin_netlist = allocate_netlist();
@@ -494,6 +595,21 @@ struct OdinoPass : public Pass {
 					}
 					// printf("hdlname: %s\n", cell->get_string_attribute(ID::hdlname).c_str());
 					//instanceOf = cell->get_string_attribute(ID::hdlname);
+				} else {
+					new_node->type = HARD_IP;
+					// odin_sprintf(new_name, "\\%s~%ld", subcircuit_stripped_name, hard_block_number - 1);
+                    /* Detect used hard block for the blif generation */
+                    t_model* hb_model = find_hard_block(str(cell->type).c_str());
+                    if (hb_model) {
+                        hb_model->used = 1;
+                    }
+					std::string modname(str(cell->type));
+					// Create a fake ast node.
+        			if (new_node->type == HARD_IP) {
+            			new_node->related_ast_node = create_node_w_type(HARD_BLOCK, my_location);
+            			new_node->related_ast_node->children = (ast_node_t**)vtr::calloc(1, sizeof(ast_node_t*));
+            			new_node->related_ast_node->identifier_node = create_tree_node_id(vtr::strdup(modname.c_str()), my_location);
+        			}
 				}
 			}
 
@@ -502,11 +618,12 @@ struct OdinoPass : public Pass {
 				if (cell->input(conn.first) && conn.second.size()>0) {
 					// if (conn.first == ID::RD_ARST || conn.first == ID::RD_SRST )
 					// 	continue;
-					map_input_port(conn.second, new_node, odin_netlist->identifier, cstr_bits_seen);
+					// log("cell->input %s\n", RTLIL::unescape_id(conn.first).c_str());
+					map_input_port(conn.first, conn.second, new_node, odin_netlist->identifier, cstr_bits_seen);
 				}
 
 				if (cell->output(conn.first) && conn.second.size()>0) {
-					map_output_port(conn.second, new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
+					map_output_port(conn.first, conn.second, new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
 				}
 
 				// Module *m = design->module(cell->type);
@@ -524,6 +641,42 @@ struct OdinoPass : public Pass {
 				// 	}
 				// }
             }
+
+			// if (new_node->type == HARD_IP) {
+			// 	RTLIL::Module* inst_module = design->module(cell->type);
+			// 	if (inst_module && inst_module->get_blackbox_attribute()) {
+			// 		std::map<int, RTLIL::Wire*> inputs, outputs;
+
+			// 		for (auto wire : inst_module->wires()) {
+			// 			if (wire->port_input)
+			// 				inputs[wire->port_id] = wire;
+			// 			if (wire->port_output)
+			// 				outputs[wire->port_id] = wire;
+			// 		}
+
+			// 		log("\ninputs:\n");
+			// 		int in_idx=0;
+			// 		for (auto &it : inputs) {
+			// 			RTLIL::Wire *wire = it.second;
+			// 			for (int i = 0; i < wire->width; i++){
+			// 				log(" %s,", str(RTLIL::SigSpec(wire, i)).c_str());
+			// 				new_node->input_pins[in_idx++]->mapping = vtr::strdup(RTLIL::unescape_id(wire->name).c_str());
+			// 				// new_node->input_pins[i]->mapping = vtr::strdup(str(RTLIL::SigSpec(wire, i)).c_str());
+			// 			}	
+			// 		}
+			
+
+			// 		log("\noutputs:\n");
+			// 		int out_idx=0;
+			// 		for (auto &it : outputs) {
+			// 			RTLIL::Wire *wire = it.second;
+			// 			for (int i = 0; i < wire->width; i++) {
+			// 				log(" %s,", str(RTLIL::SigSpec(wire, i)).c_str());
+			// 				new_node->output_pins[out_idx++]->mapping = vtr::strdup(RTLIL::unescape_id(wire->name).c_str());
+			// 			}
+			// 		}	
+			// 	}
+			// }
 
 			if (is_param_required(new_node->type)) {
 				
@@ -644,7 +797,9 @@ struct OdinoPass : public Pass {
 
 			/* add a name for the node, keeping the name of the node same as the output */
         	// new_node->name = vtr::strdup(log_id(port_Y[0].wire->name)); // @TODO recheck later
-			new_node->name = vtr::strdup(stringf("%s~%ld", str(cell->type).c_str(), hard_id++).c_str()); 
+			
+			new_node->name = vtr::strdup(stringf("%s~%ld", (((new_node->type == HARD_IP) ? "\\" : "") + str(cell->type)).c_str(), hard_id++).c_str()); 
+			// new_node->name = vtr::strdup(stringf("%s~%ld", str(cell->type).c_str(), hard_id++).c_str()); 
 
         	/*add this node to blif_netlist as an internal node */
         	odin_netlist->internal_nodes = (nnode_t**)vtr::realloc(odin_netlist->internal_nodes, sizeof(nnode_t*) * (odin_netlist->num_internal_nodes + 1));
@@ -780,9 +935,9 @@ struct OdinoPass : public Pass {
 		blif_elaborate_top(odin_netlist);
 
     	elaboration_time = wall_time() - elaboration_time;
-    	printf("\nElaboration Time: ");
+    	log("\nElaboration Time: ");
     	log_time(elaboration_time);
-    	printf("\n--------------------------------------------------------------------\n");
+    	log("\n--------------------------------------------------------------------\n");
 	}
 
 	void optimization(netlist_t *odin_netlist) {
