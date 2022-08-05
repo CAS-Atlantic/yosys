@@ -583,18 +583,25 @@ struct OdinoPass : public Pass {
 				 * 
 				 */
 
-				printf("sth weird detected!!! %s\n", str(cell->type).c_str());
-				if (cell->type.begins_with("$paramod"))
+				// printf("sth weird detected!!! %s\n", str(cell->type).c_str());
+				if (cell->type.begins_with("$paramod$")) // e.g. $paramod$b509a885304d9c8c49f505bb9d0e99a9fb676562\dual_port_ram
 				{
 					std::regex regex("^\\$paramod\\$\\w+\\\\(\\w+)$");
         			std::smatch m;
 					std::string modname(str(cell->type));
 					if(regex_match(modname, m, regex)) {
-						printf("\tand translated to!!! %s\n", m.str(1).c_str());
+						// printf("\tand translated to!!! %s\n", m.str(1).c_str());
 						new_node->type = yosys_subckt_strmap[m.str(1).c_str()];
 					}
-					// printf("hdlname: %s\n", cell->get_string_attribute(ID::hdlname).c_str());
-					//instanceOf = cell->get_string_attribute(ID::hdlname);
+				} else if (cell->type.begins_with("$paramod\\")) // e.g. $paramod\dual_port_ram\ADDR_WIDTH?4'0100\DATA_WIDTH?4'0101
+				{
+					std::regex regex("^\\$paramod\\\\(\\w+)(\\\\\\S+)*$");
+        			std::smatch m;
+					std::string modname(str(cell->type));
+					if(regex_match(modname, m, regex)) {
+						// printf("\tand translated to!!! %s\n", m.str(1).c_str());
+						new_node->type = yosys_subckt_strmap[m.str(1).c_str()];
+					}
 				} else {
 					new_node->type = HARD_IP;
 					// odin_sprintf(new_name, "\\%s~%ld", subcircuit_stripped_name, hard_block_number - 1);
@@ -741,7 +748,7 @@ struct OdinoPass : public Pass {
 				if (cell->hasParam(ID::MEMID)) {
 					auto value = vtr::strdup(cell->getParam(ID::MEMID).as_string().c_str());
 					RTLIL::IdString ids = cell->getParam(ID::MEMID).decode_string();
-					log("MEMID: %s\t%s\n", value, RTLIL::unescape_id(ids).c_str());
+					// log("MEMID: %s\t%s\n", value, RTLIL::unescape_id(ids).c_str());
 					new_node->attributes->memory_id = vtr::strdup(RTLIL::unescape_id(ids).c_str());
 				}
 
