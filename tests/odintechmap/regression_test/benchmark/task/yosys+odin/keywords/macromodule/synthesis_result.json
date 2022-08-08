@@ -2,41 +2,46 @@
     "macromodule/macromodules_modules/no_arch": {
         "test_name": "macromodule/macromodules_modules/no_arch",
         "verilog": "macromodules_modules.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "macromodules_modules.v:20 syntax error, unexpected TOK_ID", 
+            "macromodules_modules.v:20 syntax error, unexpected TOK_ID"
         ]
     },
     "macromodule/missing_endmodule_failure/no_arch": {
         "test_name": "macromodule/missing_endmodule_failure/no_arch",
         "verilog": "missing_endmodule_failure.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "missing_endmodule_failure.v:1 syntax error, unexpected TOK_ID", 
+            "missing_endmodule_failure.v:1 syntax error, unexpected TOK_ID"
         ]
     },
     "macromodule/multiple_macromodules/no_arch": {
         "test_name": "macromodule/multiple_macromodules/no_arch",
         "verilog": "multiple_macromodules.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "multiple_macromodules.v:4 syntax error, unexpected TOK_ID", 
+            "multiple_macromodules.v:4 syntax error, unexpected TOK_ID"
         ]
     },
     "macromodule/multiple_topmodules/no_arch": {
         "test_name": "macromodule/multiple_topmodules/no_arch",
         "verilog": "multiple_topmodules.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "multiple_topmodules.v:4 syntax error, unexpected TOK_ID", 
+            "multiple_topmodules.v:4 syntax error, unexpected TOK_ID"
         ]
     },
     "macromodule/repeated_macromodule_failure/no_arch": {
         "test_name": "macromodule/repeated_macromodule_failure/no_arch",
         "verilog": "repeated_macromodule_failure.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "repeated_macromodule_failure.v:4 syntax error, unexpected TOK_ID", 
+            "repeated_macromodule_failure.v:4 syntax error, unexpected TOK_ID"
         ]
     },
     "DEFAULT": {

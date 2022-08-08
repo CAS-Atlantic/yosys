@@ -3,9 +3,6 @@
         "test_name": "config_file_half/bm_base_multiply/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_base_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.7,
         "exec_time(ms)": 113.2,
         "elaboration_time(ms)": 91.4,
@@ -28,9 +25,6 @@
         "test_name": "config_file_half/bm_base_multiply/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "bm_base_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12,
         "exec_time(ms)": 100.7,
         "elaboration_time(ms)": 94.7,
@@ -52,9 +46,6 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_match1_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.7,
         "exec_time(ms)": 88.8,
         "elaboration_time(ms)": 67.2,
@@ -75,9 +66,6 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "bm_match1_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 13.6,
         "exec_time(ms)": 80.3,
         "elaboration_time(ms)": 65.7,
@@ -99,9 +87,6 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_match2_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.7,
         "exec_time(ms)": 106.5,
         "elaboration_time(ms)": 83.4,
@@ -123,9 +108,6 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "bm_match2_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.3,
         "exec_time(ms)": 87.1,
         "elaboration_time(ms)": 79.3,
@@ -147,9 +129,6 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_match3_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.8,
         "exec_time(ms)": 77.3,
         "elaboration_time(ms)": 61.6,
@@ -171,9 +150,6 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "bm_match3_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.1,
         "exec_time(ms)": 60.7,
         "elaboration_time(ms)": 56.9,
@@ -195,9 +171,6 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_match4_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 96.5,
         "elaboration_time(ms)": 75.9,
@@ -219,9 +192,6 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "bm_match4_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.3,
         "exec_time(ms)": 85.1,
         "elaboration_time(ms)": 78.5,
@@ -243,9 +213,6 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_match5_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.7,
         "exec_time(ms)": 99.5,
         "elaboration_time(ms)": 77,
@@ -267,9 +234,6 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "bm_match5_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 87,
         "elaboration_time(ms)": 77.5,
@@ -291,9 +255,6 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "twobits_arithmetic_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 11.6,
         "exec_time(ms)": 38.3,
         "elaboration_time(ms)": 26.2,
@@ -316,9 +277,6 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "twobits_arithmetic_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 10.9,
         "exec_time(ms)": 26.7,
         "elaboration_time(ms)": 25.2,
@@ -340,9 +298,6 @@
         "test_name": "config_file_half/bm_base_multiply/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "bm_base_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.7,
         "exec_time(ms)": 106.3,
         "elaboration_time(ms)": 89.8,
@@ -365,9 +320,6 @@
         "test_name": "config_file_half/bm_base_multiply/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "bm_base_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 107.7,
         "elaboration_time(ms)": 89.6,
@@ -390,9 +342,6 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "bm_match1_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.5,
         "exec_time(ms)": 93.2,
         "elaboration_time(ms)": 75.9,
@@ -413,9 +362,6 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "bm_match1_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.7,
         "exec_time(ms)": 80.7,
         "elaboration_time(ms)": 62.5,
@@ -436,9 +382,6 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "bm_match2_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.5,
         "exec_time(ms)": 87.9,
         "elaboration_time(ms)": 69.5,
@@ -461,9 +404,6 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "bm_match2_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 110.7,
         "elaboration_time(ms)": 91.6,
@@ -486,9 +426,6 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "bm_match3_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 69.7,
         "elaboration_time(ms)": 52.5,
@@ -511,9 +448,6 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "bm_match3_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.7,
         "exec_time(ms)": 87.7,
         "elaboration_time(ms)": 70.1,
@@ -536,9 +470,6 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "bm_match4_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 92.8,
         "elaboration_time(ms)": 73.9,
@@ -561,9 +492,6 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "bm_match4_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.5,
         "exec_time(ms)": 94,
         "elaboration_time(ms)": 76.9,
@@ -586,9 +514,6 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "bm_match5_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 86.3,
         "elaboration_time(ms)": 70.1,
@@ -611,9 +536,6 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "bm_match5_str_arch.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 12.6,
         "exec_time(ms)": 94.3,
         "elaboration_time(ms)": 74.8,
@@ -636,9 +558,6 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "twobits_arithmetic_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 11.6,
         "exec_time(ms)": 42.2,
         "elaboration_time(ms)": 27.4,
@@ -661,9 +580,6 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "twobits_arithmetic_multiply.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "max_rss(MiB)": 11.6,
         "exec_time(ms)": 44.1,
         "elaboration_time(ms)": 26.6,
@@ -686,9 +602,6 @@
         "test_name": "config_file_half/multiply_hard_block/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "multiply_hard_block.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "Pi": 8,
         "Po": 8,
         "Multiplier": 2,
@@ -701,9 +614,6 @@
         "test_name": "config_file_half/multiply_hard_block/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "verilog": "multiply_hard_block.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "Pi": 8,
         "Po": 8,
         "Multiplier": 2,
@@ -716,9 +626,6 @@
         "test_name": "config_file_half/multiply_hard_block/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "multiply_hard_block.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "Pi": 8,
         "Po": 8,
         "logic element": 18,
@@ -732,9 +639,6 @@
         "test_name": "config_file_half/multiply_hard_block/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "multiply_hard_block.v",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
         "Pi": 8,
         "Po": 8,
         "Multiplier": 2,

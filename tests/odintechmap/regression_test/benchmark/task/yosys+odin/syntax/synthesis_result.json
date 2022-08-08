@@ -197,6 +197,7 @@
     },
     "syntax/basic_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/basic_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "basic_expression_in_function_port.v",
         "exit": 1,
         "errors": [
@@ -252,6 +253,7 @@
     },
     "syntax/basic_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/basic_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "basic_expression_in_task_port.v",
         "exit": 1,
         "errors": [
@@ -270,6 +272,7 @@
     },
     "syntax/bitwise_op_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bitwise_op_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bitwise_op_expression_in_function_port.v",
         "exit": 1,
         "errors": [
@@ -325,6 +328,7 @@
     },
     "syntax/bitwise_op_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bitwise_op_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bitwise_op_expression_in_task_port.v",
         "exit": 1,
         "errors": [
@@ -610,6 +614,7 @@
     },
     "syntax/bm_function_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bm_function_1/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_function_1.v",
         "exit": 1,
         "errors": [
@@ -628,6 +633,7 @@
     },
     "syntax/bm_function_2/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/bm_function_2/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "bm_function_2.v",
         "exit": 1,
         "errors": [
@@ -906,6 +912,7 @@
     },
     "syntax/conditional_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/conditional_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "conditional_expression_in_function_port.v",
         "exit": 1,
         "errors": [
@@ -961,6 +968,7 @@
     },
     "syntax/conditional_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/conditional_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "conditional_expression_in_task_port.v",
         "exit": 1,
         "errors": [
@@ -1015,6 +1023,7 @@
     },
     "syntax/deassign/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/deassign/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "deassign.v",
         "exit": 1,
         "errors": [
@@ -1192,6 +1201,7 @@
     },
     "syntax/fir_scu_rtl_restructured_for_cmm_exp/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/fir_scu_rtl_restructured_for_cmm_exp/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "fir_scu_rtl_restructured_for_cmm_exp.v",
         "exit": 1,
         "errors": [
@@ -1775,6 +1785,7 @@
     },
     "syntax/instantiated_by_name_function_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_function_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_function_invalid_1.v",
         "exit": 1,
         "errors": [
@@ -1793,6 +1804,7 @@
     },
     "syntax/instantiated_by_name_function_invalid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_function_invalid/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_function_invalid.v",
         "exit": 1,
         "errors": [
@@ -1811,6 +1823,7 @@
     },
     "syntax/instantiated_by_name_function_valid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_function_valid/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_function_valid.v",
         "exit": 1,
         "errors": [
@@ -1841,6 +1854,7 @@
     },
     "syntax/instantiated_by_name_task_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_task_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_task_invalid_1.v",
         "exit": 1,
         "errors": [
@@ -1859,6 +1873,7 @@
     },
     "syntax/instantiated_by_name_task_invalid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_task_invalid/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_task_invalid.v",
         "exit": 1,
         "errors": [
@@ -1877,6 +1892,7 @@
     },
     "syntax/instantiated_by_name_task_valid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiated_by_name_task_valid/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiated_by_name_task_valid.v",
         "exit": 1,
         "errors": [
@@ -1907,6 +1923,7 @@
     },
     "syntax/instantiating_by_name_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_invalid_1/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_invalid_1.v",
         "exit": 1,
         "errors": [
@@ -1925,6 +1942,7 @@
     },
     "syntax/instantiating_by_name_invalid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_invalid/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_invalid.v",
         "exit": 1,
         "errors": [
@@ -1934,6 +1952,7 @@
     },
     "syntax/instantiating_by_name_invalid_mix_ports/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_invalid_mix_ports/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_invalid_mix_ports.v",
         "exit": 1,
         "errors": [
@@ -1961,6 +1980,7 @@
     },
     "syntax/instantiating_by_name_valid/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/instantiating_by_name_valid/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "instantiating_by_name_valid.v",
         "exit": 1,
         "errors": [
@@ -2067,6 +2087,7 @@
     },
     "syntax/matrix_multiplication/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/matrix_multiplication/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "matrix_multiplication.v",
         "exit": 1,
         "errors": [
@@ -2168,6 +2189,7 @@
     },
     "syntax/mix_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/mix_expression_in_function_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "mix_expression_in_function_port.v",
         "exit": 1,
         "errors": [
@@ -2260,6 +2282,7 @@
     },
     "syntax/mix_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/mix_expression_in_task_port/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "mix_expression_in_task_port.v",
         "exit": 1,
         "errors": [
@@ -2639,6 +2662,7 @@
     },
     "syntax/preprocessor_complex_define/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/preprocessor_complex_define/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "preprocessor_complex_define.v",
         "exit": 1,
         "errors": [
@@ -2657,6 +2681,7 @@
     },
     "syntax/preprocessor_define/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/preprocessor_define/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "preprocessor_define.v",
         "exit": 1,
         "errors": [
@@ -2675,6 +2700,7 @@
     },
     "syntax/preprocessor_define_with_comment/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/preprocessor_define_with_comment/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "preprocessor_define_with_comment.v",
         "exit": 1,
         "errors": [
@@ -3067,6 +3093,7 @@
     },
     "syntax/top_and/k6_frac_N10_frac_chain_mem32K_40nm": {
         "test_name": "syntax/top_and/k6_frac_N10_frac_chain_mem32K_40nm",
+        "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "top_and.v",
         "exit": 1,
         "errors": [

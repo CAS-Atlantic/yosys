@@ -2,17 +2,19 @@
     "preprocessor/default_net/no_arch": {
         "test_name": "preprocessor/default_net/no_arch",
         "verilog": "default_net.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "default_net.v:2 Unsupported default nettype: tri", 
+            "default_net.v:2 Unsupported default nettype: tri"
         ]
     },
     "preprocessor/elsif_both_defined/no_arch": {
         "test_name": "preprocessor/elsif_both_defined/no_arch",
         "verilog": "elsif_both_defined.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "elsif_both_defined.v:8 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "elsif_both_defined.v:8 syntax error, unexpected '(', expecting TOK_ID or '#'"        
         ]
     },
     "preprocessor/elsif_defined/no_arch": {
@@ -74,17 +76,19 @@
     "preprocessor/ifdef_undefined/no_arch": {
         "test_name": "preprocessor/ifdef_undefined/no_arch",
         "verilog": "ifdef_undefined.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "ifdef_undefined.v:2 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "ifdef_undefined.v:2 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/ifndef_defined/no_arch": {
         "test_name": "preprocessor/ifndef_defined/no_arch",
         "verilog": "ifndef_defined.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "ifndef_defined.v:4 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "ifndef_defined.v:4 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/ifndef_else_defined/no_arch": {
@@ -160,49 +164,55 @@
     "preprocessor/nested_ifdef_alldef/no_arch": {
         "test_name": "preprocessor/nested_ifdef_alldef/no_arch",
         "verilog": "nested_ifdef_alldef.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/nested_ifdef_middef/no_arch": {
         "test_name": "preprocessor/nested_ifdef_middef/no_arch",
         "verilog": "nested_ifdef_middef.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/nested_ifdef_nonedef/no_arch": {
         "test_name": "preprocessor/nested_ifdef_nonedef/no_arch",
         "verilog": "nested_ifdef_nonedef.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/nested_ifdef_outsidedef/no_arch": {
         "test_name": "preprocessor/nested_ifdef_outsidedef/no_arch",
         "verilog": "nested_ifdef_outsidedef.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/nested_ifdef_twodef/no_arch": {
         "test_name": "preprocessor/nested_ifdef_twodef/no_arch",
         "verilog": "nested_ifdef_twodef.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/nested_operation_define/no_arch": {
         "test_name": "preprocessor/nested_operation_define/no_arch",
         "verilog": "nested_operation_define.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "nested_operation_define.v:9 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "nested_operation_define.v:9 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "preprocessor/operation_define/no_arch": {
@@ -225,9 +235,10 @@
     "preprocessor/undef/no_arch": {
         "test_name": "preprocessor/undef/no_arch",
         "verilog": "undef.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "undef.v:10 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "undef.v:10 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "DEFAULT": {

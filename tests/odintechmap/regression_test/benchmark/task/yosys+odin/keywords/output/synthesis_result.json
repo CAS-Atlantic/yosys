@@ -10,9 +10,10 @@
     "output/output_port_failure/no_arch": {
         "test_name": "output/output_port_failure/no_arch",
         "verilog": "output_port_failure.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "output_port_failure.v:5 Module port `\\b' is not declared in module header.", 
+            "output_port_failure.v:5 Module port `\\b' is not declared in module header."
         ]
     },
     "DEFAULT": {

@@ -19,9 +19,10 @@
     "default/multiple_defaults_failure/no_arch": {
         "test_name": "default/multiple_defaults_failure/no_arch",
         "verilog": "multiple_defaults_failure.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "multiple_defaults_failure.v:7 syntax error, unexpected '(', expecting TOK_ID or '#'", 
+            "multiple_defaults_failure.v:7 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
     "DEFAULT": {

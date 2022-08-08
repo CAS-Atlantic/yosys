@@ -61,9 +61,10 @@
     "always/always_posedge_negedge/no_arch": {
         "test_name": "always/always_posedge_negedge/no_arch",
         "verilog": "always_posedge_negedge.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Multiple edge sensitive events found for this signal!", 
+            "Multiple edge sensitive events found for this signal!"
         ]
     },
     "always/case_default/no_arch": {

@@ -45,8 +45,10 @@
 
 #include "BLIFElaborate.hpp"
 
-#include "simulate_blif.h"
 #include "adders.h"
+#include "hard_blocks.h"
+#include "multipliers.h"
+#include "memories.h"
 #include "BlockMemories.hpp"
 #include "subtractions.h"
 #include "netlist_cleanup.h"
@@ -1048,15 +1050,8 @@ struct OdinoPass : public Pass {
 		log("    -c XML_CONFIGURATION_FILE\n");
 		log("        Configuration file\n");
 		log("\n");
-		log("    -info\n");
-		log("        shows available hardblocks inside the architecture file\n");
-		log("\n");
-		log("    -nosimplemap\n");
-		log("        skips simplemap pass, and therefore the following internal cell types are not mapped.\n");
-		log("            $not, $pos, $and, $or, $xor, $xnor\n");
-		log("            $reduce_and, $reduce_or, $reduce_xor, $reduce_xnor, $reduce_bool\n");
-		log("            $logic_not, $logic_and, $logic_or, $mux, $tribuf\n");
-		log("            $sr, $ff, $dff, $dffe, $dffsr, $dffsre, $adff, $adffe, $aldff, $aldffe, $sdff, $sdffe, $sdffce, $dlatch, $adlatch, $dlatchsr\n");
+		log("    -b BLIF_FILE\n");
+		log("        input BLIF_FILE\n");
 		log("\n");
 		log("    -top top_module\n");
 		log("        set the specified module as design top module\n");
@@ -1066,27 +1061,6 @@ struct OdinoPass : public Pass {
 		log("\n");
 		log("    -o ODIN_OUTPUT_FILE_PATH\n");
 		log("        Output blif file path after odin partial mapper\n");
-		log("\n");
-		log("    -L PRIMARY_INPUTS\n");
-		log("        list of primary inputs to hold high at cycle 0, and low for all subsequent cycles\n");
-		log("\n");
-		log("    -H PRIMARY_INPUTS\n");
-		log("        list of primary inputs to hold low at cycle 0, and high for all subsequent cycles\n");
-		log("\n");
-		log("    -t INPUT_VECTOR_FILE\n");
-		log("        File of predefined input vectors to simulate\n");
-		log("\n");
-		log("    -T OUTPUT_VECTOR_FILE\n");
-		log("        File of predefined output vectors to check against simulation\n");
-		log("\n");
-		log("    -j PARALEL_NODE_COUNT\n");
-		log("        Number of threads allowed for simulator to use, by default 1\n");
-		log("\n");
-		log("    -g NUM_VECTORS\n");
-		log("        Number of random test vectors to generate\n");
-		log("\n");
-		log("    -sim_dir SIMULATION_DIRECTORY\n");
-		log("        Directory output for simulation, if not specified current directory will be used by default\n");
 		log("\n");
 		log("    -fflegalize\n");
 		log("        Make all flip-flops rising edge to be compatible with VPR (may add inverters)\n");
@@ -1102,8 +1076,6 @@ struct OdinoPass : public Pass {
 	{
 		bool flag_arch_file = false;
 		bool flag_config_file = false;
-		bool flag_arch_info = false;
-		bool flag_simple_map = true;
 		bool flag_no_pass = false;
 		bool flag_load_primitives = false;
 		bool flag_read_verilog_input = false;
@@ -1139,14 +1111,6 @@ struct OdinoPass : public Pass {
 				flag_config_file = true;
 				continue;
 			}
-			if (args[argidx] == "-info") {
-				flag_arch_info = true;
-				continue;
-			}
-			if (args[argidx] == "-nosimplemap") {
-				flag_simple_map = true;
-				continue;
-			}
 			if (args[argidx] == "-nopass") {
 				flag_no_pass = true;
 				continue;
@@ -1173,46 +1137,6 @@ struct OdinoPass : public Pass {
 				verilog_input_path = args[++argidx];
 				continue;
 			}
-			if (args[argidx] == "-H" && argidx+1 < args.size()) {
-				flag_sim_hold_low = true;
-				sim_hold_low.push_back(args[++argidx]);
-
-				while (argidx+1 < args.size() && args[argidx+1][0] != '-') {
-					sim_hold_low.push_back(args[++argidx]);
-				}
-
-				continue;
-			}
-			if (args[argidx] == "-L" && argidx+1 < args.size()) {
-				flag_sim_hold_high = true;
-				sim_hold_high.push_back(args[++argidx]);
-
-				while (argidx+1 < args.size() && args[argidx+1][0] != '-') {
-					sim_hold_high.push_back(args[++argidx]);
-				}
-
-				continue;
-			}
-			if (args[argidx] == "-t" && argidx+1 < args.size()) {
-				global_args.sim_vector_input_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
-				continue;
-			}
-			if (args[argidx] == "-T" && argidx+1 < args.size()) {
-				global_args.sim_vector_output_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
-				continue;
-			}
-			if (args[argidx] == "-j" && argidx+1 < args.size()) {
-				global_args.parralelized_simulation.set(atoi(args[++argidx].c_str()), argparse::Provenance::SPECIFIED);
-				continue;
-			}
-			if (args[argidx] == "-sim_dir" && argidx+1 < args.size()) {
-				global_args.sim_directory.set(args[++argidx], argparse::Provenance::SPECIFIED);
-				continue;
-			}
-			if (args[argidx] == "-g" && argidx+1 < args.size()) {
-				global_args.sim_num_test_vectors.set(atoi(args[++argidx].c_str()), argparse::Provenance::SPECIFIED);
-				continue;
-			}
 			if (args[argidx] == "-b" && argidx+1 < args.size()) {
 				global_args.blif_file.set(args[++argidx], argparse::Provenance::SPECIFIED);
 				continue;
@@ -1231,21 +1155,6 @@ struct OdinoPass : public Pass {
 			}
 		}
 		extra_args(args, argidx, design);
-
-		if (flag_sim_hold_low) {
-			global_args.sim_hold_low.set(sim_hold_low, argparse::Provenance::SPECIFIED);
-		}
-
-		if (flag_sim_hold_high) {
-			global_args.sim_hold_high.set(sim_hold_high, argparse::Provenance::SPECIFIED);
-		}
-
-		//adjust thread count
-    	int thread_requested = global_args.parralelized_simulation;
-    	int max_thread = std::thread::hardware_concurrency();
-
-    	global_args.parralelized_simulation.set(
-        std::max(1, std::min(thread_requested, std::min((CONCURENCY_LIMIT - 1), max_thread))), argparse::Provenance::SPECIFIED);
 
 		// t_arch Arch;
 		// global_args_t global_args;
@@ -1298,15 +1207,12 @@ struct OdinoPass : public Pass {
 		}
 		log("Using Lut input width of: %d\n", physical_lut_size);
 
-
-		// design->sort();
-
 		if(flag_load_primitives) {
 
 		}
 
 		if(!flag_no_pass) {
-			run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/primitives.v");
+			run_pass("read_verilog -nomem2reg +/odintechmap/primitives.v");
 			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
 			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
 		}
@@ -1331,7 +1237,6 @@ struct OdinoPass : public Pass {
 		if (flag_read_verilog_input) {
 			log("Verilog: %s\n", vtr::basename(verilog_input_path).c_str());
 			run_pass("read_verilog -sv -nolatches " + verilog_input_path);
-			// run_pass("read_verilog -nomem2reg /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/arch_dsp.v");
 		}
 
 		if (top_module_name.empty()) {
@@ -1347,8 +1252,8 @@ struct OdinoPass : public Pass {
 			run_pass("autoname");
 			run_pass("check");
 
-			run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adff2dff.v");
-        	run_pass("techmap -map /home/casa/Desktop/CAS-Atlantic/yosys-b96eb888/techlibs/odin/adffe2dff.v");
+			run_pass("techmap -map +/odintechmap/adff2dff.v");
+        	run_pass("techmap -map +/odintechmap/adffe2dff.v");
         	run_pass("techmap */t:$shift */t:$shiftx");
 
 			run_pass("flatten");
@@ -1414,45 +1319,6 @@ struct OdinoPass : public Pass {
 		log("\nTotal Synthesis Time: ");
     	log_time(synthesis_time);
     	log("\n--------------------------------------------------------------------\n");
-
-		/*************************************************************
-     	* begin simulation section
-     	*/
-	 	//global_args.blif_file.set(odin_mapped_blif_output, argparse::Provenance::SPECIFIED);
-    	// netlist_t* sim_netlist = NULL;
-    	// if ((global_args.blif_file.provenance() == argparse::Provenance::SPECIFIED && !coarsen_cleanup)
-        // 	|| global_args.interactive_simulation
-        // 	|| global_args.sim_num_test_vectors
-        // 	|| global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED) {
-
-		// 	configuration.input_file_type = file_type_e::_BLIF;
-		// 	configuration.list_of_file_names = {odin_mapped_blif_output};
-        //     my_location.file = 0;
-
-		// 	try {
-        //     /**
-        //      * The blif file for simulation should follow odin_ii blif style 
-        //      * So, here we call odin_ii's read_blif
-        //      */
-		// 		GenericReader generic_reader = GenericReader();
-        //     	sim_netlist = static_cast<netlist_t*>(generic_reader._read());
-        // 	} catch (vtr::VtrError& vtr_error) {
-        //     	log_error("Odin Failed to load BLIF file: %s with exit code:%d \n", vtr_error.what(), ERROR_PARSE_BLIF);
-        // 	}
-			
-		// 	/* Simulate netlist */
-	    // 	if (sim_netlist && !global_args.interactive_simulation
-    	//     	&& (global_args.sim_num_test_vectors || (global_args.sim_vector_input_file.provenance() == argparse::Provenance::SPECIFIED))) {
-        // 		log("Netlist Simulation Begin\n");
-        // 		create_directory(global_args.sim_directory);
-
-        // 		simulate_netlist(sim_netlist);
-    	// 	}
-
-    	// 	compute_statistics(sim_netlist, true);
-
-		// 	printf("--------------------------------------------------------------------\n");
-    	// }
 
 		free_netlist(transformed);
 		free_arch(&Arch);

@@ -1555,35 +1555,39 @@
         "test_name": "operators/macromudule_test/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "verilog": "macromudule_test.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
     "operators/macromudule_test/k6_N10_40nm": {
         "test_name": "operators/macromudule_test/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "verilog": "macromudule_test.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
     "operators/macromudule_test/k6_N10_mem32K_40nm": {
         "test_name": "operators/macromudule_test/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "verilog": "macromudule_test.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
     "operators/macromudule_test/no_arch": {
         "test_name": "operators/macromudule_test/no_arch",
         "verilog": "macromudule_test.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
+            "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
     "operators/minuscolon_6_bit/k6_frac_N10_frac_chain_mem32K_40nm": {

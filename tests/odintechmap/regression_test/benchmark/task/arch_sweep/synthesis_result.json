@@ -5,7 +5,7 @@
         "verilog": "both_ram.v",
         "exit": 134,
         "errors": [
-            "both_ram.v:49:1 [NETLIST] Memory pram.inst1 of depth 2^11 exceeds ODIN bound of 2^10."
+            "[NETLIST] Memory dual_port_ram^MEM~0 of depth 2^11 exceeds ODIN bound of 2^10."
         ],
         "elaboration_time(ms)": 3.2,
         "optimization_time(ms)": 0

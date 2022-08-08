@@ -2,9 +2,10 @@
     "defparam/defparam_depth_1_failure/no_arch": {
         "test_name": "defparam/defparam_depth_1_failure/no_arch",
         "verilog": "defparam_depth_1_failure.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "Module `assg' referenced in module `simple_op' in cell `m2' does not have a parameter named 'width'.", 
+            "Module `assg' referenced in module `simple_op' in cell `m2' does not have a parameter named 'width'."
         ]
     },
     "defparam/defparam_depth_1/no_arch": {
@@ -38,33 +39,37 @@
     "defparam/defparam_failure/no_arch": {
         "test_name": "defparam/defparam_failure/no_arch",
         "verilog": "defparam_failure.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "defparam_failure.v:0 Can't find object for defparam `simple_op.m1.width`!", 
+            "defparam_failure.v:0 Can't find object for defparam `simple_op.m1.width`!"
         ]
     },
     "defparam/defparam/no_arch": {
         "test_name": "defparam/defparam/no_arch",
         "verilog": "defparam.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "defparam.v:0 Can't find object for defparam `simple_op.m1.width`!", 
+            "defparam.v:0 Can't find object for defparam `simple_op.m1.width`!"
         ]
     },
     "defparam/defparam_simple_failure/no_arch": {
         "test_name": "defparam/defparam_simple_failure/no_arch",
         "verilog": "defparam_simple_failure.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "defparam_simple_failure.v:0 Can't find object for defparam `simple_op.m1.width`!", 
+            "defparam_simple_failure.v:0 Can't find object for defparam `simple_op.m1.width`!"
         ]
     },
     "defparam/defparam_string/no_arch": {
         "test_name": "defparam/defparam_string/no_arch",
         "verilog": "defparam_string.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "defparam_string.v:0 Can't find object for defparam `simple_op.msg`!", 
+            "defparam_string.v:0 Can't find object for defparam `simple_op.msg`!"
         ]
     },
     "defparam/override_same_param_name/no_arch": {

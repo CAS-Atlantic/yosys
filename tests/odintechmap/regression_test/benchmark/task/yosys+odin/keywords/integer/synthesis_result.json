@@ -19,9 +19,10 @@
     "integer/integer_outside/no_arch": {
         "test_name": "integer/integer_outside/no_arch",
         "verilog": "integer_outside.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "integer_outside.v:1 Incompatible re-declaration of wire \\c.", 
+            "integer_outside.v:1 Incompatible re-declaration of wire \\c."
         ]
     },
     "integer/integer_port/no_arch": {

@@ -12,6 +12,7 @@ USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
 
 struct OdinSimPass : public Pass {
+
     void get_physical_luts(std::vector<t_pb_type*>& pb_lut_list, t_mode* mode) {
     	for (int i = 0; i < mode->num_pb_type_children; i++) {
         	get_physical_luts(pb_lut_list, &mode->pb_type_children[i]);
@@ -46,9 +47,37 @@ struct OdinSimPass : public Pass {
     	    }
 	    }
 	}
+
 	OdinSimPass() : Pass("odinsim", "ODIN_II blif simulator") { }
 	void help() override
 	{
+		log("\n");
+		log("    -a ARCHITECTURE_FILE\n");
+		log("        VTR FPGA architecture description file (XML)\n");
+		log("\n");
+		log("    -b BLIF_FILE\n");
+		log("        input BLIF_FILE\n");
+		log("\n");
+		log("    -L PRIMARY_INPUTS\n");
+		log("        list of primary inputs to hold high at cycle 0, and low for all subsequent cycles\n");
+		log("\n");
+		log("    -H PRIMARY_INPUTS\n");
+		log("        list of primary inputs to hold low at cycle 0, and high for all subsequent cycles\n");
+		log("\n");
+		log("    -t INPUT_VECTOR_FILE\n");
+		log("        File of predefined input vectors to simulate\n");
+		log("\n");
+		log("    -T OUTPUT_VECTOR_FILE\n");
+		log("        File of predefined output vectors to check against simulation\n");
+		log("\n");
+		log("    -j PARALEL_NODE_COUNT\n");
+		log("        Number of threads allowed for simulator to use, by default 1\n");
+		log("\n");
+		log("    -g NUM_VECTORS\n");
+		log("        Number of random test vectors to generate\n");
+		log("\n");
+		log("    -sim_dir SIMULATION_DIRECTORY\n");
+		log("        Directory output for simulation, if not specified current directory will be used by default\n");
 		log("\n");
     }
     void execute(std::vector<std::string> args, RTLIL::Design *design) override

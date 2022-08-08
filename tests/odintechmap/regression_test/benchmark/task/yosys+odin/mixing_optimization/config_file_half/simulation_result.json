@@ -3,9 +3,7 @@
         "test_name": "config_file_half/bm_base_multiply/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "bm_base_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.9,
         "exec_time(ms)": 295.4,
         "simulation_time(ms)": 267.3,
@@ -26,9 +24,7 @@
         "test_name": "config_file_half/bm_base_multiply/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "bm_base_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 8.6,
         "exec_time(ms)": 731.7,
         "simulation_time(ms)": 715.4,
@@ -48,9 +44,7 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "bm_match1_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.1,
         "exec_time(ms)": 458.6,
         "simulation_time(ms)": 424.6,
@@ -71,9 +65,7 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "bm_match1_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.5,
         "exec_time(ms)": 1538.5,
         "simulation_time(ms)": 1500.3,
@@ -93,9 +85,7 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "bm_match2_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.3,
         "exec_time(ms)": 505.4,
         "simulation_time(ms)": 467.6,
@@ -117,9 +107,7 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "bm_match2_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 9,
         "exec_time(ms)": 946.5,
         "simulation_time(ms)": 924.6,
@@ -139,9 +127,7 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "bm_match3_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11,
         "exec_time(ms)": 284.5,
         "simulation_time(ms)": 255.7,
@@ -163,9 +149,7 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "bm_match3_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 7.7,
         "exec_time(ms)": 402.6,
         "simulation_time(ms)": 390.3,
@@ -185,9 +169,7 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "bm_match4_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.3,
         "exec_time(ms)": 651.3,
         "simulation_time(ms)": 611.9,
@@ -209,9 +191,7 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "bm_match4_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 9,
         "exec_time(ms)": 963.7,
         "simulation_time(ms)": 939.9,
@@ -231,9 +211,7 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "bm_match5_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.1,
         "exec_time(ms)": 508.6,
         "simulation_time(ms)": 475,
@@ -255,9 +233,7 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "bm_match5_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 9.8,
         "exec_time(ms)": 1227.2,
         "simulation_time(ms)": 1198.6,
@@ -277,9 +253,7 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "twobits_arithmetic_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.7,
         "exec_time(ms)": 22,
         "simulation_time(ms)": 2.3,
@@ -300,9 +274,7 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "twobits_arithmetic_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 7.1,
         "exec_time(ms)": 8.6,
         "simulation_time(ms)": 2.3,
@@ -322,9 +294,7 @@
         "test_name": "config_file_half/bm_base_multiply/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "bm_base_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.8,
         "exec_time(ms)": 300.3,
         "simulation_time(ms)": 272.9,
@@ -345,9 +315,7 @@
         "test_name": "config_file_half/bm_base_multiply/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "bm_base_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.8,
         "exec_time(ms)": 300.2,
         "simulation_time(ms)": 273.4,
@@ -368,9 +336,7 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match1_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.1,
         "exec_time(ms)": 461.5,
         "simulation_time(ms)": 426.7,
@@ -391,9 +357,7 @@
         "test_name": "config_file_half/bm_match1_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match1_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.1,
         "exec_time(ms)": 438.7,
         "simulation_time(ms)": 411.4,
@@ -414,9 +378,7 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match2_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.1,
         "exec_time(ms)": 444.5,
         "simulation_time(ms)": 414.6,
@@ -437,9 +399,7 @@
         "test_name": "config_file_half/bm_match2_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match2_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.2,
         "exec_time(ms)": 425,
         "simulation_time(ms)": 395.2,
@@ -460,9 +420,7 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match3_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.8,
         "exec_time(ms)": 251,
         "simulation_time(ms)": 225.8,
@@ -483,9 +441,7 @@
         "test_name": "config_file_half/bm_match3_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match3_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.9,
         "exec_time(ms)": 247.5,
         "simulation_time(ms)": 223.3,
@@ -506,9 +462,7 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match4_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.3,
         "exec_time(ms)": 639.6,
         "simulation_time(ms)": 610.3,
@@ -529,9 +483,7 @@
         "test_name": "config_file_half/bm_match4_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match4_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.3,
         "exec_time(ms)": 634,
         "simulation_time(ms)": 601.8,
@@ -552,9 +504,7 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match5_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.1,
         "exec_time(ms)": 449.7,
         "simulation_time(ms)": 417.7,
@@ -575,9 +525,7 @@
         "test_name": "config_file_half/bm_match5_str_arch/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "bm_match5_str_arch_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 11.1,
         "exec_time(ms)": 409.6,
         "simulation_time(ms)": 384.1,
@@ -598,9 +546,7 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "twobits_arithmetic_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.6,
         "exec_time(ms)": 21.6,
         "simulation_time(ms)": 2.3,
@@ -621,9 +567,7 @@
         "test_name": "config_file_half/twobits_arithmetic_multiply/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "twobits_arithmetic_multiply_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.7,
         "exec_time(ms)": 22.8,
         "simulation_time(ms)": 2.5,
@@ -644,9 +588,7 @@
         "test_name": "config_file_half/multiply_hard_block/k6_frac_N10_frac_chain_mem32K_40nm",
         "architecture": "k6_frac_N10_frac_chain_mem32K_40nm.xml",
         "generated_blif": "multiply_hard_block_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.7,
         "exec_time(ms)": 34.7,
         "simulation_time(ms)": 8.6,
@@ -665,9 +607,7 @@
         "test_name": "config_file_half/multiply_hard_block/k6_frac_N10_mem32K_40nm",
         "architecture": "k6_frac_N10_mem32K_40nm.xml",
         "generated_blif": "multiply_hard_block_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.6,
         "exec_time(ms)": 30,
         "simulation_time(ms)": 8.6,
@@ -686,9 +626,7 @@
         "test_name": "config_file_half/multiply_hard_block/k6_N10_40nm",
         "architecture": "k6_N10_40nm.xml",
         "generated_blif": "multiply_hard_block_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 7.2,
         "exec_time(ms)": 12.6,
         "simulation_time(ms)": 9,
@@ -706,9 +644,7 @@
         "test_name": "config_file_half/multiply_hard_block/k6_N10_mem32K_40nm",
         "architecture": "k6_N10_mem32K_40nm.xml",
         "generated_blif": "multiply_hard_block_generated.blif",
-        "warnings": [
-            "[PARSE_ARGS] Must include only one of either:"
-        ],
+        "warnings": [],
         "max_rss(MiB)": 10.6,
         "exec_time(ms)": 27.4,
         "simulation_time(ms)": 8.3,

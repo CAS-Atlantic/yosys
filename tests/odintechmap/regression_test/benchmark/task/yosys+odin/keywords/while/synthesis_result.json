@@ -2,9 +2,10 @@
     "while/while_loop/no_arch": {
         "test_name": "while/while_loop/no_arch",
         "verilog": "while_loop.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "Yosys failed to perform elaboration, Please look at the log file for the failure cause or pass '--show_yosys_log' to Odin-II to see the logs."
+            "while_loop.v:0 While loops are only allowed in constant functions!", 
+            "while_loop.v:0 While loops are only allowed in constant functions!"
         ]
     },
     "DEFAULT": {
