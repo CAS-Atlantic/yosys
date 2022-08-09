@@ -61,6 +61,57 @@
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
 
+struct YCellType
+{
+	RTLIL::IdString type;
+	std::vector<RTLIL::IdString> inputs, outputs;
+};
+
+struct YCellTypes
+{
+	dict<RTLIL::IdString, YCellType> cell_types;
+
+	YCellTypes()
+	{
+		setup();
+	}
+
+	void setup() {
+		setup_stdcells();
+	}
+
+	void setup_type(RTLIL::IdString type, const std::vector<RTLIL::IdString> &inputs, const std::vector<RTLIL::IdString> &outputs)
+	{
+		YCellType ct = {type, inputs, outputs};
+		cell_types[ct.type] = ct;
+	}
+
+	void setup_stdcells()
+	{
+		setup_type(ID($_BUF_), {ID::A}, {ID::Y});
+		setup_type(ID($_NOT_), {ID::A}, {ID::Y});
+		setup_type(ID($_AND_), {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_NAND_), {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_OR_),  {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_NOR_),  {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_XOR_), {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_XNOR_), {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_ANDNOT_), {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_ORNOT_), {ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_MUX_), {ID::S, ID::A, ID::B}, {ID::Y});
+		setup_type(ID($_NMUX_), {ID::A, ID::B, ID::S}, {ID::Y});
+		setup_type(ID($_MUX4_), {ID::A, ID::B, ID::C, ID::D, ID::S, ID::T}, {ID::Y});
+		setup_type(ID($_MUX8_), {ID::A, ID::B, ID::C, ID::D, ID::E, ID::F, ID::G, ID::H, ID::S, ID::T, ID::U}, {ID::Y});
+		setup_type(ID($_MUX16_), {ID::A, ID::B, ID::C, ID::D, ID::E, ID::F, ID::G, ID::H, ID::I, ID::J, ID::K, ID::L, ID::M, ID::N, ID::O, ID::P, ID::S, ID::T, ID::U, ID::V}, {ID::Y});
+		setup_type(ID($_AOI3_), {ID::A, ID::B, ID::C}, {ID::Y});
+		setup_type(ID($_OAI3_), {ID::A, ID::B, ID::C}, {ID::Y});
+		setup_type(ID($_AOI4_), {ID::A, ID::B, ID::C, ID::D}, {ID::Y});
+		setup_type(ID($_OAI4_), {ID::A, ID::B, ID::C, ID::D}, {ID::Y});
+		setup_type(ID($_TBUF_), {ID::A, ID::E}, {ID::Y});
+	}
+
+};
+
 struct OdinoPass : public Pass {
 
 	const std::string str(RTLIL::IdString id)
@@ -437,7 +488,7 @@ struct OdinoPass : public Pass {
 		return -1;
 	}
 	
-	netlist_t* to_netlist(RTLIL::Module *top_module, RTLIL::Design *design) {
+	netlist_t* to_netlist(RTLIL::Module *top_module, RTLIL::Design *design, YCellTypes *ct) {
 
 		std::vector<RTLIL::Module*> mod_list;
 
@@ -626,11 +677,15 @@ struct OdinoPass : public Pass {
 			}
 
 			if ( str(cell->type) == "$_MUX_") {
-				map_input_port(ID::S, cell->getPort(ID::S), new_node, odin_netlist->identifier, cstr_bits_seen);
-				map_input_port(ID::A, cell->getPort(ID::A), new_node, odin_netlist->identifier, cstr_bits_seen);
-				map_input_port(ID::B, cell->getPort(ID::B), new_node, odin_netlist->identifier, cstr_bits_seen);
 
-				map_output_port(ID::Y, cell->getPort(ID::Y), new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
+				for (auto in : ct->cell_types.at(cell->type).inputs) {
+					map_input_port(in, cell->getPort(in), new_node, odin_netlist->identifier, cstr_bits_seen);
+				}
+
+				for (auto out : ct->cell_types.at(cell->type).outputs) {
+					map_output_port(out, cell->getPort(out), new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
+				}
+
 			} else {
 				for (auto &conn : cell->connections()) {
 					// log("%s %s\n", RTLIL::unescape_id(conn.first).c_str(), conn.second.as_string().c_str());
@@ -1096,6 +1151,13 @@ struct OdinoPass : public Pass {
 	}
 	void execute(std::vector<std::string> args, RTLIL::Design *design) override
 	{
+		std::string odin_techlib_dirname;
+		#  if defined(_WIN32) && !defined(YOSYS_WIN32_UNIX_DIR)
+			odin_techlib_dirname = proc_self_dirname() + "techlibs\\odintechmap\\";
+		#  else
+			odin_techlib_dirname = proc_self_dirname() + "techlibs/odintechmap/";
+		#  endif
+
 		bool flag_arch_file = false;
 		bool flag_config_file = false;
 		bool flag_no_pass = false;
@@ -1112,6 +1174,9 @@ struct OdinoPass : public Pass {
 		std::vector<std::string> sim_hold_low;
 		std::vector<std::string> sim_hold_high;
 		std::string DEFAULT_OUTPUT(".");
+
+		//CellTypes ct(design);
+		// ct(design);
 		
 		global_args.sim_directory.set(DEFAULT_OUTPUT, argparse::Provenance::DEFAULT);
 
@@ -1119,6 +1184,7 @@ struct OdinoPass : public Pass {
 		global_args.mults_ratio.set(-1.0, argparse::Provenance::DEFAULT);
 		
 		log_header(design, "Starting odintechmap pass.\n");
+		log("\\|/%s\n", proc_self_dirname().c_str());
 
 		size_t argidx;
 		for (argidx = 1; argidx < args.size(); argidx++)
@@ -1164,7 +1230,8 @@ struct OdinoPass : public Pass {
 				continue;
 			}
 			if (args[argidx] == "-fflegalize") {
-				configuration.fflegalize = true;
+				global_args.fflegalize.set(true, argparse::Provenance::SPECIFIED);
+				// configuration.fflegalize = true;
 				continue;
 			}
 			if (args[argidx] == "-exact_mults" && argidx+1 < args.size()) {
@@ -1204,6 +1271,10 @@ struct OdinoPass : public Pass {
         	mixer->_opts[MULTIPLY] = new MultsOpt(global_args.exact_mults);
     	}
 
+		if (global_args.fflegalize.provenance() == argparse::Provenance::SPECIFIED) {
+        	configuration.fflegalize = global_args.fflegalize;
+    	}
+
 		configuration.coarsen = true;
 
 		/* read the confirguration file .. get options presets the config values just in case theyr'e not read in with config file */
@@ -1234,7 +1305,7 @@ struct OdinoPass : public Pass {
 		}
 
 		if(!flag_no_pass) {
-			run_pass("read_verilog -nomem2reg ./techlibs/odintechmap/primitives.v");
+			run_pass("read_verilog -nomem2reg " + odin_techlib_dirname + "primitives.v");
 			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
 			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
 		}
@@ -1274,8 +1345,8 @@ struct OdinoPass : public Pass {
 			run_pass("autoname");
 			run_pass("check");
 
-			run_pass("techmap -map ./techlibs/odintechmap/adff2dff.v");
-        	run_pass("techmap -map ./techlibs/odintechmap/adffe2dff.v");
+			run_pass("techmap -map " + odin_techlib_dirname + "adff2dff.v");
+        	run_pass("techmap -map " + odin_techlib_dirname + "adffe2dff.v");
         	run_pass("techmap */t:$shift */t:$shiftx");
 
 			run_pass("flatten");
@@ -1301,7 +1372,8 @@ struct OdinoPass : public Pass {
 		log("--------------------------------------------------------------------\n");
     	log("High-level Synthesis Begin\n");
 
-		netlist_t* transformed = to_netlist(design->top_module(), design);
+		YCellTypes ct;
+		netlist_t* transformed = to_netlist(design->top_module(), design, &ct);
 
 		/* Performing elaboration for input digital circuits */
     	try {
