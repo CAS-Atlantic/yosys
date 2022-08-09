@@ -561,7 +561,7 @@ struct OdinoPass : public Pass {
 		long hard_id = 0;
 		for(auto cell : top_module->cells()) 
 		{
-			// log("cell type: %s %s\n", cell->type.c_str(), str(cell->type).c_str());
+			log("cell type: %s %s\n", cell->type.c_str(), str(cell->type).c_str());
 
     		nnode_t* new_node = allocate_nnode(my_location);
 			new_node->cell = cell;
@@ -569,7 +569,10 @@ struct OdinoPass : public Pass {
     		new_node->related_ast_node = NULL;
 
 			// new_node->type = yosys_subckt_strmap[cell->type.c_str()];
-			new_node->type = yosys_subckt_strmap[str(cell->type).c_str()];
+			if ( str(cell->type) == "$_MUX_")
+				new_node->type = SMUX_2;
+			else
+				new_node->type = yosys_subckt_strmap[str(cell->type).c_str()];
 
 			if (new_node->type == NO_OP) {
 
@@ -622,18 +625,26 @@ struct OdinoPass : public Pass {
 				}
 			}
 
-			for (auto &conn : cell->connections()) {
+			if ( str(cell->type) == "$_MUX_") {
+				map_input_port(ID::S, cell->getPort(ID::S), new_node, odin_netlist->identifier, cstr_bits_seen);
+				map_input_port(ID::A, cell->getPort(ID::A), new_node, odin_netlist->identifier, cstr_bits_seen);
+				map_input_port(ID::B, cell->getPort(ID::B), new_node, odin_netlist->identifier, cstr_bits_seen);
 
-				if (cell->input(conn.first) && conn.second.size()>0) {
+				map_output_port(ID::Y, cell->getPort(ID::Y), new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
+			} else {
+				for (auto &conn : cell->connections()) {
+					// log("%s %s\n", RTLIL::unescape_id(conn.first).c_str(), conn.second.as_string().c_str());
+
+					if (cell->input(conn.first) && conn.second.size()>0) {
 					// if (conn.first == ID::RD_ARST || conn.first == ID::RD_SRST )
 					// 	continue;
 					// log("cell->input %s\n", RTLIL::unescape_id(conn.first).c_str());
-					map_input_port(conn.first, conn.second, new_node, odin_netlist->identifier, cstr_bits_seen);
-				}
+						map_input_port(conn.first, conn.second, new_node, odin_netlist->identifier, cstr_bits_seen);
+					}
 
-				if (cell->output(conn.first) && conn.second.size()>0) {
-					map_output_port(conn.first, conn.second, new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
-				}
+					if (cell->output(conn.first) && conn.second.size()>0) {
+						map_output_port(conn.first, conn.second, new_node, odin_netlist->identifier, output_nets_hash, cstr_bits_seen);
+					}
 
 				// Module *m = design->module(cell->type);
 				// Wire *w = m ? m->wire(conn.first) : nullptr;
@@ -649,7 +660,10 @@ struct OdinoPass : public Pass {
 				// 				sig.wire->start_offset+sig.offset, str(conn.second[i]).c_str());
 				// 	}
 				// }
-            }
+            	}
+			}
+
+
 
 			// if (new_node->type == HARD_IP) {
 			// 	RTLIL::Module* inst_module = design->module(cell->type);
@@ -806,8 +820,16 @@ struct OdinoPass : public Pass {
 
 			/* add a name for the node, keeping the name of the node same as the output */
         	// new_node->name = vtr::strdup(log_id(port_Y[0].wire->name)); // @TODO recheck later
+
+			if (new_node->type == SMUX_2) {
+				new_node->name = vtr::strdup(new_node->output_pins[0]->net->name); 
+				// new_node->name = vtr::strdup(stringf("%s~%ld", str(cell->getPort(ID::Y)).c_str(), hard_id++).c_str()); + make_full_ref_name
 			
-			new_node->name = vtr::strdup(stringf("%s~%ld", (((new_node->type == HARD_IP) ? "\\" : "") + str(cell->type)).c_str(), hard_id++).c_str()); 
+			} else {
+				new_node->name = vtr::strdup(stringf("%s~%ld", (((new_node->type == HARD_IP) ? "\\" : "") + str(cell->type)).c_str(), hard_id++).c_str()); 
+			}
+			
+			
 			// new_node->name = vtr::strdup(stringf("%s~%ld", str(cell->type).c_str(), hard_id++).c_str()); 
 
         	/*add this node to blif_netlist as an internal node */
@@ -1212,7 +1234,7 @@ struct OdinoPass : public Pass {
 		}
 
 		if(!flag_no_pass) {
-			run_pass("read_verilog -nomem2reg +/odintechmap/primitives.v");
+			run_pass("read_verilog -nomem2reg ./techlibs/odintechmap/primitives.v");
 			run_pass("setattr -mod -set keep_hierarchy 1 single_port_ram");
 			run_pass("setattr -mod -set keep_hierarchy 1 dual_port_ram");
 		}
@@ -1252,8 +1274,8 @@ struct OdinoPass : public Pass {
 			run_pass("autoname");
 			run_pass("check");
 
-			run_pass("techmap -map +/odintechmap/adff2dff.v");
-        	run_pass("techmap -map +/odintechmap/adffe2dff.v");
+			run_pass("techmap -map ./techlibs/odintechmap/adff2dff.v");
+        	run_pass("techmap -map ./techlibs/odintechmap/adffe2dff.v");
         	run_pass("techmap */t:$shift */t:$shiftx");
 
 			run_pass("flatten");
