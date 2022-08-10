@@ -612,7 +612,7 @@ struct OdinoPass : public Pass {
 		long hard_id = 0;
 		for(auto cell : top_module->cells()) 
 		{
-			log("cell type: %s %s\n", cell->type.c_str(), str(cell->type).c_str());
+			// log("cell type: %s %s\n", cell->type.c_str(), str(cell->type).c_str());
 
     		nnode_t* new_node = allocate_nnode(my_location);
 			new_node->cell = cell;
@@ -1168,8 +1168,8 @@ struct OdinoPass : public Pass {
 		std::string arch_file_path;
 		std::string config_file_path;
 		std::string top_module_name;
-		std::string yosys_coarsen_blif_output("yosys_coarsen.blif");
-		std::string odin_mapped_blif_output("odin_mapped.blif");
+		std::string yosys_coarsen_blif_output(proc_share_dirname() + "/yosys_coarsen.blif");
+		std::string odin_mapped_blif_output(proc_share_dirname() + "/odin_mapped.blif");
 		std::string verilog_input_path;
 		std::vector<std::string> sim_hold_low;
 		std::vector<std::string> sim_hold_high;
@@ -1312,7 +1312,7 @@ struct OdinoPass : public Pass {
 
 		// ********* start dsp handling ************
 		Verilog::Writer vw = Verilog::Writer();
-    	vw._create_file(configuration.dsp_verilog.c_str());
+    	vw._create_file((proc_share_dirname() + configuration.dsp_verilog).c_str());
 
     	t_model* hb = Arch.models;
     	while (hb) {
@@ -1324,7 +1324,7 @@ struct OdinoPass : public Pass {
     	}
 
     	vw._write(NULL);
-    	run_pass(std::string("read_verilog -nomem2reg " + configuration.dsp_verilog));
+    	run_pass(std::string("read_verilog -nomem2reg +/" + configuration.dsp_verilog));
 		// ********* finished dsp handling ************
 
 		if (flag_read_verilog_input) {
