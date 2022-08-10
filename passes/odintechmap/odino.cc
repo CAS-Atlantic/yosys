@@ -1163,23 +1163,17 @@ struct OdinoPass : public Pass {
 		bool flag_no_pass = false;
 		bool flag_load_primitives = false;
 		bool flag_read_verilog_input = false;
-		bool flag_sim_hold_low = false;
-		bool flag_sim_hold_high = false;
 		std::string arch_file_path;
 		std::string config_file_path;
 		std::string top_module_name;
-		std::string yosys_coarsen_blif_output(proc_share_dirname() + "/yosys_coarsen.blif");
-		std::string odin_mapped_blif_output(proc_share_dirname() + "/odin_mapped.blif");
+		std::string yosys_coarsen_blif_output(proc_share_dirname() + "yosys_coarsen.blif");
+		std::string odin_mapped_blif_output(proc_share_dirname() + "odin_mapped.blif");
 		std::string verilog_input_path;
-		std::vector<std::string> sim_hold_low;
-		std::vector<std::string> sim_hold_high;
 		std::string DEFAULT_OUTPUT(".");
 
 		//CellTypes ct(design);
 		// ct(design);
 		
-		global_args.sim_directory.set(DEFAULT_OUTPUT, argparse::Provenance::DEFAULT);
-
 		global_args.exact_mults.set(-1, argparse::Provenance::DEFAULT);
 		global_args.mults_ratio.set(-1.0, argparse::Provenance::DEFAULT);
 		
