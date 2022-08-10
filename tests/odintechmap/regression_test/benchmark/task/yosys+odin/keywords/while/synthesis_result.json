@@ -4,7 +4,6 @@
         "verilog": "while_loop.v",
         "exit": 1,
         "errors": [
-            "while_loop.v:0 While loops are only allowed in constant functions!", 
             "while_loop.v:0 While loops are only allowed in constant functions!"
         ]
     },

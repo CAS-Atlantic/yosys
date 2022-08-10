@@ -21,7 +21,6 @@
         "verilog": "multiple_defaults_failure.v",
         "exit": 1,
         "errors": [
-            "multiple_defaults_failure.v:7 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "multiple_defaults_failure.v:7 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },

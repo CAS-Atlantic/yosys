@@ -12,7 +12,6 @@
         "verilog": "output_port_failure.v",
         "exit": 1,
         "errors": [
-            "output_port_failure.v:5 Module port `\\b' is not declared in module header.", 
             "output_port_failure.v:5 Module port `\\b' is not declared in module header."
         ]
     },

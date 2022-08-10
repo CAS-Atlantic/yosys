@@ -32,7 +32,6 @@
         "verilog": "function_input_failure.v",
         "exit": 1,
         "errors": [
-            "function_input_failure.v:6 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "function_input_failure.v:6 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -86,7 +85,6 @@
         "verilog": "time_control_failure.v",
         "exit": 1,
         "errors": [
-            "time_control_failure.v:8 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "time_control_failure.v:8 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },

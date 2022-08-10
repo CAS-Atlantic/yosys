@@ -21,7 +21,6 @@
         "verilog": "integer_outside.v",
         "exit": 1,
         "errors": [
-            "integer_outside.v:1 Incompatible re-declaration of wire \\c.", 
             "integer_outside.v:1 Incompatible re-declaration of wire \\c."
         ]
     },

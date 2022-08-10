@@ -4,7 +4,6 @@
         "verilog": "macromodules_modules.v",
         "exit": 1,
         "errors": [
-            "macromodules_modules.v:20 syntax error, unexpected TOK_ID", 
             "macromodules_modules.v:20 syntax error, unexpected TOK_ID"
         ]
     },
@@ -13,7 +12,6 @@
         "verilog": "missing_endmodule_failure.v",
         "exit": 1,
         "errors": [
-            "missing_endmodule_failure.v:1 syntax error, unexpected TOK_ID", 
             "missing_endmodule_failure.v:1 syntax error, unexpected TOK_ID"
         ]
     },
@@ -22,7 +20,6 @@
         "verilog": "multiple_macromodules.v",
         "exit": 1,
         "errors": [
-            "multiple_macromodules.v:4 syntax error, unexpected TOK_ID", 
             "multiple_macromodules.v:4 syntax error, unexpected TOK_ID"
         ]
     },
@@ -31,7 +28,6 @@
         "verilog": "multiple_topmodules.v",
         "exit": 1,
         "errors": [
-            "multiple_topmodules.v:4 syntax error, unexpected TOK_ID", 
             "multiple_topmodules.v:4 syntax error, unexpected TOK_ID"
         ]
     },
@@ -40,7 +36,6 @@
         "verilog": "repeated_macromodule_failure.v",
         "exit": 1,
         "errors": [
-            "repeated_macromodule_failure.v:4 syntax error, unexpected TOK_ID", 
             "repeated_macromodule_failure.v:4 syntax error, unexpected TOK_ID"
         ]
     },

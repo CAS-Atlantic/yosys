@@ -63,7 +63,6 @@
         "verilog": "always_posedge_negedge.v",
         "exit": 1,
         "errors": [
-            "Multiple edge sensitive events found for this signal!", 
             "Multiple edge sensitive events found for this signal!"
         ]
     },

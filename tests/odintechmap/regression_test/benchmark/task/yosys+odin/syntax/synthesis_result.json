@@ -201,7 +201,6 @@
         "verilog": "basic_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "basic_expression_in_function_port.v:20 syntax error, unexpected '.'", 
             "basic_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
@@ -210,7 +209,6 @@
         "verilog": "basic_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "basic_expression_in_function_port.v:20 syntax error, unexpected '.'", 
             "basic_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
@@ -257,7 +255,6 @@
         "verilog": "basic_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "basic_expression_in_task_port.v:12 syntax error, unexpected '.'", 
             "basic_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
@@ -266,7 +263,6 @@
         "verilog": "basic_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "basic_expression_in_task_port.v:12 syntax error, unexpected '.'", 
             "basic_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
@@ -276,7 +272,6 @@
         "verilog": "bitwise_op_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'", 
             "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'"
         ]
     },
@@ -285,7 +280,6 @@
         "verilog": "bitwise_op_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'", 
             "bitwise_op_expression_in_function_port.v:22 syntax error, unexpected '.'"
         ]
     },
@@ -332,7 +326,6 @@
         "verilog": "bitwise_op_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'", 
             "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
@@ -341,7 +334,6 @@
         "verilog": "bitwise_op_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'", 
             "bitwise_op_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
@@ -618,7 +610,6 @@
         "verilog": "bm_function_1.v",
         "exit": 1,
         "errors": [
-            "Multiple edge sensitive events found for this signal!", 
             "Multiple edge sensitive events found for this signal!"
         ]
     },
@@ -627,7 +618,6 @@
         "verilog": "bm_function_1.v",
         "exit": 1,
         "errors": [
-            "Multiple edge sensitive events found for this signal!", 
             "Multiple edge sensitive events found for this signal!"
         ]
     },
@@ -637,7 +627,6 @@
         "verilog": "bm_function_2.v",
         "exit": 1,
         "errors": [
-            "Multiple edge sensitive events found for this signal!", 
             "Multiple edge sensitive events found for this signal!"
         ]
     },
@@ -646,7 +635,6 @@
         "verilog": "bm_function_2.v",
         "exit": 1,
         "errors": [
-            "Multiple edge sensitive events found for this signal!", 
             "Multiple edge sensitive events found for this signal!"
         ]
     },
@@ -916,7 +904,6 @@
         "verilog": "conditional_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'",
             "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -925,7 +912,6 @@
         "verilog": "conditional_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'", 
             "conditional_expression_in_function_port.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -972,7 +958,6 @@
         "verilog": "conditional_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'", 
             "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
@@ -981,7 +966,6 @@
         "verilog": "conditional_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'", 
             "conditional_expression_in_task_port.v:12 syntax error, unexpected '.'"
         ]
     },
@@ -1027,7 +1011,6 @@
         "verilog": "deassign.v",
         "exit": 1,
         "errors": [
-            "deassign.v:19 syntax error, unexpected TOK_ASSIGN", 
             "deassign.v:19 syntax error, unexpected TOK_ASSIGN"
         ]
     },
@@ -1036,7 +1019,6 @@
         "verilog": "deassign.v",
         "exit": 1,
         "errors": [
-            "deassign.v:19 syntax error, unexpected TOK_ASSIGN", 
             "deassign.v:19 syntax error, unexpected TOK_ASSIGN"
         ]
     },
@@ -1205,7 +1187,6 @@
         "verilog": "fir_scu_rtl_restructured_for_cmm_exp.v",
         "exit": 1,
         "errors": [
-            "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID", 
             "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID"
         ]
     },
@@ -1214,7 +1195,6 @@
         "verilog": "fir_scu_rtl_restructured_for_cmm_exp.v",
         "exit": 1,
         "errors": [
-            "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID", 
             "fir_scu_rtl_restructured_for_cmm_exp.v:94 syntax error, unexpected TOK_ID"
         ]
     },
@@ -1789,7 +1769,6 @@
         "verilog": "instantiated_by_name_function_invalid_1.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -1798,7 +1777,6 @@
         "verilog": "instantiated_by_name_function_invalid_1.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_function_invalid_1.v:21 syntax error, unexpected '.'"        
         ]
     },
@@ -1808,7 +1786,6 @@
         "verilog": "instantiated_by_name_function_invalid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -1817,7 +1794,6 @@
         "verilog": "instantiated_by_name_function_invalid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_function_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -1827,7 +1803,6 @@
         "verilog": "instantiated_by_name_function_valid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 66.2,
@@ -1842,7 +1817,6 @@
         "verilog": "instantiated_by_name_function_valid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_function_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 45.9,
@@ -1858,7 +1832,6 @@
         "verilog": "instantiated_by_name_task_invalid_1.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -1867,7 +1840,6 @@
         "verilog": "instantiated_by_name_task_invalid_1.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_task_invalid_1.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -1877,7 +1849,6 @@
         "verilog": "instantiated_by_name_task_invalid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -1886,7 +1857,6 @@
         "verilog": "instantiated_by_name_task_invalid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_task_invalid.v:21 syntax error, unexpected '.'"
         ]
     },
@@ -1896,7 +1866,6 @@
         "verilog": "instantiated_by_name_task_valid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 60.1,
@@ -1911,7 +1880,6 @@
         "verilog": "instantiated_by_name_task_valid.v",
         "exit": 1,
         "errors": [
-            "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'", 
             "instantiated_by_name_task_valid.v:21 syntax error, unexpected '.'"
         ],
         "max_rss(MiB)": 39.4,
@@ -1927,7 +1895,6 @@
         "verilog": "instantiating_by_name_invalid_1.v",
         "exit": 1,
         "errors": [
-            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
             "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
@@ -1936,7 +1903,6 @@
         "verilog": "instantiating_by_name_invalid_1.v",
         "exit": 1,
         "errors": [
-            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
             "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
@@ -1946,7 +1912,6 @@
         "verilog": "instantiating_by_name_invalid.v",
         "exit": 1,
         "errors": [
-            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
             "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
@@ -1956,7 +1921,6 @@
         "verilog": "instantiating_by_name_invalid_mix_ports.v",
         "exit": 1,
         "errors": [
-            "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports.", 
             "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports."
         ]
     },
@@ -1965,7 +1929,6 @@
         "verilog": "instantiating_by_name_invalid_mix_ports.v",
         "exit": 1,
         "errors": [
-            "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports.", 
             "instantiating_by_name_invalid_mix_ports.v:13 Mix of positional and named cell ports."
         ]
     },
@@ -1974,7 +1937,6 @@
         "verilog": "instantiating_by_name_invalid.v",
         "exit": 1,
         "errors": [
-            "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'.", 
             "Module `and2' referenced in module `top' in cell `a1' does not have a port named 'in3'."
         ]
     },
@@ -1984,7 +1946,6 @@
         "verilog": "instantiating_by_name_valid.v",
         "exit": 1,
         "errors": [
-            "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header.", 
             "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header."
         ],
         "max_rss(MiB)": 64.3,
@@ -1999,7 +1960,6 @@
         "verilog": "instantiating_by_name_valid.v",
         "exit": 1,
         "errors": [
-            "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header.", 
             "instantiating_by_name_valid.v:2 Module port `\\in3' is not declared in module header."
         ],
         "max_rss(MiB)": 43.7,
@@ -2091,7 +2051,6 @@
         "verilog": "matrix_multiplication.v",
         "exit": 1,
         "errors": [
-            "Multiple edge sensitive events found for this signal!", 
             "Multiple edge sensitive events found for this signal!"
         ]
     },
@@ -2100,7 +2059,6 @@
         "verilog": "matrix_multiplication.v",
         "exit": 1,
         "errors": [
-            "Multiple edge sensitive events found for this signal!", 
             "Multiple edge sensitive events found for this signal!"
         ]
     },
@@ -2193,7 +2151,6 @@
         "verilog": "mix_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "mix_expression_in_function_port.v:20 syntax error, unexpected '.'", 
             "mix_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
@@ -2202,7 +2159,6 @@
         "verilog": "mix_expression_in_function_port.v",
         "exit": 1,
         "errors": [
-            "mix_expression_in_function_port.v:20 syntax error, unexpected '.'", 
             "mix_expression_in_function_port.v:20 syntax error, unexpected '.'"
         ]
     },
@@ -2286,7 +2242,6 @@
         "verilog": "mix_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "mix_expression_in_task_port.v:11 syntax error, unexpected '.'", 
             "mix_expression_in_task_port.v:11 syntax error, unexpected '.'"
         ]
     },
@@ -2295,7 +2250,6 @@
         "verilog": "mix_expression_in_task_port.v",
         "exit": 1,
         "errors": [
-            "mix_expression_in_task_port.v:11 syntax error, unexpected '.'", 
             "mix_expression_in_task_port.v:11 syntax error, unexpected '.'"
         ]
     },
@@ -2666,7 +2620,6 @@
         "verilog": "preprocessor_complex_define.v",
         "exit": 1,
         "errors": [
-            "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num.", 
             "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
@@ -2675,7 +2628,6 @@
         "verilog": "preprocessor_complex_define.v",
         "exit": 1,
         "errors": [
-            "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num.", 
             "preprocessor_complex_define.v:34 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
@@ -2685,7 +2637,6 @@
         "verilog": "preprocessor_define.v",
         "exit": 1,
         "errors": [
-            "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num.",
             "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
@@ -2694,7 +2645,6 @@
         "verilog": "preprocessor_define.v",
         "exit": 1,
         "errors": [
-            "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num.",
             "preprocessor_define.v:29 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
@@ -2704,7 +2654,6 @@
         "verilog": "preprocessor_define_with_comment.v",
         "exit": 1,
         "errors": [
-            "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num.",
             "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
@@ -2713,7 +2662,6 @@
         "verilog": "preprocessor_define_with_comment.v",
         "exit": 1,
         "errors": [
-            "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num.",
             "preprocessor_define_with_comment.v:30 Unimplemented compiler directive or undefined macro `ADDITION_num."
         ]
     },
@@ -3097,7 +3045,6 @@
         "verilog": "top_and.v",
         "exit": 1,
         "errors": [
-            "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design.", 
             "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design."
         ]
     },
@@ -3106,7 +3053,6 @@
         "verilog": "top_and.v",
         "exit": 1,
         "errors": [
-            "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design.", 
             "Module `\\and_primitive' referenced in module `\\top_and' in cell `\\and4' is not part of the design."
         ]
     },

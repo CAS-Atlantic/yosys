@@ -4,7 +4,6 @@
         "verilog": "default_net.v",
         "exit": 1,
         "errors": [
-            "default_net.v:2 Unsupported default nettype: tri", 
             "default_net.v:2 Unsupported default nettype: tri"
         ]
     },
@@ -13,7 +12,6 @@
         "verilog": "elsif_both_defined.v",
         "exit": 1,
         "errors": [
-            "elsif_both_defined.v:8 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "elsif_both_defined.v:8 syntax error, unexpected '(', expecting TOK_ID or '#'"        
         ]
     },
@@ -78,7 +76,6 @@
         "verilog": "ifdef_undefined.v",
         "exit": 1,
         "errors": [
-            "ifdef_undefined.v:2 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "ifdef_undefined.v:2 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -87,7 +84,6 @@
         "verilog": "ifndef_defined.v",
         "exit": 1,
         "errors": [
-            "ifndef_defined.v:4 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "ifndef_defined.v:4 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -166,7 +162,6 @@
         "verilog": "nested_ifdef_alldef.v",
         "exit": 1,
         "errors": [
-            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -175,7 +170,6 @@
         "verilog": "nested_ifdef_middef.v",
         "exit": 1,
         "errors": [
-            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -184,7 +178,6 @@
         "verilog": "nested_ifdef_nonedef.v",
         "exit": 1,
         "errors": [
-            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -193,7 +186,6 @@
         "verilog": "nested_ifdef_outsidedef.v",
         "exit": 1,
         "errors": [
-            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -202,7 +194,6 @@
         "verilog": "nested_ifdef_twodef.v",
         "exit": 1,
         "errors": [
-            "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "nested_ifdef.vh:5 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -211,7 +202,6 @@
         "verilog": "nested_operation_define.v",
         "exit": 1,
         "errors": [
-            "nested_operation_define.v:9 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "nested_operation_define.v:9 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },
@@ -237,7 +227,6 @@
         "verilog": "undef.v",
         "exit": 1,
         "errors": [
-            "undef.v:10 syntax error, unexpected '(', expecting TOK_ID or '#'", 
             "undef.v:10 syntax error, unexpected '(', expecting TOK_ID or '#'"
         ]
     },

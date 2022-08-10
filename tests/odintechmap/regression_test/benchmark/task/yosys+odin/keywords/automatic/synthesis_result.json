@@ -12,7 +12,6 @@
         "verilog": "recursive_task.v",
         "exit": 1,
         "errors": [
-            "recursive_task.v:9 syntax error, unexpected TOK_INTEGER, expecting TOK_ID", 
             "recursive_task.v:9 syntax error, unexpected TOK_INTEGER, expecting TOK_ID"
         ]
     },

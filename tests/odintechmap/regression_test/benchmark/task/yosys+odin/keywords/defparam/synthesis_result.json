@@ -4,7 +4,6 @@
         "verilog": "defparam_depth_1_failure.v",
         "exit": 1,
         "errors": [
-            "Module `assg' referenced in module `simple_op' in cell `m2' does not have a parameter named 'width'.", 
             "Module `assg' referenced in module `simple_op' in cell `m2' does not have a parameter named 'width'."
         ]
     },
@@ -41,7 +40,6 @@
         "verilog": "defparam_failure.v",
         "exit": 1,
         "errors": [
-            "defparam_failure.v:0 Can't find object for defparam `simple_op.m1.width`!", 
             "defparam_failure.v:0 Can't find object for defparam `simple_op.m1.width`!"
         ]
     },
@@ -50,7 +48,6 @@
         "verilog": "defparam.v",
         "exit": 1,
         "errors": [
-            "defparam.v:0 Can't find object for defparam `simple_op.m1.width`!", 
             "defparam.v:0 Can't find object for defparam `simple_op.m1.width`!"
         ]
     },
@@ -59,7 +56,6 @@
         "verilog": "defparam_simple_failure.v",
         "exit": 1,
         "errors": [
-            "defparam_simple_failure.v:0 Can't find object for defparam `simple_op.m1.width`!", 
             "defparam_simple_failure.v:0 Can't find object for defparam `simple_op.m1.width`!"
         ]
     },
@@ -68,7 +64,6 @@
         "verilog": "defparam_string.v",
         "exit": 1,
         "errors": [
-            "defparam_string.v:0 Can't find object for defparam `simple_op.msg`!", 
             "defparam_string.v:0 Can't find object for defparam `simple_op.msg`!"
         ]
     },

@@ -55,7 +55,6 @@
         "verilog": "replicate_xnor_int_wide.vh",
         "exit": 1,
         "errors": [
-            "Assert `new_cell->children.at(0)->type == AST_CELLTYPE' failed in frontends/ast/simplify.cc:2178.", 
             "Assert `new_cell->children.at(0)->type == AST_CELLTYPE' failed in frontends/ast/simplify.cc:2178."
         ]
     },
@@ -64,7 +63,6 @@
         "verilog": "replicate_xnor_ultra_wide.vh",
         "exit": 1,
         "errors": [
-            "Assert `new_cell->children.at(0)->type == AST_CELLTYPE' failed in frontends/ast/simplify.cc:2178.", 
             "Assert `new_cell->children.at(0)->type == AST_CELLTYPE' failed in frontends/ast/simplify.cc:2178."
         ]
     },
@@ -73,7 +71,6 @@
         "verilog": "replicate_xnor_wide.vh",
         "exit": 1,
         "errors": [
-            "Assert `new_cell->children.at(0)->type == AST_CELLTYPE' failed in frontends/ast/simplify.cc:2178.", 
             "Assert `new_cell->children.at(0)->type == AST_CELLTYPE' failed in frontends/ast/simplify.cc:2178."
         ]
     },

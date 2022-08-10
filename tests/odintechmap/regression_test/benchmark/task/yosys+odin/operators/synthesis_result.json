@@ -1557,7 +1557,6 @@
         "verilog": "macromudule_test.v",
         "exit": 1,
         "errors": [
-            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
             "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
@@ -1567,7 +1566,6 @@
         "verilog": "macromudule_test.v",
         "exit": 1,
         "errors": [
-            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
             "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
@@ -1577,7 +1575,6 @@
         "verilog": "macromudule_test.v",
         "exit": 1,
         "errors": [
-            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
             "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
@@ -1586,7 +1583,6 @@
         "verilog": "macromudule_test.v",
         "exit": 1,
         "errors": [
-            "macromudule_test.v:1 syntax error, unexpected TOK_ID", 
             "macromudule_test.v:1 syntax error, unexpected TOK_ID"
         ]
     },
