@@ -61,6 +61,10 @@
 USING_YOSYS_NAMESPACE
 PRIVATE_NAMESPACE_BEGIN
 
+#define GND_NAME "gnd"
+#define VCC_NAME "vcc"
+#define HBPAD_NAME "unconn"
+
 struct YCellType
 {
 	RTLIL::IdString type;
@@ -287,19 +291,19 @@ struct OdinoPass : public Pass {
 
 	    /* CREATE the driver for the ZERO */
     	odin_netlist->zero_net->name = make_full_ref_name(odin_netlist->identifier, NULL, NULL, zero_string, -1);
-	    output_nets_hash->add("gnd", odin_netlist->zero_net);
+	    output_nets_hash->add(GND_NAME, odin_netlist->zero_net);
 
     	/* CREATE the driver for the ONE and store twice */
 	    odin_netlist->one_net->name = make_full_ref_name(odin_netlist->identifier, NULL, NULL, one_string, -1);
-    	output_nets_hash->add("vcc", odin_netlist->one_net);
+    	output_nets_hash->add(VCC_NAME, odin_netlist->one_net);
 
 	    /* CREATE the driver for the PAD */
     	odin_netlist->pad_net->name = make_full_ref_name(odin_netlist->identifier, NULL, NULL, pad_string, -1);
-	    output_nets_hash->add("unconn", odin_netlist->pad_net);
+	    output_nets_hash->add(HBPAD_NAME, odin_netlist->pad_net);
 
-    	odin_netlist->vcc_node->name = vtr::strdup("vcc");
-	    odin_netlist->gnd_node->name = vtr::strdup("gnd");
-    	odin_netlist->pad_node->name = vtr::strdup("unconn");
+    	odin_netlist->vcc_node->name = vtr::strdup(VCC_NAME);
+	    odin_netlist->gnd_node->name = vtr::strdup(GND_NAME);
+    	odin_netlist->pad_node->name = vtr::strdup(HBPAD_NAME);
 	}
 
 	int infer_wire_index(RTLIL::SigBit sig) {
@@ -328,11 +332,11 @@ struct OdinoPass : public Pass {
 	std::string infer_wire_name(RTLIL::SigBit sig) {
 		if (sig.wire == NULL) {
 			if (sig == RTLIL::State::S0)
-				return "gnd";
+				return GND_NAME;
 			else if (sig == RTLIL::State::S1)
-				return "vcc";
+				return VCC_NAME;
 			else
-				return "unconn";
+				return HBPAD_NAME;
 		} else {
 			return RTLIL::unescape_id(sig.wire->name);
 		}
@@ -344,11 +348,11 @@ struct OdinoPass : public Pass {
 
 		if (sig.wire == NULL) {
 			if (sig == RTLIL::State::S0)
-				return "gnd";
+				return vtr::strdup(GND_NAME);
 			else if (sig == RTLIL::State::S1)
-				return "vcc";
+				return vtr::strdup(VCC_NAME);
 			else
-				return "unconn";
+				return vtr::strdup(HBPAD_NAME);
 		} else {
 			std::string str =  RTLIL::unescape_id(sig.wire->name);
 			if (sig.wire->width == 1)
@@ -375,6 +379,8 @@ struct OdinoPass : public Pass {
 			npin_t* in_pin = allocate_npin();
 			in_pin->name = vtr::strdup(in_pin_name);
 	        add_input_pin_to_node(node, in_pin, base_pin_idx + i);
+
+			vtr::free(in_pin_name);
 		}
 	}
 
@@ -393,6 +399,8 @@ struct OdinoPass : public Pass {
 			in_pin->name = vtr::strdup(in_pin_name);
 			in_pin->mapping = vtr::strdup(RTLIL::unescape_id(mapping).c_str());
 	        add_input_pin_to_node(node, in_pin, base_pin_idx + i);
+
+			vtr::free(in_pin_name);
 		}
 	}
 
@@ -568,6 +576,7 @@ struct OdinoPass : public Pass {
 			for (int i = 0; i < wire->width; i++){
 				char* name_string = sig_full_ref_name_sig(RTLIL::SigBit(wire, i), odin_netlist->identifier, cstr_bits_seen);
 				build_top_input_node(name_string, odin_netlist, output_nets_hash);
+				vtr::free(name_string);
 			}
 		}
 
@@ -576,33 +585,34 @@ struct OdinoPass : public Pass {
 			for (int i = 0; i < wire->width; i++) {
 				char* name_string = sig_full_ref_name_sig(RTLIL::SigBit(wire, i), odin_netlist->identifier, cstr_bits_seen);
 				build_top_output_node(name_string, odin_netlist, output_nets_hash);
+				vtr::free(name_string);
 			}
 		}
 
 		dict<std::string, std::string> connctions;
-		auto &conns = top_module->connections();
-		for(auto sigsig : conns)
-		{
-			auto s1 = sigsig.first;
-			auto s2 = sigsig.second;
-			for(int i=0; i<std::min(s1.size(), s2.size()); i++)
-			{
-				auto w1 = s1[i].wire;
-				auto w2 = s2[i].wire;
-				std::string s1_i_name;
-				std::string s2_i_name;
+		// auto &conns = top_module->connections();
+		// for(auto sigsig : conns)
+		// {
+		// 	auto s1 = sigsig.first;
+		// 	auto s2 = sigsig.second;
+		// 	for(int i=0; i<std::min(s1.size(), s2.size()); i++)
+		// 	{
+		// 		auto w1 = s1[i].wire;
+		// 		auto w2 = s2[i].wire;
+		// 		std::string s1_i_name;
+		// 		std::string s2_i_name;
 				
-				s1_i_name = (w1 == NULL) ? infer_wire_name(s1[i]) : make_full_ref_name(odin_netlist->identifier, NULL, NULL, infer_wire_name(s1[i]).c_str(), w1->width==1 ? off(s1[i]) : infer_wire_index(s1[i]));
-				s2_i_name = (w2 == NULL) ? infer_wire_name(s2[i]) : make_full_ref_name(odin_netlist->identifier, NULL, NULL, infer_wire_name(s2[i]).c_str(), w2->width==1 ? off(s2[i]) : infer_wire_index(s2[i]));
+		// 		s1_i_name = (w1 == NULL) ? infer_wire_name(s1[i]) : make_full_ref_name(odin_netlist->identifier, NULL, NULL, infer_wire_name(s1[i]).c_str(), w1->width==1 ? off(s1[i]) : infer_wire_index(s1[i]));
+		// 		s2_i_name = (w2 == NULL) ? infer_wire_name(s2[i]) : make_full_ref_name(odin_netlist->identifier, NULL, NULL, infer_wire_name(s2[i]).c_str(), w2->width==1 ? off(s2[i]) : infer_wire_index(s2[i]));
 
-				// log("s1_i_name:%s s2_i_name:%s\n", s1_i_name.c_str(), s2_i_name.c_str());
+		// 		// log("s1_i_name:%s s2_i_name:%s\n", s1_i_name.c_str(), s2_i_name.c_str());
 
-				if (w1 != NULL)
-					connctions[s1_i_name] = s2_i_name;
-				if (w2 != NULL)
-					connctions[s2_i_name] = s1_i_name;
-			}
-		}
+		// 		if (w1 != NULL)
+		// 			connctions[s1_i_name] = s2_i_name;
+		// 		if (w2 != NULL)
+		// 			connctions[s2_i_name] = s1_i_name;
+		// 	}
+		// }
 
 		for (const auto &port_name : top_module->ports) {
 			// top_module->port
@@ -821,6 +831,7 @@ struct OdinoPass : public Pass {
 					RTLIL::IdString ids = cell->getParam(ID::MEMID).decode_string();
 					// log("MEMID: %s\t%s\n", value, RTLIL::unescape_id(ids).c_str());
 					new_node->attributes->memory_id = vtr::strdup(RTLIL::unescape_id(ids).c_str());
+					vtr::free(value);
 				}
 
 				if (cell->hasParam(ID::A_SIGNED)) {
@@ -934,7 +945,7 @@ struct OdinoPass : public Pass {
 	        add_input_pin_to_node(buf_node, in_pin, 0);
 
 			// CLEAN UP
-			// vtr::free(in_pin_name);
+			vtr::free(in_pin_name);
 
         	allocate_more_output_pins(buf_node, 1); //?
         	add_output_port_information(buf_node, 1);
@@ -960,7 +971,7 @@ struct OdinoPass : public Pass {
     		odin_netlist->internal_nodes[odin_netlist->num_internal_nodes++] = buf_node;
 
 			// CLEAN UP
-			// vtr::free(output_pin_name);
+			vtr::free(output_pin_name);
 		}
 
 		// output_nets_hash->log();
@@ -1385,6 +1396,8 @@ struct OdinoPass : public Pass {
         	log_error("Odin-II Failed to perform netlist optimization %s with exit code:%d \n", vtr_error.what(), ERROR_OPTIMIZATION);
     	}
 
+		// graphVizOutputNetlist(".", "net", 1, transformed);
+
 		/* Performaing partial tech. map to the target device */
     	try {
         	techmap(transformed);
@@ -1412,6 +1425,8 @@ struct OdinoPass : public Pass {
 		free_arch(&Arch);
     	free_type_descriptors(logical_block_types);
     	free_type_descriptors(physical_tile_types);
+
+		// vtr::free(transformed);
 
 		if (one_string)
         	vtr::free(one_string);
