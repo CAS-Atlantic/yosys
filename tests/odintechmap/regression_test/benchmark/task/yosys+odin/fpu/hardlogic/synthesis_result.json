@@ -3,18 +3,21 @@
         "test_name": "hardlogic/bfly/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "bfly.v",
-        "exit": 134,
-        "errors": [
-            "Module `\\fpu_add' referenced in module `\\bfly' in cell `\\im_z_add' is not part of the design.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
-        ]
+        "Latch Drivers": 1,
+        "Pi": 192,
+        "Po": 64,
+        "latch": 384,
+        "Hard Ip": 8,
+        "generic logic size": 4,
+        "Longest Path": 9,
+        "Average Path": 5,
+        "Total Node": 393
     },
     "hardlogic/bfly/no_arch": {
         "test_name": "hardlogic/bfly/no_arch",
         "verilog": "bfly.v",
         "exit": 1,
         "errors": [
-            "Module `\\fpu_add' referenced in module `\\bfly' in cell `\\im_z_add' is not part of the design.", 
             "Module `\\fpu_add' referenced in module `\\bfly' in cell `\\im_z_add' is not part of the design."
         ]
     },
@@ -22,18 +25,21 @@
         "test_name": "hardlogic/bgm/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "bgm.v",
-        "exit": 134,
-        "errors": [
-            "Module `\\fpu_add' referenced in module `\\bgm' in cell `\\a8_add' is not part of the design.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
-        ]
+        "Latch Drivers": 1,
+        "Pi": 256,
+        "Po": 32,
+        "latch": 384,
+        "Hard Ip": 20,
+        "generic logic size": 4,
+        "Longest Path": 11,
+        "Average Path": 5,
+        "Total Node": 405
     },
     "hardlogic/bgm/no_arch": {
         "test_name": "hardlogic/bgm/no_arch",
         "verilog": "bgm.v",
         "exit": 1,
         "errors": [
-            "Module `\\fpu_add' referenced in module `\\bgm' in cell `\\a8_add' is not part of the design.", 
             "Module `\\fpu_add' referenced in module `\\bgm' in cell `\\a8_add' is not part of the design."
         ]
     },
@@ -41,18 +47,21 @@
         "test_name": "hardlogic/dscg/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "dscg.v",
-        "exit": 134,
-        "errors": [
-            "Module `\\fpu_add' referenced in module `\\dscg' in cell `\\s2_out_add' is not part of the design.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
-        ]
+        "Latch Drivers": 1,
+        "Pi": 128,
+        "Po": 64,
+        "latch": 384,
+        "Hard Ip": 8,
+        "generic logic size": 4,
+        "Longest Path": 10,
+        "Average Path": 5,
+        "Total Node": 393
     },
     "hardlogic/dscg/no_arch": {
         "test_name": "hardlogic/dscg/no_arch",
         "verilog": "dscg.v",
         "exit": 1,
         "errors": [
-            "Module `\\fpu_add' referenced in module `\\dscg' in cell `\\s2_out_add' is not part of the design.", 
             "Module `\\fpu_add' referenced in module `\\dscg' in cell `\\s2_out_add' is not part of the design."
         ]
     },
@@ -60,18 +69,21 @@
         "test_name": "hardlogic/fir/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "fir.v",
-        "exit": 134,
-        "errors": [
-            "Module `\\fpu_add' referenced in module `\\fir' in cell `\\out_temp_add' is not part of the design.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
-        ]
+        "Latch Drivers": 1,
+        "Pi": 160,
+        "Po": 32,
+        "latch": 608,
+        "Hard Ip": 7,
+        "generic logic size": 4,
+        "Longest Path": 23,
+        "Average Path": 5,
+        "Total Node": 616
     },
     "hardlogic/fir/no_arch": {
         "test_name": "hardlogic/fir/no_arch",
         "verilog": "fir.v",
         "exit": 1,
         "errors": [
-            "Module `\\fpu_add' referenced in module `\\fir' in cell `\\out_temp_add' is not part of the design.", 
             "Module `\\fpu_add' referenced in module `\\fir' in cell `\\out_temp_add' is not part of the design."
         ]
     },
@@ -79,18 +91,21 @@
         "test_name": "hardlogic/mm3/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "mm3.v",
-        "exit": 134,
-        "errors": [
-            "Module `\\fpu_add' referenced in module `\\mm3' in cell `\\out_add' is not part of the design.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
-        ]
+        "Latch Drivers": 1,
+        "Pi": 192,
+        "Po": 32,
+        "latch": 192,
+        "Hard Ip": 5,
+        "generic logic size": 4,
+        "Longest Path": 10,
+        "Average Path": 5,
+        "Total Node": 198
     },
     "hardlogic/mm3/no_arch": {
         "test_name": "hardlogic/mm3/no_arch",
         "verilog": "mm3.v",
         "exit": 1,
         "errors": [
-            "Module `\\fpu_add' referenced in module `\\mm3' in cell `\\out_add' is not part of the design.", 
             "Module `\\fpu_add' referenced in module `\\mm3' in cell `\\out_add' is not part of the design."
         ]
     },
@@ -98,10 +113,9 @@
         "test_name": "hardlogic/ode/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "ode.v",
-        "exit": 134,
+        "exit": 1,
         "errors": [
-            "ode.v:26 Module port `\\x1_control' is not declared in module header.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
+            "ode.v:26 Module port `\\x1_control' is not declared in module header."
         ]
     },
     "hardlogic/ode/no_arch": {
@@ -109,7 +123,6 @@
         "verilog": "ode.v",
         "exit": 1,
         "errors": [
-            "ode.v:26 Module port `\\x1_control' is not declared in module header.", 
             "ode.v:26 Module port `\\x1_control' is not declared in module header."
         ]
     },
@@ -117,18 +130,21 @@
         "test_name": "hardlogic/syn2/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "syn2.v",
-        "exit": 134,
-        "errors": [
-            "Module `\\fpu_add' referenced in module `\\syn2' in cell `\\add5_add' is not part of the design.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
-        ]
+        "Latch Drivers": 1,
+        "Pi": 160,
+        "Po": 128,
+        "latch": 192,
+        "Hard Ip": 9,
+        "generic logic size": 4,
+        "Longest Path": 11,
+        "Average Path": 4,
+        "Total Node": 202
     },
     "hardlogic/syn2/no_arch": {
         "test_name": "hardlogic/syn2/no_arch",
         "verilog": "syn2.v",
         "exit": 1,
         "errors": [
-            "Module `\\fpu_add' referenced in module `\\syn2' in cell `\\add5_add' is not part of the design.", 
             "Module `\\fpu_add' referenced in module `\\syn2' in cell `\\add5_add' is not part of the design."
         ]
     },
@@ -136,18 +152,21 @@
         "test_name": "hardlogic/syn7/hard_fpu_arch_timing",
         "architecture": "hard_fpu_arch_timing.xml",
         "verilog": "syn7.v",
-        "exit": 134,
-        "errors": [
-            "Module `\\fpu_mul' referenced in module `\\syn7' in cell `\\le54_mul' is not part of the design.",
-            "[PARSE_ARGS] Yosys failed to perform elaboration"
-        ]
+        "Latch Drivers": 1,
+        "Pi": 160,
+        "Po": 128,
+        "latch": 160,
+        "Hard Ip": 50,
+        "generic logic size": 4,
+        "Longest Path": 15,
+        "Average Path": 10,
+        "Total Node": 211
     },
     "hardlogic/syn7/no_arch": {
         "test_name": "hardlogic/syn7/no_arch",
         "verilog": "syn7.v",
         "exit": 1,
         "errors": [
-            "Module `\\fpu_mul' referenced in module `\\syn7' in cell `\\le54_mul' is not part of the design.", 
             "Module `\\fpu_mul' referenced in module `\\syn7' in cell `\\le54_mul' is not part of the design."
         ]
     },
