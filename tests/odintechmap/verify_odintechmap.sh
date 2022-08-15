@@ -1065,7 +1065,7 @@ function sim() {
 					wrapper_command="${wrapper_command}
 										${DIR}/${synthesis_params_file_name}"
 
-					yosys_synthesis_command="tee -q -a ${DIR}/${synthesis_log_file_name} odino
+					yosys_synthesis_command="odino
 										${arch_cmd}
 										${_synthesis_params}
 										-v ${input_verilog_file}
@@ -1162,7 +1162,7 @@ function sim() {
 					wrapper_command="${wrapper_command}
 										${DIR}/${simulation_params_file_name}"
 
-					yosys_simulation_command="tee -q -a ${DIR}/${simulation_log_file_name} odinsim
+					yosys_simulation_command="odinsim
 										${_simulation_params}
 										${arch_cmd}
 										-b ${sim_blif_file}
