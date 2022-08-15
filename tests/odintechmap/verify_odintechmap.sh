@@ -1065,7 +1065,7 @@ function sim() {
 					wrapper_command="${wrapper_command}
 										${DIR}/${synthesis_params_file_name}"
 
-					yosys_synthesis_command="odino
+					yosys_synthesis_command="odintechmap
 										${arch_cmd}
 										${_synthesis_params}
 										-v ${input_verilog_file}

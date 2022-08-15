@@ -116,7 +116,7 @@ struct YCellTypes
 
 };
 
-struct OdinoPass : public Pass {
+struct OdinTechmapPass : public Pass {
 
 	const std::string str(RTLIL::IdString id)
 	{
@@ -181,6 +181,22 @@ struct OdinoPass : public Pass {
     	}
 	}
 
+	void hook_up_nets(netlist_t* odin_netlist, Hashtable* output_nets_hash) {
+    	nnode_t** node_sets[] = {odin_netlist->internal_nodes, odin_netlist->ff_nodes, odin_netlist->top_output_nodes};
+    	int counts[] = {odin_netlist->num_internal_nodes, odin_netlist->num_ff_nodes, odin_netlist->num_top_output_nodes};
+    	int num_sets = 3;
+
+    	/* hook all the input pins in all the internal nodes to the net */
+    	int i;
+    	for (i = 0; i < num_sets; i++) {
+        	int j;
+	        for (j = 0; j < counts[i]; j++) {
+    	        nnode_t* node = node_sets[i][j];
+        	    hook_up_node(node, output_nets_hash);
+        	}
+    	}
+	}
+
 	void hook_up_node(nnode_t* node, Hashtable* output_nets_hash, dict<std::string, std::string> &conns) {
 	    int j;
     	for (j = 0; j < node->num_input_pins; j++) {
@@ -199,7 +215,20 @@ struct OdinoPass : public Pass {
     	}
 	}
 
-	void build_top_output_node(const char* name_str, netlist_t* odin_netlist, Hashtable* output_nets_hash) {
+	void hook_up_node(nnode_t* node, Hashtable* output_nets_hash) {
+	    int j;
+    	for (j = 0; j < node->num_input_pins; j++) {
+        	npin_t* input_pin = node->input_pins[j];
+
+	        nnet_t* output_net = (nnet_t*)output_nets_hash->get(input_pin->name);
+				
+    	    if (!output_net)
+        	    error_message(PARSE_BLIF, my_location, "Error: Could not hook up the pin %s: not available, related node: %s.", input_pin->name, node->name);
+	        add_fanout_pin_to_net(output_net, input_pin);
+    	}
+	}
+
+	void build_top_output_node(const char* name_str, netlist_t* odin_netlist) {
 		// char* temp_string = resolve_signal_name_based_on_blif_type(blif_netlist->identifier, ptr);
 
         /*add_a_fanout_pin_to_net((nnet_t*)output_nets_sc->data[sc_spot], new_pin);*/
@@ -333,7 +362,7 @@ struct OdinoPass : public Pass {
 		return -1;
 	}
 
-	int infer_wire_index_ref(RTLIL::SigBit sig, IdString first, RTLIL::Design* design, RTLIL::Cell* cell, int index) {
+	int infer_wire_index_ref(IdString first, RTLIL::Design* design, RTLIL::Cell* cell, int index) {
 
 		Module *m = design->module(cell->type);
 		Wire *w = m ? m->wire(first) : nullptr;
@@ -603,12 +632,12 @@ struct OdinoPass : public Pass {
 			RTLIL::Wire *wire = it.second;
 			for (int i = 0; i < wire->width; i++) {
 				char* name_string = sig_full_ref_name_sig(RTLIL::SigBit(wire, i), odin_netlist->identifier, cstr_bits_seen);
-				build_top_output_node(name_string, odin_netlist, output_nets_hash);
+				build_top_output_node(name_string, odin_netlist);
 				vtr::free(name_string);
 			}
 		}
 
-		dict<std::string, std::string> connctions;
+		// dict<std::string, std::string> connctions;
 		// auto &conns = top_module->connections();
 		// for(auto sigsig : conns)
 		// {
@@ -633,10 +662,10 @@ struct OdinoPass : public Pass {
 		// 	}
 		// }
 
-		for (const auto &port_name : top_module->ports) {
+		// for (const auto &port_name : top_module->ports) {
 			// top_module->port
 			// log("port in module: %s\n",log_id(port_name));
-		}
+		// }
 
 		long hard_id = 0;
 		for(auto cell : top_module->cells()) 
@@ -996,7 +1025,8 @@ struct OdinoPass : public Pass {
 		// output_nets_hash->log();
 		// print_netlist_for_checking(odin_netlist, "pre");
 		// hook_up_nets(odin_netlist, output_nets_hash, top_module);
-		hook_up_nets(odin_netlist, output_nets_hash, connctions);
+		// hook_up_nets(odin_netlist, output_nets_hash, connctions);
+		hook_up_nets(odin_netlist, output_nets_hash);
 		log("after hookup\n");
 		delete output_nets_hash;
 		return odin_netlist;
@@ -1145,7 +1175,7 @@ struct OdinoPass : public Pass {
     	log("%.1fms", time * 1000);
 	}
 	
-	OdinoPass() : Pass("odino", "ODIN_II partial technology mapper") { }
+	OdinTechmapPass() : Pass("odintechmap", "ODIN_II partial technology mapper") { }
 	void help() override
 	{
 		log("\n");
@@ -1208,7 +1238,6 @@ struct OdinoPass : public Pass {
 		global_args.mults_ratio.set(-1.0, argparse::Provenance::DEFAULT);
 		
 		log_header(design, "Starting odintechmap pass.\n");
-		log("\\|/%s\n", proc_self_dirname().c_str());
 
 		size_t argidx;
 		for (argidx = 1; argidx < args.size(); argidx++)
@@ -1427,11 +1456,16 @@ struct OdinoPass : public Pass {
 
 		synthesis_time = wall_time() - synthesis_time;
 
-		log("Writing Netlist to BLIF file\n");
-
-		GenericWriter after_writer = GenericWriter();
-		after_writer._create_file(odin_mapped_blif_output.c_str(), _BLIF);
-		after_writer._write(transformed);
+		/* output the netlist into a BLIF file */
+    	try {
+			log("Outputting the netlist to BLIF output format\n");
+        	GenericWriter after_writer = GenericWriter();
+			after_writer._create_file(odin_mapped_blif_output.c_str(), _BLIF);
+			after_writer._write(transformed);
+        	log("\tBLIF file available at %s\n", odin_mapped_blif_output.c_str());
+    	} catch (vtr::VtrError& vtr_error) {
+        	log_error("Odin-II Failed to output the netlist %s with exit code:%d \n", vtr_error.what(), ERROR_OUTPUT);
+    	}
 
 		report(transformed);
 		// compute_statistics(transformed, true);
@@ -1447,15 +1481,18 @@ struct OdinoPass : public Pass {
 
 		// vtr::free(transformed);
 
-		if (one_string)
-        	vtr::free(one_string);
-    	if (zero_string)
-        	vtr::free(zero_string);
-    	if (pad_string)
-        	vtr::free(pad_string);
-
-		log("odino pass finished.\n");
+		if (one_string) {
+			vtr::free(one_string);
+		}
+    	if (zero_string) {
+			vtr::free(zero_string);
+		}
+    	if (pad_string) {
+			vtr::free(pad_string);
+		}
+        	
+		log("odintechmap pass finished.\n");
 	}
-} OdinoPass;
+} OdinTechmapPass;
 
 PRIVATE_NAMESPACE_END
