@@ -1033,6 +1033,9 @@ config-gprof: clean
 	echo 'CONFIG := gcc' > Makefile.conf
 	echo 'ENABLE_GPROF := 1' >> Makefile.conf
 
+config-vcxsrc: clean
+	echo 'ENABLE_ODIN_TECHMAP := 0' >> Makefile.conf
+
 config-sudo:
 	echo "INSTALL_SUDO := sudo" >> Makefile.conf
 
