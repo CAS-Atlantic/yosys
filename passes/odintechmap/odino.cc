@@ -146,6 +146,25 @@ struct OdinoPass : public Pass {
 		return str;
 	}
 
+	const std::string yosys_str(RTLIL::SigBit sig)
+	{
+		if (sig.wire == NULL) {
+			if (sig == RTLIL::State::S0) return "gnd";
+			if (sig == RTLIL::State::S1) return "vcc";
+			return "unconn";
+		}
+
+		std::string str = RTLIL::unescape_id(sig.wire->name);
+		for (size_t i = 0; i < str.size(); i++)
+			if (str[i] == '#' || str[i] == '=' || str[i] == '<' || str[i] == '>')
+				str[i] = '?';
+
+		if (sig.wire->width != 1)
+			str += stringf("~%d", sig.wire->upto ? sig.wire->start_offset+sig.wire->width-sig.offset-1 : sig.wire->start_offset+sig.offset);
+
+		return str;
+	}
+
 	void hook_up_nets(netlist_t* odin_netlist, Hashtable* output_nets_hash, dict<std::string, std::string> &conns) {
     	nnode_t** node_sets[] = {odin_netlist->internal_nodes, odin_netlist->ff_nodes, odin_netlist->top_output_nodes};
     	int counts[] = {odin_netlist->num_internal_nodes, odin_netlist->num_ff_nodes, odin_netlist->num_top_output_nodes};
