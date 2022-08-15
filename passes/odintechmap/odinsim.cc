@@ -149,7 +149,7 @@ struct OdinSimPass : public Pass {
 			}
 
         }
-        		extra_args(args, argidx, design);
+        extra_args(args, argidx, design);
 
 		if (flag_sim_hold_low) {
 			global_args.sim_hold_low.set(sim_hold_low, argparse::Provenance::SPECIFIED);
