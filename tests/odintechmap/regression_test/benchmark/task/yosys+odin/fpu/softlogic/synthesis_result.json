@@ -213,7 +213,7 @@
         "Po": 72,
         "logic element": 23317,
         "latch": 2005,
-        "Longest Path": 3350,
+        "Longest Path": 3349,
         "Average Path": 4,
         "Estimated LUTs": 23317,
         "Total Node": 25323
@@ -234,7 +234,7 @@
         "logic element": 23317,
         "latch": 2005,
         "generic logic size": 4,
-        "Longest Path": 3350,
+        "Longest Path": 3349,
         "Average Path": 4,
         "Estimated LUTs": 26213,
         "Total Node": 25323
@@ -291,12 +291,12 @@
         "Latch Drivers": 1,
         "Pi": 160,
         "Po": 128,
-        "logic element": 207184,
+        "logic element": 207164,
         "latch": 9274,
         "Longest Path": 3835,
         "Average Path": 5,
-        "Estimated LUTs": 207184,
-        "Total Node": 216459
+        "Estimated LUTs": 207164,
+        "Total Node": 216439
     },
     "softlogic/syn7/soft_fpu_arch_timing": {
         "test_name": "softlogic/syn7/soft_fpu_arch_timing",
@@ -311,13 +311,13 @@
         "Latch Drivers": 1,
         "Pi": 160,
         "Po": 128,
-        "logic element": 207184,
+        "logic element": 207164,
         "latch": 9274,
         "generic logic size": 4,
         "Longest Path": 3835,
         "Average Path": 5,
-        "Estimated LUTs": 230328,
-        "Total Node": 216459
+        "Estimated LUTs": 230308,
+        "Total Node": 216439
     },
     "DEFAULT": {
         "test_name": "n/a",
