@@ -22,9 +22,6 @@
 
 #include <regex>
 
-// #include "arch_fpga.h"
-// #include "partial_map.h"
-// #include "adders.h"
 #include "odin_ii.h"
 #include "odin_util.h"
 #include "odin_globals.h"
@@ -686,7 +683,8 @@ struct OdinTechmapPass : public Pass {
 			if (new_node->type == NO_OP) {
 
 				/**
-				 * ast.cc:1657
+				 *  according to ast.cc:1657-1663
+				 * 
 				 * 	std::string modname;
 				 *	if (parameters.size() == 0)
 				 *		modname = stripped_name;
@@ -694,17 +692,14 @@ struct OdinTechmapPass : public Pass {
 				 *		modname = "$paramod$" + sha1(para_info) + stripped_name;
 				 *	else
 				 *		modname = "$paramod" + stripped_name + para_info;
-				 * 
 				 */
 
-				// printf("sth weird detected!!! %s\n", str(cell->type).c_str());
 				if (cell->type.begins_with("$paramod$")) // e.g. $paramod$b509a885304d9c8c49f505bb9d0e99a9fb676562\dual_port_ram
 				{
 					std::regex regex("^\\$paramod\\$\\w+\\\\(\\w+)$");
         			std::smatch m;
 					std::string modname(str(cell->type));
 					if(regex_match(modname, m, regex)) {
-						// printf("\tand translated to!!! %s\n", m.str(1).c_str());
 						new_node->type = yosys_subckt_strmap[m.str(1).c_str()];
 					}
 				} else if (cell->type.begins_with("$paramod\\")) // e.g. $paramod\dual_port_ram\ADDR_WIDTH?4'0100\DATA_WIDTH?4'0101
@@ -713,7 +708,6 @@ struct OdinTechmapPass : public Pass {
         			std::smatch m;
 					std::string modname(str(cell->type));
 					if(regex_match(modname, m, regex)) {
-						// printf("\tand translated to!!! %s\n", m.str(1).c_str());
 						new_node->type = yosys_subckt_strmap[m.str(1).c_str()];
 					}
 				} else {
@@ -734,7 +728,7 @@ struct OdinTechmapPass : public Pass {
 				}
 			}
 
-			if ( str(cell->type) == "$_MUX_") {
+			if ( str(cell->type) == "$_MUX_") { // @TODO other std_celltypes to be handled
 
 				for (auto in : ct->cell_types.at(cell->type).inputs) {
 					map_input_port(in, cell->getPort(in), new_node, odin_netlist->identifier, cstr_bits_seen);
@@ -749,9 +743,6 @@ struct OdinTechmapPass : public Pass {
 					// log("%s %s\n", RTLIL::unescape_id(conn.first).c_str(), conn.second.as_string().c_str());
 
 					if (cell->input(conn.first) && conn.second.size()>0) {
-					// if (conn.first == ID::RD_ARST || conn.first == ID::RD_SRST )
-					// 	continue;
-					// log("cell->input %s\n", RTLIL::unescape_id(conn.first).c_str());
 						map_input_port(conn.first, conn.second, new_node, odin_netlist->identifier, cstr_bits_seen);
 					}
 
@@ -864,20 +855,9 @@ struct OdinTechmapPass : public Pass {
 					vtr::free(value);
                 }
 
-				// if (cell->hasParam(ID::MEMID)) {
-                //     std::string memory_id(vtr::strtok(NULL, TOKENS, file, buffer));
-                //     unsigned first_back_slash = memory_id.find_last_of(YOSYS_ID_FIRST_DELIMITER);
-                //     unsigned last_double_quote = memory_id.find_last_not_of(YOSYS_ID_LAST_DELIMITER);
-                //     attributes->memory_id = vtr::strdup(
-                //         memory_id.substr(
-                //                      first_back_slash + 1, last_double_quote - first_back_slash)
-                //             .c_str());
-                // }
-
 				if (cell->hasParam(ID::MEMID)) {
 					auto value = vtr::strdup(cell->getParam(ID::MEMID).as_string().c_str());
 					RTLIL::IdString ids = cell->getParam(ID::MEMID).decode_string();
-					// log("MEMID: %s\t%s\n", value, RTLIL::unescape_id(ids).c_str());
 					new_node->attributes->memory_id = vtr::strdup(RTLIL::unescape_id(ids).c_str());
 					vtr::free(value);
 				}
@@ -973,7 +953,7 @@ struct OdinTechmapPass : public Pass {
 			SigBit lhs_bit = conn.first[i];
 			SigBit rhs_bit = conn.second[i];
 
-			if (cstr_bits_seen.count(lhs_bit) == 0)
+			if (cstr_bits_seen.count(lhs_bit) == 0) // @TODO to be double checked later
 				continue;
 			
 			nnode_t* buf_node = allocate_nnode(my_location);
