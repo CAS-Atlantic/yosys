@@ -1,13 +1,6 @@
 
 ifeq ($(ENABLE_ODIN_TECHMAP),1)
 
-# OBJS += passes/odintechmap/arch_fpga.o
-# OBJS += passes/odintechmap/partial_map.o
-# OBJS += passes/odintechmap/logical_ops.o
-# OBJS += passes/odintechmap/adders.o
-# OBJS += passes/odintechmap/xml_config.o
-# OBJS += passes/odintechmap/odin_techmap.o
-
 OBJS += passes/odintechmap/adders.o
 OBJS += passes/odintechmap/enum_str.o
 OBJS += passes/odintechmap/MixingOptimization.o
@@ -58,11 +51,7 @@ OBJS += passes/odintechmap/Modulo.o
 OBJS += passes/odintechmap/Power.o
 OBJS += passes/odintechmap/Division.o
 
-OBJS += passes/odintechmap/stuff.o
-
 OBJS += passes/odintechmap/odintechmap.o
 OBJS += passes/odintechmap/odinsim.o
-
-OBJS += passes/odintechmap/logger.o
 
 endif
