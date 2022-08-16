@@ -199,7 +199,7 @@ struct OdinSimPass : public Pass {
                 configuration.list_of_file_names = {global_args.output_file};
                 my_location.file = 0;
             } else {
-                printf("BLIF: %s\n", vtr::basename(global_args.blif_file.value()).c_str());
+                log("BLIF: %s\n", vtr::basename(global_args.blif_file.value()).c_str());
                 fflush(stdout);
             }
 
@@ -225,9 +225,9 @@ struct OdinSimPass : public Pass {
 
     		compute_statistics(sim_netlist, true);
 
-			printf("--------------------------------------------------------------------\n");
+			log("--------------------------------------------------------------------\n");
     	}
-
+		log("odinsim pass finished.\n");
     }
 } OdinSimPass;
 

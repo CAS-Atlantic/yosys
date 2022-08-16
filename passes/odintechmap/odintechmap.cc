@@ -225,6 +225,13 @@ struct OdinTechmapPass : public Pass {
     	}
 	}
 
+	/**
+	* --------------------------------------------------------------------------------------------
+	* (function: build_top_output_node)
+	* 
+	* @brief to create top output nodes and nets for netlist from input pins
+	* --------------------------------------------------------------------------------------------
+	*/
 	void build_top_output_node(const char* name_str, netlist_t* odin_netlist) {
 		// char* temp_string = resolve_signal_name_based_on_blif_type(blif_netlist->identifier, ptr);
 
@@ -255,6 +262,13 @@ struct OdinTechmapPass : public Pass {
         // vtr::free(temp_string);
 	}
 
+	/**
+	* --------------------------------------------------------------------------------------------
+	* (function: build_top_input_node)
+	* 
+	* @brief to create top input nodes for netlist from input pins
+	* --------------------------------------------------------------------------------------------
+	*/
 	void build_top_input_node(const char* name_str, netlist_t* odin_netlist, Hashtable* output_nets_hash) {
     	// char* temp_string = resolve_signal_name_based_on_blif_type(blif_netlist->identifier, name_str);
 
@@ -299,6 +313,13 @@ struct OdinTechmapPass : public Pass {
     	// vtr::free(temp_string);
 	}
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: create_top_driver_nets)
+	* 
+	* @brief to create top VCC, GND, and Z inputs and nets
+	* -------------------------------------------------------------------------------------------
+	*/
 	void create_top_driver_nets(netlist_t* odin_netlist, Hashtable* output_nets_hash) {
 		npin_t* new_pin;
     	/* create the constant nets */
@@ -351,42 +372,49 @@ struct OdinTechmapPass : public Pass {
     	odin_netlist->pad_node->name = vtr::strdup(HBPAD_NAME);
 	}
 
-	int infer_wire_index(RTLIL::SigBit sig) {
-		if (sig.wire != NULL) {
-			return sig.wire->upto ? sig.wire->start_offset+sig.wire->width-sig.offset-1 : sig.wire->start_offset+sig.offset;
-		}
+	// int infer_wire_index(RTLIL::SigBit sig) {
+	// 	if (sig.wire != NULL) {
+	// 		return sig.wire->upto ? sig.wire->start_offset+sig.wire->width-sig.offset-1 : sig.wire->start_offset+sig.offset;
+	// 	}
 
-		return -1;
-	}
+	// 	return -1;
+	// }
 
-	int infer_wire_index_ref(IdString first, RTLIL::Design* design, RTLIL::Cell* cell, int index) {
+	// int infer_wire_index_ref(IdString first, RTLIL::Design* design, RTLIL::Cell* cell, int index) {
 
-		Module *m = design->module(cell->type);
-		Wire *w = m ? m->wire(first) : nullptr;
+	// 	Module *m = design->module(cell->type);
+	// 	Wire *w = m ? m->wire(first) : nullptr;
 
-		if (w == nullptr) {
-			return index;
-		} else {
-				SigBit sig(w, index);
-				return sig.wire->upto ?
-						sig.wire->start_offset+sig.wire->width-sig.offset-1 :
-						sig.wire->start_offset+sig.offset;
-		}
-	}
+	// 	if (w == nullptr) {
+	// 		return index;
+	// 	} else {
+	// 			SigBit sig(w, index);
+	// 			return sig.wire->upto ?
+	// 					sig.wire->start_offset+sig.wire->width-sig.offset-1 :
+	// 					sig.wire->start_offset+sig.offset;
+	// 	}
+	// }
 
-	std::string infer_wire_name(RTLIL::SigBit sig) {
-		if (sig.wire == NULL) {
-			if (sig == RTLIL::State::S0)
-				return GND_NAME;
-			else if (sig == RTLIL::State::S1)
-				return VCC_NAME;
-			else
-				return HBPAD_NAME;
-		} else {
-			return RTLIL::unescape_id(sig.wire->name);
-		}
-	}
+	// std::string infer_wire_name(RTLIL::SigBit sig) {
+	// 	if (sig.wire == NULL) {
+	// 		if (sig == RTLIL::State::S0)
+	// 			return GND_NAME;
+	// 		else if (sig == RTLIL::State::S1)
+	// 			return VCC_NAME;
+	// 		else
+	// 			return HBPAD_NAME;
+	// 	} else {
+	// 		return RTLIL::unescape_id(sig.wire->name);
+	// 	}
+	// }
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: sig_full_ref_name_sig)
+	* 
+	* @brief to create ODIN compatible names based on signal
+	* -------------------------------------------------------------------------------------------
+	*/
 	char* sig_full_ref_name_sig(RTLIL::SigBit sig, char *identifier, pool<SigBit> &cstr_bits_seen) {
 
 		cstr_bits_seen.insert(sig);
@@ -410,25 +438,32 @@ struct OdinTechmapPass : public Pass {
 		}
 	}
 
-	void map_input_port(SigSpec in_port, nnode_t *node, char *identifier, pool<SigBit> &cstr_bits_seen) {
+	// void map_input_port(SigSpec in_port, nnode_t *node, char *identifier, pool<SigBit> &cstr_bits_seen) {
 
-		int base_pin_idx = node->num_input_pins;
+	// 	int base_pin_idx = node->num_input_pins;
 
-        allocate_more_input_pins(node, in_port.size()); // port_B.size() + all other input width ?
-		add_input_port_information(node, in_port.size());
+    //     allocate_more_input_pins(node, in_port.size()); // port_B.size() + all other input width ?
+	// 	add_input_port_information(node, in_port.size());
 				
-		for (int i=0 ; i<in_port.size() ; i++) {
+	// 	for (int i=0 ; i<in_port.size() ; i++) {
 
-			char* in_pin_name = sig_full_ref_name_sig(in_port[i], identifier, cstr_bits_seen);
+	// 		char* in_pin_name = sig_full_ref_name_sig(in_port[i], identifier, cstr_bits_seen);
 
-			npin_t* in_pin = allocate_npin();
-			in_pin->name = vtr::strdup(in_pin_name);
-	        add_input_pin_to_node(node, in_pin, base_pin_idx + i);
+	// 		npin_t* in_pin = allocate_npin();
+	// 		in_pin->name = vtr::strdup(in_pin_name);
+	//         add_input_pin_to_node(node, in_pin, base_pin_idx + i);
 
-			vtr::free(in_pin_name);
-		}
-	}
+	// 		vtr::free(in_pin_name);
+	// 	}
+	// }
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: map_input_port)
+	* 
+	* @brief to map yosys input port to odin input port
+	* -------------------------------------------------------------------------------------------
+	*/
 	void map_input_port(RTLIL::IdString mapping, SigSpec in_port, nnode_t *node, char *identifier, pool<SigBit> &cstr_bits_seen) {
 
 		int base_pin_idx = node->num_input_pins;
@@ -449,34 +484,41 @@ struct OdinTechmapPass : public Pass {
 		}
 	}
 
-	void map_output_port(SigSpec out_port, nnode_t *node, char *identifier, Hashtable* output_nets_hash, pool<SigBit> &cstr_bits_seen) {
+	// void map_output_port(SigSpec out_port, nnode_t *node, char *identifier, Hashtable* output_nets_hash, pool<SigBit> &cstr_bits_seen) {
 		
-		int base_pin_idx = node->num_output_pins;
+	// 	int base_pin_idx = node->num_output_pins;
 
-        allocate_more_output_pins(node, out_port.size()); //?
-        add_output_port_information(node, out_port.size());
+    //     allocate_more_output_pins(node, out_port.size()); //?
+    //     add_output_port_information(node, out_port.size());
 
-        /*add name information and a net(driver) for the output */
+    //     /*add name information and a net(driver) for the output */
 
-		for (int i=0 ; i<out_port.size() ; i++) {
-			npin_t* out_pin = allocate_npin();
-			out_pin->name = NULL;//vtr::strdup(str(s).c_str());
-            add_output_pin_to_node(node, out_pin, base_pin_idx + i); // if more than one output then i + something
+	// 	for (int i=0 ; i<out_port.size() ; i++) {
+	// 		npin_t* out_pin = allocate_npin();
+	// 		out_pin->name = NULL;//vtr::strdup(str(s).c_str());
+    //         add_output_pin_to_node(node, out_pin, base_pin_idx + i); // if more than one output then i + something
         			
-			char* output_pin_name = sig_full_ref_name_sig(out_port[i], identifier, cstr_bits_seen);
-			nnet_t* out_net = (nnet_t*)output_nets_hash->get(output_pin_name);
-        	if (out_net == nullptr) {
-            	out_net = allocate_nnet();
-        		out_net->name = vtr::strdup(output_pin_name);
-				output_nets_hash->add(output_pin_name, out_net);
-			}
-        	add_driver_pin_to_net(out_net, out_pin);
+	// 		char* output_pin_name = sig_full_ref_name_sig(out_port[i], identifier, cstr_bits_seen);
+	// 		nnet_t* out_net = (nnet_t*)output_nets_hash->get(output_pin_name);
+    //     	if (out_net == nullptr) {
+    //         	out_net = allocate_nnet();
+    //     		out_net->name = vtr::strdup(output_pin_name);
+	// 			output_nets_hash->add(output_pin_name, out_net);
+	// 		}
+    //     	add_driver_pin_to_net(out_net, out_pin);
 
-			// CLEAN UP
-			vtr::free(output_pin_name);
-		}
-	}
+	// 		// CLEAN UP
+	// 		vtr::free(output_pin_name);
+	// 	}
+	// }
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: map_output_port)
+	* 
+	* @brief to map yosys output port to odin output port
+	* -------------------------------------------------------------------------------------------
+	*/
 	void map_output_port(RTLIL::IdString mapping, SigSpec out_port, nnode_t *node, char *identifier, Hashtable* output_nets_hash, pool<SigBit> &cstr_bits_seen) {
 		
 		int base_pin_idx = node->num_output_pins;
@@ -506,6 +548,13 @@ struct OdinTechmapPass : public Pass {
 		}
 	}
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: is_param_required)
+	* 
+	* @brief to check if an inferred odin node type needs additional params to be read from yosys cell
+	* -------------------------------------------------------------------------------------------
+	*/
 	bool is_param_required(operation_list op) {
 		switch (op) {
         	case (SL): 
@@ -533,14 +582,21 @@ struct OdinTechmapPass : public Pass {
     	}
 	}
 
-	int off(RTLIL::SigBit sig) {
-		if (sig.wire == NULL)
-			return -1;
-		if (sig.wire->width != 1)
-			return sig.wire->upto ? sig.wire->start_offset+sig.wire->width-sig.offset-1 : sig.wire->start_offset+sig.offset;
-		return -1;
-	}
+	// int off(RTLIL::SigBit sig) {
+	// 	if (sig.wire == NULL)
+	// 		return -1;
+	// 	if (sig.wire->width != 1)
+	// 		return sig.wire->upto ? sig.wire->start_offset+sig.wire->width-sig.offset-1 : sig.wire->start_offset+sig.offset;
+	// 	return -1;
+	// }
 	
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: to_netlist)
+	* 
+	* @brief to convert yosys design to odin netlist
+	* -------------------------------------------------------------------------------------------
+	*/
 	netlist_t* to_netlist(RTLIL::Module *top_module, RTLIL::Design *design, YCellTypes *ct) {
 
 		std::vector<RTLIL::Module*> mod_list;
@@ -1047,6 +1103,13 @@ struct OdinTechmapPass : public Pass {
 	    }
 	}
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: elaborate)
+	* 
+	* @brief to elaborate initial netlist to become ready for partial mapper
+	* -------------------------------------------------------------------------------------------
+	*/
 	void elaborate(netlist_t *odin_netlist) {
     	double elaboration_time = wall_time();
 
@@ -1066,6 +1129,13 @@ struct OdinTechmapPass : public Pass {
     	log("\n--------------------------------------------------------------------\n");
 	}
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: optimization)
+	* 
+	* @brief to optimize input odin netlist
+	* -------------------------------------------------------------------------------------------
+	*/
 	void optimization(netlist_t *odin_netlist) {
     	double optimization_time = wall_time();
 
@@ -1120,6 +1190,13 @@ struct OdinTechmapPass : public Pass {
     	log("\n--------------------------------------------------------------------\n");
 	}
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: techmap)
+	* 
+	* @brief to perform partial mapping on the netlist
+	* -------------------------------------------------------------------------------------------
+	*/
 	void techmap(netlist_t *odin_netlist) {
     	double techmap_time = wall_time();
 
@@ -1139,6 +1216,13 @@ struct OdinTechmapPass : public Pass {
     	log("\n--------------------------------------------------------------------\n");
 	}
 
+	/**
+	*---------------------------------------------------------------------------------------------
+	* (function: report)
+	* 
+	* @brief to report mult/add/sub distributions and netlist statistics
+	* -------------------------------------------------------------------------------------------
+	*/
 	void report(netlist_t *odin_netlist) {
 
     	if (odin_netlist) {
@@ -1158,8 +1242,6 @@ struct OdinTechmapPass : public Pass {
 	OdinTechmapPass() : Pass("odintechmap", "ODIN_II partial technology mapper") { }
 	void help() override
 	{
-		log("\n");
-		log("This pass calls simplemap pass by default.\n");
 		log("\n");
 		log("    -a ARCHITECTURE_FILE\n");
 		log("        VTR FPGA architecture description file (XML)\n");
