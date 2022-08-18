@@ -504,12 +504,12 @@ endif
 ifeq ($(ENABLE_ODIN_TECHMAP),1)
 LDLIBS += -lpthread
 CXXFLAGS += -Ilibs/pugixml/src
-CXXFLAGS += -Ilibs/liblog/src
-CXXFLAGS += -Ilibs/libpugiutil/src
-CXXFLAGS += -Ilibs/libvtrutil/src
-CXXFLAGS += -Ilibs/libarchfpga/src
-CXXFLAGS += -Ilibs/librtlnumber/src/include
-CXXFLAGS += -Ilibs/librtlnumber/src
+CXXFLAGS += -Ilibs/vtr/libs/libarchfpga/src
+CXXFLAGS += -Ilibs/vtr/libs/liblog/src
+CXXFLAGS += -Ilibs/vtr/libs/libpugiutil/src
+CXXFLAGS += -Ilibs/vtr/libs/librtlnumber/src/include
+CXXFLAGS += -Ilibs/vtr/libs/librtlnumber/src
+CXXFLAGS += -Ilibs/vtr/libs/libvtrutil/src
 CXXFLAGS += -Ilibs/libargparse/src
 endif
 
@@ -628,18 +628,18 @@ OBJS += libs/bigint/BigUnsigned.o libs/bigint/BigUnsignedInABase.o
 OBJS += libs/sha1/sha1.o
 
 ifeq ($(ENABLE_ODIN_TECHMAP),1)
-OBJS += libs/libvtrutil/src/vtr_util.o libs/libvtrutil/src/vtr_assert.o libs/libvtrutil/src/vtr_token.o 
-OBJS += libs/libvtrutil/src/vtr_memory.o libs/libvtrutil/src/vtr_list.o libs/libvtrutil/src/vtr_log.o
-OBJS += libs/libvtrutil/src/vtr_expr_eval.o libs/libvtrutil/src/vtr_digest.o libs/libvtrutil/src/vtr_math.o
-OBJS += libs/libvtrutil/src/vtr_path.o
-OBJS += libs/liblog/src/log.o 
+OBJS += libs/vtr/libs/libvtrutil/src/vtr_util.o libs/vtr/libs/libvtrutil/src/vtr_assert.o libs/vtr/libs/libvtrutil/src/vtr_token.o 
+OBJS += libs/vtr/libs/libvtrutil/src/vtr_memory.o libs/vtr/libs/libvtrutil/src/vtr_list.o libs/vtr/libs/libvtrutil/src/vtr_log.o
+OBJS += libs/vtr/libs/libvtrutil/src/vtr_expr_eval.o libs/vtr/libs/libvtrutil/src/vtr_digest.o libs/vtr/libs/libvtrutil/src/vtr_math.o
+OBJS += libs/vtr/libs/libvtrutil/src/vtr_path.o
+OBJS += libs/vtr/libs/liblog/src/log.o 
 OBJS += libs/pugixml/src/pugixml.o 
 OBJS += libs/libargparse/src/argparse.o libs/libargparse/src/argparse_formatter.o libs/libargparse/src/argparse_util.o 
-OBJS += libs/librtlnumber/src/rtl_int.o libs/librtlnumber/src/rtl_utils.o 
-OBJS += libs/libpugiutil/src/pugixml_loc.o libs/libpugiutil/src/pugixml_util.o libs/libarchfpga/src/physical_types.o
-OBJS += libs/libarchfpga/src/read_xml_util.o libs/libarchfpga/src/arch_error.o libs/libarchfpga/src/physical_types_util.o 
-OBJS += libs/libarchfpga/src/arch_check.o libs/libarchfpga/src/arch_util.o libs/libarchfpga/src/read_xml_arch_file.o 
-OBJS += libs/libarchfpga/src/parse_switchblocks.o
+OBJS += libs/vtr/libs/librtlnumber/src/rtl_int.o libs/vtr/libs/librtlnumber/src/rtl_utils.o 
+OBJS += libs/vtr/libs/libpugiutil/src/pugixml_loc.o libs/vtr/libs/libpugiutil/src/pugixml_util.o libs/vtr/libs/libarchfpga/src/physical_types.o
+OBJS += libs/vtr/libs/libarchfpga/src/read_xml_util.o libs/vtr/libs/libarchfpga/src/arch_error.o libs/vtr/libs/libarchfpga/src/physical_types_util.o 
+OBJS += libs/vtr/libs/libarchfpga/src/arch_check.o libs/vtr/libs/libarchfpga/src/arch_util.o libs/vtr/libs/libarchfpga/src/read_xml_arch_file.o 
+OBJS += libs/vtr/libs/libarchfpga/src/parse_switchblocks.o
 endif
 
 ifneq ($(SMALL),1)
